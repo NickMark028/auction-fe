@@ -1,12 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
-import { Component } from "react";
-import $ from 'jquery'
+
 import "react-toggle/style.css"
-import ReactDOM from 'react-dom';
-import ItemsCarousel from 'react-items-carousel';
-import range from 'lodash/range';
+
 export const Main: React.FC = () => {
   //jQuery()
   
