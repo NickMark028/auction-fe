@@ -6,7 +6,7 @@ const Home: React.FC = () => {
   return (
     <>
       <HeaderPage />
-      <Main />     
+      <Main />
       <Footer />
     </>
   );
