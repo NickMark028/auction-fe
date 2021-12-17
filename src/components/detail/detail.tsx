@@ -1,28 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+//import { render } from "react-dom";
+
+import { instance } from 'Utils';
+import OwlCarousel from 'react-owl-carousel';
+import Countdown from 'react-countdown';
+import axios from "axios";
 
 
-export const Detail: React.FC = () => {
+
+
+export const Detail: React.FC = () =>  {
+ 
+
+  const [product,setProduct] = useState({name:'',id :'',sellerId :'',
+  description :'' ,
+  reservedPrice :'' ,
+  priceStep :'' ,
+  instantPrice :'',
+  isRenewal :'' ,
+  coverImageURL:'',
+  timeExpired : '',
+  createdAt :'',
+  updatedAt :'',
+  topBidderId :'',
+  currentPrice :'',
+  auctionLogCount :'',
+  bidderCount:''});
+  
+     //   instance.get(`/product/${id}`)  
+     useEffect(()=>{ 
+       const id = 1000001;
+       instance.get(`/product/${id}`) 
+      // console.log(products)
+        .then(
+          res => setProduct(res.data)
+        )
+       
+     },[])
+    
+  //console.log(product);
+      
+
+    
   return (
-<div>
+
+ <div>
   <section className="product-details spad">
     <div className="container">
       <div className="row">
         <div className="col-lg-6 col-md-6">
           <div className="product__details__pic">
             <div className="product__details__pic__item">
-              <img className="product__details__pic__item--large" src="asset/img/product/details/product-details-1.jpg" alt="" />
+              <img className="product__details__pic__item--large" src={product.coverImageURL} alt="" />
             </div>
-            <div className="product__details__pic__slider owl-carousel">
-              <img data-imgbigurl="asset/img/product/details/product-details-2.jpg" src="asset/img/product/details/thumb-1.jpg" alt="" />
-              <img data-imgbigurl="asset/img/product/details/product-details-3.jpg" src="asset/img/product/details/thumb-2.jpg" alt="" />
-              <img data-imgbigurl="asset/img/product/details/product-details-5.jpg" src="asset/img/product/details/thumb-3.jpg" alt="" />
-              <img data-imgbigurl="asset/img/product/details/product-details-4.jpg" src="asset/img/product/details/thumb-4.jpg" alt="" />
-            </div>
+     
+     
+          <OwlCarousel className="product__details__pic__slider " loop items={4} autoplay>
+              <img  src="asset/img/product/details/thumb-1.jpg" alt="" />
+              <img  src="asset/img/product/details/thumb-2.jpg" alt="" />
+              <img  src="asset/img/product/details/thumb-3.jpg" alt="" />
+              <img  src="asset/img/product/details/thumb-4.jpg" alt="" />
+            </OwlCarousel>
           </div>
         </div>
         <div className="col-lg-6 col-md-6">
           <div className="product__details__text">
-            <h3>Vetgetable’s Package</h3>
+      <h3>{product.name}</h3>
             <div className="product__details__rating">
               <i className="fa fa-star" />
               <i className="fa fa-star" />
@@ -31,22 +74,23 @@ export const Detail: React.FC = () => {
               <i className="fa fa-star-half-o" />
               <span>(18 reviews)</span>
             </div>
-            <div className="product__details__price">$50.00</div>
-            <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-              vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-              quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+            <div className="product__details__price">Curent Price: {product.currentPrice}</div>
+            <div className="product__details__price">Price Step: {product.priceStep}</div>
+            <div className="product__details__price"><Countdown date={Date.now() + 1640883600} /></div>
+            <div className="product__details__price">Create: {Number(Date.parse(product.timeExpired))/1000}</div>
             <div className="product__details__quantity">
               <div className="quantity">
-                <div className="pro-qty">
+                <div className="pro-qty"> bid Price
                   <input type="text" defaultValue={1} />
                 </div>
               </div>
             </div>
-            <a href="#" className="primary-btn">ADD TO CARD</a>
+            <a href="#" className="primary-btn">BID</a>
             <a href="#" className="heart-icon"><span className="icon_heart_alt=" /></a>
             <ul>
-              <li><b>Availability</b> <span>In Stock</span></li>
-              <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
+             <li><b>Bidder Count</b> <span>{product.bidderCount}</span></li>
+             <li><b>seller: </b> <span>{product.sellerId}</span></li>
+             
               <li><b>Weight</b> <span>0.5 kg</span></li>
               <li><b>Share on</b>
                 <div className="share">
@@ -212,7 +256,7 @@ export const Detail: React.FC = () => {
       </div>
     </div>
   </section>
-</div>
+</div> 
 
 
   );

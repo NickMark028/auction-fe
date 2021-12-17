@@ -752,7 +752,9 @@ ol {
 .hero__text p {
 	margin-bottom: 35px;
 }
-
+.hero__text{
+	margin-left: 20rem;
+}
 /*---------------------
   Categories
 -----------------------*/
@@ -1848,6 +1850,7 @@ ol {
 
 .product__details__tab .product__details__tab__desc {
 	padding-top: 44px;
+	height: 339px;
 }
 
 .product__details__tab .product__details__tab__desc h6 {
@@ -2932,6 +2935,7 @@ ol {
 	.product__details__tab .nav-tabs:after {
 		width: 265px;
 	}
+
 	.shoping__discount form input {
 		width: 240px;
 	}

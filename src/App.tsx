@@ -9,10 +9,9 @@ function App(): JSX.Element {
   
   return (
   
-      
-        // <Home />
+     // <Home />
 
-        <DetailItem />
+       <DetailItem />
   
   );
 }

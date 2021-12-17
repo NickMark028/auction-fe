@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-
+import OwlCarousel from 'react-owl-carousel';
 import "react-toggle/style.css"
 
 export const Main: React.FC = () => {
@@ -28,7 +28,7 @@ export const Main: React.FC = () => {
           <div className="hero__categories" >
             <div className="hero__categories__all" onClick={handleChange}>
               <i className="fa fa-bars" />
-              <span>All departments</span>
+              <span>All Category</span>
             </div>
             <ul className="drop" style={{display}} >
               <li><a href="#">Fresh Meat</a></li>
@@ -67,12 +67,12 @@ export const Main: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="hero__item set-bg" style={ { backgroundImage: "url('asset/img/hero/banner.jpg')" }}>
-            <div className="hero__text">
-              <span>FRUIT FRESH</span>
-              <h2>Vegetable <br />100% Organic</h2>
+          <div className="hero__item set-bg" style={ { backgroundImage: "url('asset/img/banner/banner.jpg')" }}>
+            <div className="hero__text" >
+              <span>Auction</span>
+              <h2>All Product <br />100% Authetics</h2>
               <p>Free Pickup and Delivery Available</p>
-              <a href="#" className="primary-btn">SHOP NOW</a>
+              <a href="#" className="primary-btn">AUCTION NOW</a>
             </div>
           </div>
         </div>
@@ -82,9 +82,9 @@ export const Main: React.FC = () => {
   <section className="categories">
     <div className="container">
      
-      <div className="row"> 
+      {/* <div className="row">  */}
    
-        <div className="categories__slider owl-carousel">
+        <OwlCarousel className="categories__slider owl-carousel" loop autoplay items={4}>
           <div className="col-lg-3">
             <div className="categories__item set-bg" style={{ backgroundImage:"url('asset/img/categories/cat-1.jpg')" }}>
               <h5><a href="#">Fresh Fruit</a></h5>
@@ -110,10 +110,10 @@ export const Main: React.FC = () => {
               <h5><a href="#">drink fruits</a></h5>
             </div>
           </div>
-        </div>
-      </div>
       
-    </div>
+        </OwlCarousel>
+      </div>
+  
     
   </section>
  
