@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 
 import "react-toggle/style.css";
-
+import OwlCarousel from 'react-owl-carousel';
+import { Carousel } from "react-bootstrap";
 export const Main: React.FC = () => {
   //jQuery()
 
@@ -27,7 +28,7 @@ export const Main: React.FC = () => {
               <div className="hero__categories">
                 <div className="hero__categories__all" onClick={handleChange}>
                   <i className="fa fa-bars" />
-                  <span>All departments</span>
+                  <span>All Categories</span>
                 </div>
                 <ul className="drop" style={{ display }}>
                   <li>
@@ -92,7 +93,7 @@ export const Main: React.FC = () => {
               </div>
               <div
                 className="hero__item set-bg"
-                style={{ backgroundImage: "url('asset/img/hero/banner.jpg')" }}
+                style={{ backgroundImage: "url('asset/img/banner/banner.jpg')" }}
               >
                 <div className="hero__text">
                   <span>FRUIT FRESH</span>
@@ -113,7 +114,7 @@ export const Main: React.FC = () => {
       <section className="categories">
         <div className="container">
           <div className="row">
-            <div className="categories__slider owl-carousel">
+            <OwlCarousel className="categories__slider owl-carousel" loop items={4} autoplay nav>
               <div className="col-lg-3">
                 <div
                   className="categories__item set-bg"
@@ -174,7 +175,7 @@ export const Main: React.FC = () => {
                   </h5>
                 </div>
               </div>
-            </div>
+            </OwlCarousel>
           </div>
         </div>
       </section>
@@ -475,29 +476,14 @@ export const Main: React.FC = () => {
           </div>
         </div>
       </section>
-      <div className="banner">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 col-md-6 col-sm-6">
-              <div className="banner__pic">
-                <img src="asset/img/banner/banner-1.jpg" alt="" />
-              </div>
-            </div>
-            <div className="col-lg-6 col-md-6 col-sm-6">
-              <div className="banner__pic">
-                <img src="asset/img/banner/banner-2.jpg" alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    
       <section className="latest-product spad">
         <div className="container">
           <div className="row">
             <div className="col-lg-4 col-md-6">
               <div className="latest-product__text">
                 <h4>Latest Products</h4>
-                <div className="latest-product__slider owl-carousel">
+                <OwlCarousel className="latest-product__slider owl-carousel" loop items={1} autoplay nav>
                   <div className="latest-prdouct__slider__item">
                     <a href="#" className="latest-product__item">
                       <div className="latest-product__item__pic">
@@ -556,13 +542,13 @@ export const Main: React.FC = () => {
                       </div>
                     </a>
                   </div>
-                </div>
+                </OwlCarousel>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="latest-product__text">
                 <h4>Top Rated Products</h4>
-                <div className="latest-product__slider owl-carousel">
+                <OwlCarousel className="latest-product__slider owl-carousel" loop items={1} autoplay nav>
                   <div className="latest-prdouct__slider__item">
                     <a href="#" className="latest-product__item">
                       <div className="latest-product__item__pic">
@@ -621,13 +607,13 @@ export const Main: React.FC = () => {
                       </div>
                     </a>
                   </div>
-                </div>
+                </OwlCarousel>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="latest-product__text">
                 <h4>Review Products</h4>
-                <div className="latest-product__slider owl-carousel">
+                <OwlCarousel className="latest-product__slider owl-carousel" loop items={1} autoplay nav>
                   <div className="latest-prdouct__slider__item">
                     <a href="#" className="latest-product__item">
                       <div className="latest-product__item__pic">
@@ -686,7 +672,7 @@ export const Main: React.FC = () => {
                       </div>
                     </a>
                   </div>
-                </div>
+                </OwlCarousel>
               </div>
             </div>
           </div>
