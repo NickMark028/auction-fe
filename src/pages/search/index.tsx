@@ -1,11 +1,12 @@
 import { Footer, Header, Logo } from 'components';
-import React from 'react';
+import React, { FC } from 'react';
 
 interface Props {
 
 }
 
-const SearchPage = (props: Props) => {
+const SearchPage: FC<Props> = (props: Props) => {
+
     return (
         <div>
             {/* Page Preloder */}
