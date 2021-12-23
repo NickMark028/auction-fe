@@ -8,6 +8,7 @@ import { PublicRoute } from "routers";
 import { PageURL } from "enum/PageURL";
 import PrivateRoute from "routers/PrivateRoute";
 import { Detail } from "components";
+import Search from "pages/search";
 
 function App(): JSX.Element {
   return (
@@ -15,7 +16,7 @@ function App(): JSX.Element {
       <Router>
         <Switch>
           <PublicRoute exact={true} path={PageURL.Home} component={Home} />
-          <PublicRoute exact={true} path={PageURL.Search} component={DetailItem} />
+          <PublicRoute exact={true} path={PageURL.Search} component={Search} />
           <PrivateRoute exact={true} path={PageURL.Category} component={Detail} />
         </Switch>
       </Router>
