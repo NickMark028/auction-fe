@@ -1,3 +1,4 @@
+import { Logo } from "components";
 import React from "react";
 
 export const Header: React.FC = () => {
@@ -9,9 +10,7 @@ export const Header: React.FC = () => {
 
           <div className="col-lg-3">
             <div className="header__logo">
-              <a href="./index.html">
-                <img src="asset/img/logo.png" alt="" />
-              </a>
+              <Logo/>
             </div>
           </div>
           
