@@ -99,7 +99,7 @@ export const Footer: React.FC = () => {
           
         </div>
         
-        <div className="row">
+        {/* <div className="row">
           <div className="col-lg-12">
             <div className="footer__copyright">
               <div className="footer__copyright__text">
@@ -116,7 +116,7 @@ export const Footer: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         
       </div>
     </footer>

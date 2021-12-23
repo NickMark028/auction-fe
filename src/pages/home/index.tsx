@@ -6,7 +6,7 @@ interface Props {
     
 }
 
-const Home = (props: Props) => {
+const HomePage = (props: Props) => {
     return (
         <div>
             <Begin/>
@@ -16,4 +16,4 @@ const Home = (props: Props) => {
     );
 }
 
-export default Home;
+export default HomePage;
