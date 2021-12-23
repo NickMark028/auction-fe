@@ -6,11 +6,13 @@ import DetailItem from "pages/detail";
 
 function App(): JSX.Element {
   return (
-  
-     // <Home />
 
-       <DetailItem />
-  
+    // <Home />
+
+    //  <DetailItem />
+
+    <Home />
+
   );
 }
 

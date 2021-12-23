@@ -1,11 +1,13 @@
 import React from "react";
 
-import { HeaderPage, Main, Footer } from "components";
+import { Header, Main, Footer } from "components";
+import { Begin } from "components/begin/begin";
 
 const Home: React.FC = () => {
   return (
     <>
-      <HeaderPage />
+      {/* <Begin /> */}
+      <Header />
       <Main />
       <Footer />
     </>

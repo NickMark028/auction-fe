@@ -1,11 +1,11 @@
 import React from "react";
 
-import { HeaderPage, Detail, Footer } from "components";
+import { Header, Detail, Footer } from "components";
 
 const DetailItem = () => {
   return (
     <>
-      <HeaderPage />
+      <Header />
       <Detail />
       <Footer />
     </>

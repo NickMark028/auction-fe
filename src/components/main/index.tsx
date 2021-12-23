@@ -20,6 +20,8 @@ export const Main: React.FC = () => {
 
   return (
     <div>
+
+      {/* Category + Preview page */}
       <section className="hero">
         <div className="container">
           <div className="row">
@@ -110,6 +112,8 @@ export const Main: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* ??? */}
       <section className="categories">
         <div className="container">
           <div className="row">
@@ -179,6 +183,7 @@ export const Main: React.FC = () => {
         </div>
       </section>
 
+      {/* Featured product */}
       <section className="featured spad">
         <div className="container">
           <div className="row">
@@ -475,6 +480,8 @@ export const Main: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Additional product */}
       <div className="banner">
         <div className="container">
           <div className="row">
@@ -491,6 +498,8 @@ export const Main: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Latest products, top tated products, review products */}
       <section className="latest-product spad">
         <div className="container">
           <div className="row">
@@ -692,6 +701,8 @@ export const Main: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* From the blog */}
       <section className="from-blog spad">
         <div className="container">
           <div className="row">
@@ -777,6 +788,7 @@ export const Main: React.FC = () => {
           </div>
         </div>
       </section>
+
     </div>
   );
 };
