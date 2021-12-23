@@ -21,10 +21,8 @@ export const Main: React.FC = () => {
     dispatch(getCategoryListTC());
   }, [])
 
-  const handleChange = () => {
+  function handleChange() {
     if (categoryList.status != 'success') return;
-
-
 
     setDisplay(display === 'none' ? 'block' : 'none');
   };
