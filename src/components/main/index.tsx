@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "react-toggle/style.css";
+import { selectCategoryList } from "redux/selectors";
+import { getCategoryListTC } from "redux/slices/categoryList/getCategoryList";
+import { useAppDispatch, useAppSelector } from "redux/store";
 
 export const Main: React.FC = () => {
   //jQuery()
@@ -11,11 +14,19 @@ export const Main: React.FC = () => {
   // else
   const [display, setDisplay] = useState("block");
 
+  const dispatch = useAppDispatch();
+  const categoryList = useAppSelector(selectCategoryList);
+
+  useEffect(() => {
+    dispatch(getCategoryListTC());
+  }, [])
+
   const handleChange = () => {
-    setDisplay("none");
-    if (display === "none") {
-      setDisplay("block");
-    }
+    if (categoryList.status != 'success') return;
+
+
+
+    setDisplay(display === 'none' ? 'block' : 'none');
   };
 
   return (
@@ -26,47 +37,26 @@ export const Main: React.FC = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-3">
+
               <div className="hero__categories">
+
                 <div className="hero__categories__all" onClick={handleChange}>
                   <i className="fa fa-bars" />
                   <span>All departments</span>
                 </div>
-                <ul className="drop" style={{ display }}>
-                  <li>
-                    <a href="#">Fresh Meat</a>
-                  </li>
-                  <li>
-                    <a href="#">Vegetables</a>
-                  </li>
-                  <li>
-                    <a href="#">Fruit &amp; Nut Gifts</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Berries</a>
-                  </li>
-                  <li>
-                    <a href="#">Ocean Foods</a>
-                  </li>
-                  <li>
-                    <a href="#">Butter &amp; Eggs</a>
-                  </li>
-                  <li>
-                    <a href="#">Fastfood</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Onion</a>
-                  </li>
-                  <li>
-                    <a href="#">Papayaya &amp; Crisps</a>
-                  </li>
-                  <li>
-                    <a href="#">Oatmeal</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Bananas</a>
-                  </li>
-                </ul>
+
+                {categoryList.status == 'success' &&
+                  <ul className="drop" style={{ display }}>
+                    {categoryList.data?.map(category => (
+                      <li>
+                        <a href="#">{category.section}</a>
+                      </li>
+                    ))}
+                  </ul>
+                }
+
               </div>
+
             </div>
             <div className="col-lg-9">
               <div className="hero__search">

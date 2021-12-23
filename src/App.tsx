@@ -10,8 +10,9 @@ function App(): JSX.Element {
     // <Home />
 
     //  <DetailItem />
-
-    <Home />
+    <Provider store={store}>
+      <Home />
+    </Provider>
 
   );
 }
