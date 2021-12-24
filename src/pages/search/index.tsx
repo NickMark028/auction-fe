@@ -1,11 +1,33 @@
 import { Footer, Header, Logo } from 'components';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { RouteProps, useLocation } from 'react-router-dom';
+import { selectProductSearchList } from 'redux/selectors';
+import { searchProductTC } from 'redux/slices/product-search-list/searchProduct';
+import { useAppDispatch, useAppSelector } from 'redux/store';
+import { parseQuery } from 'utils/parser';
 
-interface Props {
+interface Props extends RouteProps {
 
 }
 
 const SearchPage: FC<Props> = (props: Props) => {
+
+    const { location, path } = props;
+
+    const dispatch = useAppDispatch();
+    const productSearchList = useAppSelector(selectProductSearchList);
+
+    useEffect(() => {
+        const query = parseQuery(location.search);
+
+        dispatch(searchProductTC({
+            keyword: query.get('keyword'),
+            category: query.get('category'),
+            page: query.get('page'),
+            pricing: query.get('pricing') as any,
+            time: query.get('time') as any
+        }));
+    }, [dispatch])
 
     return (
         <div>

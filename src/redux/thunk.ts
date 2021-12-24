@@ -1,7 +1,7 @@
 export interface ThunkOption {
     state?: unknown;
     extra?: unknown;
-    rejectValue?: string;
+    rejectValue: string;
     serializedErrorType?: unknown;
     pendingMeta?: unknown;
     fulfilledMeta?: unknown;

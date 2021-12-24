@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import "react-toggle/style.css";
 import { selectCategoryList } from "redux/selectors";
-import { getCategoryListTC } from "redux/slices/categoryList/getCategoryList";
+import { getCategoryListTC } from "redux/slices/category-list/getCategoryList";
 import { useAppDispatch, useAppSelector } from "redux/store";
 
 export const Main: React.FC = () => {
