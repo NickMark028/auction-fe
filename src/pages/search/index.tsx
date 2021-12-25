@@ -101,6 +101,8 @@ const SearchPage: FC<Props> = (props: Props) => {
             <section className="hero hero-normal">
                 <div className="container">
                     <div className="row">
+
+                        {/* All departments */}
                         <div className="col-lg-3">
                             <div className="hero__categories">
                                 <div className="hero__categories__all">
@@ -122,8 +124,11 @@ const SearchPage: FC<Props> = (props: Props) => {
                                 </ul>
                             </div>
                         </div>
+
                         <div className="col-lg-9">
                             <div className="hero__search">
+
+                                {/* Search bar */}
                                 <div className="hero__search__form">
                                     <form action="#">
                                         <div className="hero__search__categories">
@@ -134,6 +139,8 @@ const SearchPage: FC<Props> = (props: Props) => {
                                         <button type="submit" className="site-btn">SEARCH</button>
                                     </form>
                                 </div>
+
+                                {/* Support */}
                                 <div className="hero__search__phone">
                                     <div className="hero__search__phone__icon">
                                         <i className="fa fa-phone"></i>
@@ -143,8 +150,10 @@ const SearchPage: FC<Props> = (props: Props) => {
                                         <span>support 24/7 time</span>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>

@@ -1,14 +1,12 @@
 import { Provider } from "react-redux";
-import store from "redux/store";
-
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import HomePage from "pages";
-import DetailItem from "pages/detail";
+import DetailItem from "pages/details/detail";
 import { PublicRoute } from "routers";
 import { PageURL } from "enum/PageURL";
 import PrivateRoute from "routers/PrivateRoute";
 import { Detail } from "components";
-import SearchPage from "pages/search";
+import { HomePage, SearchPage } from "pages";
+import store from "redux/store";
 
 function App(): JSX.Element {
   return (

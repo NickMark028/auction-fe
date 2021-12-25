@@ -1,9 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react";
+import SearchBox from "components/search-box";
+import { PageURL } from "enum/PageURL";
+import React, { FormEvent, SyntheticEvent, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import "react-toggle/style.css";
 import { selectCategoryList } from "redux/selectors";
 import { getCategoryListTC } from "redux/slices/category-list/getCategoryList";
+import { searchProductTC } from "redux/slices/product-search-list/searchProduct";
 import { useAppDispatch, useAppSelector } from "redux/store";
 
 export const Main: React.FC = () => {
@@ -16,6 +20,7 @@ export const Main: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const categoryList = useAppSelector(selectCategoryList);
+
 
   useEffect(() => {
     dispatch(getCategoryListTC());
@@ -34,6 +39,8 @@ export const Main: React.FC = () => {
       <section className="hero">
         <div className="container">
           <div className="row">
+
+            {/* All category */}
             <div className="col-lg-3">
 
               <div className="hero__categories">
@@ -56,20 +63,13 @@ export const Main: React.FC = () => {
               </div>
 
             </div>
+
+            {/* Search + Suport */}
             <div className="col-lg-9">
+
+              {/* Search */}
               <div className="hero__search">
-                <div className="hero__search__form">
-                  <form action="#">
-                    <div className="hero__search__categories">
-                      All Categories
-                      <span className="arrow_carrot-down" />
-                    </div>
-                    <input type="text" placeholder="What do yo u need?" />
-                    <button type="submit" className="site-btn">
-                      SEARCH
-                    </button>
-                  </form>
-                </div>
+                <SearchBox/>
                 <div className="hero__search__phone">
                   <div className="hero__search__phone__icon">
                     <i className="fa fa-phone" />
@@ -80,6 +80,8 @@ export const Main: React.FC = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Support */}
               <div
                 className="hero__item set-bg"
                 style={{ backgroundImage: "url('asset/img/hero/banner.jpg')" }}
@@ -96,6 +98,7 @@ export const Main: React.FC = () => {
                   </a>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

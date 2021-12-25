@@ -1,19 +1,16 @@
-import { Header, Logo } from 'components';
-import { Begin } from 'components/begin/begin';
-import React from 'react';
+import React from "react";
 
-interface Props {
-    
-}
+import { Header, Main, Footer } from "components";
 
-const HomePage = (props: Props) => {
-    return (
-        <div>
-            <Begin/>
-            <Logo/>
-            <Header/>
-        </div>
-    );
-}
+const HomePage: React.FC = () => {
+  return (
+    <>
+      {/* <Begin /> */}
+      <Header />
+      <Main />
+      <Footer />
+    </>
+  );
+};
 
 export default HomePage;
