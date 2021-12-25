@@ -1,8 +1,8 @@
 import { Footer, Header, Logo } from 'components';
 import ProductPreview from 'components/product-preview';
 import SearchBar from 'components/search-box';
-import React, { FC, useEffect } from 'react';
-import { RouteProps, useLocation } from 'react-router-dom';
+import { FC, useEffect } from 'react';
+import { RouteProps } from 'react-router-dom';
 import { selectProductSearchList } from 'redux/selectors';
 import { searchProductTC } from 'redux/slices/product-search-list/searchProduct';
 import { useAppDispatch, useAppSelector } from 'redux/store';
@@ -131,6 +131,7 @@ const SearchPage: FC<Props> = (props: Props) => {
                             <div className="hero__search">
 
                                 {/* Search bar */}
+                                {/* <SearchBar initialText={parseQuery(location.search).get('keyword')}/> */}
                                 <SearchBar />
 
                                 {/* Support */}
@@ -153,7 +154,7 @@ const SearchPage: FC<Props> = (props: Props) => {
             {/* Hero Section End */}
 
             {/* Breadcrumb Section Begin */}
-            <section className="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+            {/* <section className="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center">
@@ -167,7 +168,7 @@ const SearchPage: FC<Props> = (props: Props) => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
             {/* Breadcrumb Section End */}
 
             {/* Product Section Begin */}
@@ -210,7 +211,7 @@ const SearchPage: FC<Props> = (props: Props) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="sidebar__item sidebar__item__color--option">
                                     <h4>Colors</h4>
                                     <div className="sidebar__item__color sidebar__item__color--white">

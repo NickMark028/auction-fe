@@ -3,10 +3,11 @@ import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 
 interface Props {
-    
+    // initialText?: string;
 }
 
 const SearchBar = (props: Props) => {
+    // const { initialText = '' } = props;
     const [searchQuery, setSearchQuery] = useState<string>('');
     const history = useHistory();
 
@@ -27,7 +28,7 @@ const SearchBar = (props: Props) => {
                     All Categories
                     <span className="arrow_carrot-down" />
                 </div>
-                <input type="text" placeholder="What do yo u need?" onChange={onSearchTextChange} />
+                <input type="text" placeholder="What do yo u need?" onChange={onSearchTextChange}/>
                 <button type="submit" className="site-btn">
                     SEARCH
                 </button>
