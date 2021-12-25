@@ -6,9 +6,8 @@ import OwlCarousel from 'react-owl-carousel';
 import Countdown from 'react-countdown';
 
 
-export const Detail: React.FC = () =>  {
+export const DetailPage: React.FC = () =>  {
  
-
   const [product,setProduct] = useState({name:'',id :'',sellerId :'',
   description :'' ,
   reservedPrice :'' ,
@@ -31,8 +30,7 @@ export const Detail: React.FC = () =>  {
       // console.log(products)
         .then(
           res => setProduct(res.data)
-        )
-       
+        );
      },[])
     //  const [product,setProduct] = useState({});
      

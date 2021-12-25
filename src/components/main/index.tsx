@@ -23,7 +23,6 @@ export const Main: React.FC = () => {
   const dispatch = useAppDispatch();
   const categoryList = useAppSelector(selectCategoryList);
 
-
   useEffect(() => {
     dispatch(getCategoryListTC());
   }, [])
