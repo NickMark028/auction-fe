@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import SearchBox from "components/search-box";
+import SearchBar from "components/search-box";
 import { PageURL } from "enum/PageURL";
 import React, { FormEvent, SyntheticEvent, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -69,7 +69,7 @@ export const Main: React.FC = () => {
 
               {/* Search */}
               <div className="hero__search">
-                <SearchBox/>
+                <SearchBar/>
                 <div className="hero__search__phone">
                   <div className="hero__search__phone__icon">
                     <i className="fa fa-phone" />

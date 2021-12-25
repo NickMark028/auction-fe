@@ -6,7 +6,7 @@ interface Props {
     
 }
 
-const SearchBox = (props: Props) => {
+const SearchBar = (props: Props) => {
     const [searchQuery, setSearchQuery] = useState<string>('');
     const history = useHistory();
 
@@ -16,6 +16,7 @@ const SearchBox = (props: Props) => {
 
     function onSearchSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        //! check for min 4 character only
         history.push(PageURL.Search + `?keyword=${searchQuery}`);
     }
 
@@ -35,4 +36,4 @@ const SearchBox = (props: Props) => {
     )
 }
 
-export default SearchBox
+export default SearchBar
