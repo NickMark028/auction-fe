@@ -4,10 +4,21 @@ import React, { useEffect, useState } from "react";
 import { instance } from 'Utils';
 import OwlCarousel from 'react-owl-carousel';
 import Countdown from 'react-countdown';
+import socket from "utils/socket";
+import { io } from "socket.io-client";
+var i =0;
 
+function send(){
+   socket.emit("bid","bid cai cc"+ i)
+   i++
+    }
+  
 
 export const Detail: React.FC = () =>  {
- 
+
+ // const socket = io("localhost:40567")  
+
+  
   const [product,setProduct] = useState({name:'',id :'',sellerId :'',
   description :'' ,
   reservedPrice :'' ,
@@ -79,7 +90,7 @@ export const Detail: React.FC = () =>  {
                 </div>
               </div>
             </div>
-            <a href="#" className="primary-btn">BID</a>
+            <button type="button" className="primary-btn" onClick={send}>BID</button>
             <a href="#" className="heart-icon"><span className="icon_heart_alt=" /></a>
             <ul>
              <li><b>Bidder Count</b> <span>{product.bidderCount}</span></li>
