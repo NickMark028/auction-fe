@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Header, Detail, Footer } from "components";
+import { Header, Details, Footer } from "components";
 
-const DetailItem = () => {
+const DetailItem:React.FC = () => {
   return (
     <>
       <Header />
-      <Detail />
+      <Details />
       <Footer />
     </>
   );
