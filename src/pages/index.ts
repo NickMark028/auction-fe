@@ -1,6 +1,6 @@
 import HomePage from "./home";
 import SearchPage from "./search";
-import DetailItem  from "./details/detail";
+import DetailItem  from "./detail";
 export {
     HomePage,
     SearchPage,
