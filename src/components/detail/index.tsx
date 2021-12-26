@@ -26,27 +26,13 @@ export const Details: React.FC = () =>  {
      //   instance.get(`/product/${id}`)  
      useEffect(()=>{ 
        const id = 1000001;
-       instance.get(`/product/${id}`) 
+       instance.get(`/product/detailproduct/${id}`) 
       // console.log(products)
         .then(
           res => setProduct(res.data)
         );
      },[])
-    //  const [product,setProduct] = useState({});
-     
-    //     //   instance.get(`/product/${id}`)  
-    //     useEffect(()=>{ 
-    //       const id = 1000001;
-    //       instance.get(`/product/${id}`) 
-    //      // console.log(products)
-    //        .then(
-    //          res => setProduct(res.data)
-    //        )
-          
-    //     },[])
-
-    
-  //console.log(product);
+   
       
 
     
@@ -84,7 +70,7 @@ export const Details: React.FC = () =>  {
             </div>
             <div className="product__details__price">Curent Price: {product.currentPrice}</div>
             <div className="product__details__price">Price Step: {product.priceStep}</div>
-            <div className="product__details__price"><Countdown date={Date.now() + 1640883600} /></div>
+            <div className="product__details__price"><Countdown date={Date.now() + 10000} /></div>
             <div className="product__details__price">Create: {Number(Date.parse(product.timeExpired))/1000}</div>
             <div className="product__details__quantity">
               <div className="quantity">
