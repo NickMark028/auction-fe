@@ -5,7 +5,7 @@ import { instance } from 'Utils';
 import OwlCarousel from 'react-owl-carousel';
 import Countdown from 'react-countdown';
 import socket from "utils/socket";
-import { io } from "socket.io-client";
+
 var i =0;
 
 function send(){
