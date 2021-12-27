@@ -5,6 +5,10 @@ import { instance } from 'Utils';
 import OwlCarousel from 'react-owl-carousel';
 import Countdown from 'react-countdown';
 import socket from "utils/socket";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { getProductDetailsTC } from "redux/slices/product-details/getProductDetails";
+import { selectProductDetails } from "redux/selectors";
 
 var i =0;
 
@@ -16,35 +20,24 @@ function send(){
 
 export const Detail: React.FC = () =>  {
 
- // const socket = io("localhost:40567")  
+  
+ 
+  
+ const dispatch = useDispatch();
 
-  
-  const [product,setProduct] = useState({name:'',id :'',sellerId :'',
-  description :'' ,
-  reservedPrice :'' ,
-  priceStep :'' ,
-  instantPrice :'',
-  isRenewal :'' ,
-  coverImageURL:'',
-  timeExpired : '',
-  createdAt :'',
-  updatedAt :'',
-  topBidderId :'',
-  currentPrice :'',
-  auctionLogCount :'',
-  bidderCount:''});
-  
-     //   instance.get(`/product/${id}`)  
-     useEffect(()=>{ 
-       const id = 1000001;
-       instance.get(`/product/detailproduct/${id}`) 
-      // console.log(products)
-        .then(
-          res => setProduct(res.data)
-        );
+  const history = useHistory();
+  const productDetails = useSelector(selectProductDetails)
+  useEffect(()=>{ 
+    console.log(history.location.pathname);
+    const pathname = history.location.pathname;
+    const id = parseInt(pathname.slice(1));
+
+    dispatch(getProductDetailsTC(id))
      },[])
    
       
+  //use redux
+ 
 
     
   return (
