@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  TProductDetails, TProductDetailsList, TState } from "models";
+import {   TProductDetailsList, TState } from "models";
 import { getProductDetailsTC } from "./getProductDetails";
 
 const initialState: TState<TProductDetailsList> = {
-  status: 'success',
+  status: 'idle',
 };
 
-const productDetailsSlice = createSlice({
-  name: "productDetails",
+const productDetailsListSlice = createSlice({
+  name: "productDetailsList",
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -28,7 +28,7 @@ const productDetailsSlice = createSlice({
   }
 });
 
-const productDetailsReducer = productDetailsSlice.reducer;
+const productDetailsReducer = productDetailsListSlice.reducer;
 
 // export const { } = categoryListSlice.actions;
 export default productDetailsReducer;
