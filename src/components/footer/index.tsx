@@ -4,9 +4,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="footer spad">
       <div className="container">
-
         <div className="row">
-          
           <div className="col-lg-3 col-md-6 col-sm-6">
             <div className="footer__about">
               <div className="footer__about__logo">
@@ -21,7 +19,7 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
           </div>
-          
+
           <div className="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
             <div className="footer__widget">
               <h6>Useful Links</h6>
@@ -67,7 +65,7 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
           </div>
-          
+
           <div className="col-lg-4 col-md-12">
             <div className="footer__widget">
               <h6>Join Our Newsletter Now</h6>
@@ -96,9 +94,8 @@ export const Footer: React.FC = () => {
               </div>
             </div>
           </div>
-          
         </div>
-        
+
         {/* <div className="row">
           <div className="col-lg-12">
             <div className="footer__copyright">
@@ -117,7 +114,6 @@ export const Footer: React.FC = () => {
             </div>
           </div>
         </div> */}
-        
       </div>
     </footer>
   );

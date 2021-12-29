@@ -1,3 +1,3 @@
 export function parseQuery(query: string) {
-    return new URLSearchParams(query);
+  return new URLSearchParams(query);
 }

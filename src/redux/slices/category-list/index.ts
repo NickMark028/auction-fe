@@ -4,7 +4,7 @@ import { addThunkBuilderCases } from "redux/thunk";
 import { getCategoryListTC } from "./getCategoryList";
 
 const initialState: TState<TCategoryList> = {
-  status: 'success',
+  status: "success",
 };
 
 const categoryListSlice = createSlice({
@@ -26,7 +26,7 @@ const categoryListSlice = createSlice({
     //     state.errorMsg = action.payload;
     //     state.status = 'reject';
     //   })
-  }
+  },
 });
 
 const categoryListReducer = categoryListSlice.reducer;

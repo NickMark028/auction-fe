@@ -8,4 +8,4 @@ export const Logo: React.FC = () => {
       <img src="./asset/img/logo.png" alt="auction" />
     </Link>
   );
-}
+};

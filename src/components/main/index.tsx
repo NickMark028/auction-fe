@@ -9,7 +9,7 @@ import { selectCategoryList } from "redux/selectors";
 import { getCategoryListTC } from "redux/slices/category-list/getCategoryList";
 import { searchProductTC } from "redux/slices/product-search-list/searchProduct";
 import { useAppDispatch, useAppSelector } from "redux/store";
-import OwlCarousel from 'react-owl-carousel';
+import OwlCarousel from "react-owl-carousel";
 import { Carousel } from "react-bootstrap";
 
 export const Main: React.FC = () => {
@@ -25,52 +25,45 @@ export const Main: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCategoryListTC());
-  }, [])
+  }, []);
 
   function handleChange() {
-    if (categoryList.status != 'success') return;
+    if (categoryList.status != "success") return;
 
-    setDisplay(display === 'none' ? 'block' : 'none');
-  };
+    setDisplay(display === "none" ? "block" : "none");
+  }
 
   return (
     <div>
-
       {/* Category + Preview page */}
       <section className="hero">
         <div className="container">
           <div className="row">
-
             {/* All category */}
             <div className="col-lg-3">
-
               <div className="hero__categories">
-
                 <div className="hero__categories__all" onClick={handleChange}>
                   <i className="fa fa-bars" />
                   <span>All Categories</span>
                 </div>
 
-                {categoryList.status == 'success' &&
+                {categoryList.status == "success" && (
                   <ul className="drop" style={{ display }}>
-                    {categoryList.data?.map(category => (
+                    {categoryList.data?.map((category) => (
                       <li>
                         <a href="#">{category.section}</a>
                       </li>
                     ))}
                   </ul>
-                }
-
+                )}
               </div>
-
             </div>
 
             {/* Search + Suport */}
             <div className="col-lg-9">
-
               {/* Search */}
               <div className="hero__search">
-                <SearchBar/>
+                <SearchBar />
                 <div className="hero__search__phone">
                   <div className="hero__search__phone__icon">
                     <i className="fa fa-phone" />
@@ -85,7 +78,9 @@ export const Main: React.FC = () => {
               {/* Support */}
               <div
                 className="hero__item set-bg"
-                style={{ backgroundImage: "url('asset/img/banner/banner.jpg')" }}
+                style={{
+                  backgroundImage: "url('asset/img/banner/banner.jpg')",
+                }}
               >
                 <div className="hero__text">
                   <span>FRUIT FRESH</span>
@@ -99,7 +94,6 @@ export const Main: React.FC = () => {
                   </a>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -109,7 +103,13 @@ export const Main: React.FC = () => {
       <section className="categories">
         <div className="container">
           <div className="row">
-            <OwlCarousel className="categories__slider owl-carousel" loop items={4} autoplay nav>
+            <OwlCarousel
+              className="categories__slider owl-carousel"
+              loop
+              items={4}
+              autoplay
+              nav
+            >
               <div className="col-lg-3">
                 <div
                   className="categories__item set-bg"
@@ -498,7 +498,13 @@ export const Main: React.FC = () => {
             <div className="col-lg-4 col-md-6">
               <div className="latest-product__text">
                 <h4>Latest Products</h4>
-                <OwlCarousel className="latest-product__slider owl-carousel" loop items={1} autoplay nav>
+                <OwlCarousel
+                  className="latest-product__slider owl-carousel"
+                  loop
+                  items={1}
+                  autoplay
+                  nav
+                >
                   <div className="latest-prdouct__slider__item">
                     <a href="#" className="latest-product__item">
                       <div className="latest-product__item__pic">
@@ -563,7 +569,13 @@ export const Main: React.FC = () => {
             <div className="col-lg-4 col-md-6">
               <div className="latest-product__text">
                 <h4>Top Rated Products</h4>
-                <OwlCarousel className="latest-product__slider owl-carousel" loop items={1} autoplay nav>
+                <OwlCarousel
+                  className="latest-product__slider owl-carousel"
+                  loop
+                  items={1}
+                  autoplay
+                  nav
+                >
                   <div className="latest-prdouct__slider__item">
                     <a href="#" className="latest-product__item">
                       <div className="latest-product__item__pic">
@@ -628,7 +640,13 @@ export const Main: React.FC = () => {
             <div className="col-lg-4 col-md-6">
               <div className="latest-product__text">
                 <h4>Review Products</h4>
-                <OwlCarousel className="latest-product__slider owl-carousel" loop items={1} autoplay nav>
+                <OwlCarousel
+                  className="latest-product__slider owl-carousel"
+                  loop
+                  items={1}
+                  autoplay
+                  nav
+                >
                   <div className="latest-prdouct__slider__item">
                     <a href="#" className="latest-product__item">
                       <div className="latest-product__item__pic">
@@ -780,7 +798,6 @@ export const Main: React.FC = () => {
           </div>
         </div>
       </section>
-
     </div>
   );
 };

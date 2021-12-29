@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    timeout: 10000,
-    baseURL: process.env.REACT_APP_BE_HOST
-})
+  timeout: 10000,
+  baseURL: process.env.REACT_APP_BE_HOST,
+});
 
 // axiosClient.interceptors.response.use((response) => {
 

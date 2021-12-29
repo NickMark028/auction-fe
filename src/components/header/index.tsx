@@ -5,15 +5,13 @@ export const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="container">
-        
         <div className="row">
-
           <div className="col-lg-3">
             <div className="header__logo">
-              <Logo/>
+              <Logo />
             </div>
           </div>
-          
+
           <div className="col-lg-6">
             <nav className="header__menu">
               <ul>
@@ -69,13 +67,11 @@ export const Header: React.FC = () => {
               </div>
             </div>
           </div>
-          
         </div>
 
         <div className="humberger__open">
           <i className="fa fa-bars" />
         </div>
-
       </div>
     </header>
   );
