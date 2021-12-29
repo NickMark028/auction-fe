@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    timeout: 15000,
-    baseURL: 'http://localhost:4000'
+    timeout: 10000,
+    baseURL: process.env.REACT_APP_BE_HOST
 })
 
 // axiosClient.interceptors.response.use((response) => {

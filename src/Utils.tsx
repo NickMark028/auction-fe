@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-  baseURL: 'http://localhost:3000/api/',
+  baseURL: process.env.REACT_APP_BE_HOST,
   timeout: 5000,
   // headers: { 'X-Access-Token': 'accessToken' }
 });

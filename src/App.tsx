@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { PublicRoute } from "routers";
 import { PageURL } from "enum/PageURL";
 import PrivateRoute from "routers/PrivateRoute";
-import { DetailItem  } from "pages";
+import { DetailItem } from "pages";
 import { HomePage, SearchPage } from "pages";
 import store from "redux/store";
 
