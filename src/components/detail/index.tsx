@@ -14,8 +14,10 @@ import { useAppDispatch, useAppSelector } from "redux/store";
 var i =0;
 
 function send(){
-   socket.emit("bid","bid cai cc"+ i)
-   i++
+   socket.emit("bid",(data)=>{
+     bidPrice: {}
+   })
+  
     }
   
 
@@ -88,27 +90,21 @@ export const Detail: React.FC = () =>  {
             </div>
             </>}
             <div className="product__details__quantity">
-              <div className="quantity">
-                <div className="pro-qty"> bid Price
-                  <input type="text" defaultValue={1} />
+              <label >BID Price:</label>
+                <div className="pro-qty"> 
+              
+                  <input type="Number" defaultValue={100000}  step={10000} /> 
+                  {/* add price + step */}
                 </div>
-              </div>
+          
             </div>
             <button type="button" className="primary-btn" onClick={send}>BID</button>
             <a href="#" className="heart-icon"><span className="icon_heart_alt=" /></a>
             <ul>
-             <li><b>Bidder Count</b> <span>{}</span></li>
-             <li><b>seller: </b> <span>{}</span></li>
-             
-              <li><b>Weight</b> <span>0.5 kg</span></li>
-              <li><b>Share on</b>
-                <div className="share">
-                  <a href="#"><i className="fa fa-facebook" /></a>
-                  <a href="#"><i className="fa fa-twitter" /></a>
-                  <a href="#"><i className="fa fa-instagram" /></a>
-                  <a href="#"><i className="fa fa-pinterest" /></a>
-                </div>
-              </li>
+             <li><b>Bidder Count</b> <span>{productDetails.data?.bidderCount}</span></li>
+             <li><b>seller: </b> <span>{productDetails.data?.firstname} {productDetails.data?.lastname}</span></li>
+             <li><b>Evaluate: </b> <span>{Number(productDetails.data?.negativeCount)} + {Number(productDetails.data?.positiveCount)} </span></li>
+              
             </ul>
           </div>
         </div>
