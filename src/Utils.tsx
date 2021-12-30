@@ -6,6 +6,9 @@ export const instance = axios.create({
   
   timeout: 5000,
   // headers: { 'X-Access-Token': 'accessToken' }
+  headers: {
+    'Content-Type': 'application/json'
+}
 });
 console.log(process.env.REACT_APP_BE_HOST);
 export function parseJwt(token) {

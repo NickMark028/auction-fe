@@ -1,9 +1,19 @@
 import React, {useEffect, useState, Fragment } from "react";
 import { instance } from 'Utils';
 import "../../styles/global.scss"
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
-
+function createNotification () {
+  return () => {
+    
+        NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
+    
+     
+    
+  };
+};
 
 export const Register: React.FC = () => {
 
@@ -79,7 +89,7 @@ export const Register: React.FC = () => {
 
                 <button type="button" className="btn btn-dark btn-lg btn-block"  onClick={submitForm}>Register</button>
                 <p className="forgot-password text-right">
-                    Already have an <a href="#">account ?</a>
+                    Already have an <a href="/login">account ?</a>
                 </p>
             </form>
 </div>

@@ -1,7 +1,8 @@
 import React, {useEffect, useState, Fragment } from "react";
 import { instance } from 'Utils';
 import "../../styles/global.scss"
-
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
 
@@ -17,11 +18,16 @@ export const Login: React.FC = () => {
       username:email,
       password:password
 
-    }).then(
+    }).then((res)=>{
 
-      res=>console.log(res)
-      
+      NotificationManager.success(res.status, 'fuck you', 3000);
+    }
     )
+    .catch((error) => {
+      NotificationManager.error(error.response.status, 'fuck you', 3000);
+  })
+
+  
     
   //   const res = await axios({
   //     url: 'http://localhost:3000/api/auth',
@@ -30,6 +36,16 @@ export const Login: React.FC = () => {
   //  });
    
   }
+
+  async function createNotification () {
+    
+        console.log("not ok")
+         return NotificationManager.error('Warning message', 'fuck you', 3000);
+      
+       
+      
+    }
+  
   return (
     <div className="outer">
     <div className="inner">
@@ -55,11 +71,18 @@ export const Login: React.FC = () => {
             <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
         </div>
     </div>
-
     <button type="button" className="btn btn-dark btn-lg btn-block"  onClick={submitForm}>Sign in</button>
-    <p className="forgot-password text-right">
-        Forgot <a href="#">password?</a>
+    <NotificationContainer/>
+    <div className="redirect">
+    
+    <p className="create-account text-left">
+         <a href="/register">Create account</a>
     </p>
+    <p className="forgot-password text-right">
+       <a href="#">Forgot password?</a>
+    </p>
+    </div>
+
 </form>
 </div>
       </div>

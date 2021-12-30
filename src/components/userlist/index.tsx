@@ -3,7 +3,7 @@ import { setConstantValue } from "typescript";
 import {Link} from 'react-router-dom'
 import { instance } from 'Utils';
 import "../../styles/global.scss"
-
+import "../../styles/List.scss"
 
  
     
@@ -61,10 +61,7 @@ export const Userlist: React.FC = () => {
   return (
       
     <div>
-   
-
     <div className="container">
-    
         <div className="row">
             <table className="table table-bordered">
                 <thead className="thead-light">
