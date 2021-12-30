@@ -7,7 +7,6 @@ export const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="container">
-
         <div className="row">
           <div className="col-lg-3">
             <div className="header__logo">
@@ -19,9 +18,7 @@ export const Header: React.FC = () => {
             <nav className="header__menu">
               <ul>
                 <li className="active">
-                  <Link to={PageURL.Home}>
-                    Home
-                  </Link>
+                  <Link to={PageURL.Home}>Home</Link>
                 </li>
                 <li>
                   <a href="./shop-grid.html">Shop</a>
@@ -58,13 +55,13 @@ export const Header: React.FC = () => {
               <ul>
                 <li>
                   <Link to={PageURL.WatchLater}>
-                    <i className="fa fa-heart" /> 
+                    <i className="fa fa-heart" />
                     {/* <span>1</span> */}
                   </Link>
                 </li>
                 <li>
                   <a href="#">
-                    <i className="fa fa-shopping-bag" /> 
+                    <i className="fa fa-shopping-bag" />
                     {/* <span>3</span> */}
                   </a>
                 </li>
@@ -79,7 +76,6 @@ export const Header: React.FC = () => {
         <div className="humberger__open">
           <i className="fa fa-bars" />
         </div>
-
       </div>
     </header>
   );

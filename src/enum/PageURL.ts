@@ -6,5 +6,5 @@ export enum PageURL {
   Category = "/category",
   List = "/list",
   Register = "/register",
-  WatchLater = '/watch-later'
+  WatchLater = "/watch-later",
 }
