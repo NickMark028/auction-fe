@@ -19,6 +19,10 @@ const ProductRow: FC<Props> = (props: Props) => {
         history.push(PageURL.Detail.replace(/:id/, productId.toString()))
     }
 
+    function removeFavorite(){
+        
+    }
+
     return (
         <div className='row my-5'>
             {/* Image */}
@@ -35,7 +39,7 @@ const ProductRow: FC<Props> = (props: Props) => {
                 <h3 className='align-items-center'><span className='text-danger'>{pricing}$</span></h3>
                 <p>{timeExpired}</p>
                 <button type='button' className='site-btn d-block' onClick={visitProduct}>VISIT PRODUCT</button>
-                <button type='button' className='site-btn mt-1 bg-danger d-block' onClick={visitProduct}>REMOVE</button>
+                <button type='button' className='site-btn mt-1 bg-danger d-block' onClick={removeFavorite}>REMOVE</button>
             </div>
         </div>
     )
