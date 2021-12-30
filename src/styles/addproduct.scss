@@ -1,37 +1,38 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 
-.outer {
+.outer1 {
     display: flex;
     justify-content: center;
     flex-direction: column;
     text-align: left;
     padding-bottom: 150px;
-    padding-top: 150px;
+    padding-top: 100px;
+    padding-right: 500px;
+    padding-left: 50px;
   }
   
-  .inner {
-    width: 450px;
+.inner1 {
+    width: 1800px;
     margin: auto;
     background: #ffffff;
     box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    padding: 40px 55px 45px 55px;
+    padding: 50px 50px 50px 50px;
     border-radius: 15px;
     transition: all .3s;
   }
   
-  .outer .form-control:focus {
-    border-color: #167bff;
+.outer .form-control:focus {
+    border-color: #33ff00;
     box-shadow: none;
   }
   
-  .outer h3 {
+.outer h3 {
     text-align: center;
     margin: 0;
     line-height: 1;
     padding-bottom: 20px;
   }
-  .redirect{
-
-    display: flex; 
-    justify-content: space-between;
-  }
+.form-2 .form-control{
+ height: 100px;
+ text-align: left;
+}

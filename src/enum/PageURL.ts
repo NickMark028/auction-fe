@@ -4,4 +4,7 @@ export enum PageURL {
   Login = "/login",
   Detail = "/details/:id",
   Category = "/category",
+  List = "/list",
+  Register="/register"
+
 }
