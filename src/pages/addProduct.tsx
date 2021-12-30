@@ -1,11 +1,11 @@
 import React from "react";
 
-import { HeaderPage, AddProduct, Footer } from "components";
+import { Header, AddProduct, Footer } from "components";
 
 const addItem = () => {
   return (
     <>
-      <HeaderPage />
+      <Header />
      
       <AddProduct/>
 

@@ -2,10 +2,12 @@ import axios from "axios";
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_BE_HOST,
+  
+  
   timeout: 5000,
   // headers: { 'X-Access-Token': 'accessToken' }
 });
-
+console.log(process.env.REACT_APP_BE_HOST);
 export function parseJwt(token) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");

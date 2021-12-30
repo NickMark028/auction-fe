@@ -1,11 +1,11 @@
 import React from "react";
 
-import { HeaderPage, Register, Footer } from "components";
+import { Header, Register, Footer } from "components";
 
 const regItem = () => {
   return (
     <>
-      <HeaderPage />
+      <Header />
       <Register />
       <Footer />
     </>

@@ -11,7 +11,7 @@ export const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   async function submitForm() {
-
+    console.log(process.env.REACT_APP_BE_HOST);
     console.log({ email, password });
     instance.post('/auth',{
       username:email,

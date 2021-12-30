@@ -1,11 +1,11 @@
 import React from "react";
 
-import { HeaderPage, Userlist, Footer } from "components";
+import { Header, Userlist, Footer } from "components";
 
 const list = () => {
   return (
     <>
-      <HeaderPage />
+      <Header />
       <Userlist />
       <Footer />
     </>
