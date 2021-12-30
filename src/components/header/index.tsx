@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
                 <li>
                   <a href="./shop-grid.html">Shop</a>
                 </li>
-                <li>
+                {/* <li>
                   <a href="#">Pages</a>
                   <ul className="header__menu__dropdown">
                     <li>
@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
                 </li>
                 <li>
                   <a href="./blog.html">Blog</a>
-                </li>
+                </li> */}
                 <li>
                   <a href="./contact.html">Contact</a>
                 </li>
@@ -59,12 +59,13 @@ export const Header: React.FC = () => {
                 <li>
                   <Link to={PageURL.WatchLater}>
                     <i className="fa fa-heart" /> 
-                    <span>1</span>
+                    {/* <span>1</span> */}
                   </Link>
                 </li>
                 <li>
                   <a href="#">
-                    <i className="fa fa-shopping-bag" /> <span>3</span>
+                    <i className="fa fa-shopping-bag" /> 
+                    {/* <span>3</span> */}
                   </a>
                 </li>
               </ul>
