@@ -18,13 +18,13 @@ import "../../styles/global.scss"
    
 
 
-export const Userlist: React.FC = () => {
+export const Productlist: React.FC = () => {
     
 
 
     const [customers, set] = useState([]);
     useEffect(()=>{
-    instance.get('/user'
+    instance.get('/product'
     ).then(
       res=>set(res.data)
     )
@@ -36,7 +36,7 @@ export const Userlist: React.FC = () => {
     async function submitForm(id:any) {
 
         console.log(id);
-         instance.delete('/user',{
+         instance.delete('/product',{
            
             data: {
               id:id
@@ -69,24 +69,25 @@ export const Userlist: React.FC = () => {
             <table className="table table-bordered">
                 <thead className="thead-light">
                     <tr>
-                        <th scope="col">username</th>
-                        <th scope="col">password</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">first name</th>
-                        <th scope="col">last name </th>
-                        <th scope="col">Birthday</th>
-  
+                        <th scope="col">seller id</th>
+                        <th scope="col">name</th>
+                        <th scope="col">description</th>
+                        <th scope="col">reserved price</th>
+                        <th scope="col">price step</th>
+                        <th scope="col">instant prince</th>
+                        <th scope="col">is renewal </th>
                     </tr>
                 </thead>
                 <tbody>
                     { customers.map(customer =>
                         <tr key={customer.id}>
-                            <td>{customer.username}</td>
-                            <td>{customer.password}</td>
-                            <td>{customer.email}</td>
-                            <td>{customer.firstName}</td>
-                            <td>{customer.lastName}</td>
-                            <td>{customer.dateOfBirth}</td>
+                            <td>{customer.sellerId}</td>
+                            <td>{customer.name}</td>
+                            <td>{customer.description}</td>
+                            <td>{customer.reservedPrice}</td>
+                            <td>{customer.priceStep}</td>
+                            <td>{customer.instantPrice}</td>
+                            <td>{customer.isRenewal}</td>
                             <td>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="btn-group" style={{ marginBottom: "20px" }}>

@@ -7,12 +7,13 @@ import DetailItem from "pages/detail";
 import AddProduct from "pages/addProduct";
 import Register from "pages/register";
 import List from "pages/userlist";
+import List1 from "pages/productlist"
 
 function App(): JSX.Element {
   return (
   
     // <Home />
-    <List/>
+    <List1/>
        //<DetailItem />
   
   );

@@ -7,3 +7,4 @@ export { Login } from "./login";
 export { AddProduct } from "./addProduct";
 export { Register } from "./register";
 export { Userlist } from "./userlist";
+export { Productlist } from "./productlist";
