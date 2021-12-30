@@ -10,6 +10,7 @@ import userList from "pages/userlist";
 import regItem from "pages/register";
 import { HomePage, SearchPage } from "pages";
 import store from "redux/store";
+import WatchLaterPage from "pages/watch-later";
 
 function App(): JSX.Element {
   return (
@@ -22,7 +23,7 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.Login} component={loginItem} />
           <PublicRoute path={PageURL.List} component={userList} />
           <PublicRoute path={PageURL.Register} component={regItem} />
-          {/* id */}
+          <PrivateRoute path={PageURL.WatchLater} component={WatchLaterPage} />
         </Switch>
       </Router>
     </Provider>
