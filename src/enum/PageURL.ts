@@ -4,4 +4,5 @@ export enum PageURL {
   Login = "/login",
   Detail = "/details/:id",
   Category = "/category",
+  WatchLater = '/watch-later'
 }

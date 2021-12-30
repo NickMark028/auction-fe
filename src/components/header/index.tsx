@@ -1,10 +1,13 @@
 import { Logo } from "components";
+import { PageURL } from "enum/PageURL";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="container">
+
         <div className="row">
           <div className="col-lg-3">
             <div className="header__logo">
@@ -16,7 +19,9 @@ export const Header: React.FC = () => {
             <nav className="header__menu">
               <ul>
                 <li className="active">
-                  <a href="./index.html">Home</a>
+                  <Link to={PageURL.Home}>
+                    Home
+                  </Link>
                 </li>
                 <li>
                   <a href="./shop-grid.html">Shop</a>
@@ -52,9 +57,10 @@ export const Header: React.FC = () => {
             <div className="header__cart">
               <ul>
                 <li>
-                  <a href="#">
-                    <i className="fa fa-heart" /> <span>1</span>
-                  </a>
+                  <Link to={PageURL.WatchLater}>
+                    <i className="fa fa-heart" /> 
+                    <span>1</span>
+                  </Link>
                 </li>
                 <li>
                   <a href="#">
@@ -72,6 +78,7 @@ export const Header: React.FC = () => {
         <div className="humberger__open">
           <i className="fa fa-bars" />
         </div>
+
       </div>
     </header>
   );

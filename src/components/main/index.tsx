@@ -713,7 +713,7 @@ export const Main: React.FC = () => {
       </section>
 
       {/* From the blog */}
-      <section className="from-blog spad">
+      {/* <section className="from-blog spad">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -797,7 +797,7 @@ export const Main: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

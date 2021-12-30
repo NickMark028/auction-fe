@@ -7,6 +7,7 @@ import PrivateRoute from "routers/PrivateRoute";
 import { DetailItem } from "pages";
 import { HomePage, SearchPage } from "pages";
 import store from "redux/store";
+import WatchLaterPage from "pages/watch-later";
 
 function App(): JSX.Element {
   return (
@@ -16,7 +17,7 @@ function App(): JSX.Element {
           <PublicRoute exact={true} path={PageURL.Home} component={HomePage} />
           <PublicRoute path={PageURL.Search} component={SearchPage} />
           <PublicRoute path={PageURL.Detail} component={DetailItem} />
-          {/* id */}
+          <PrivateRoute path={PageURL.WatchLater} component={WatchLaterPage} />
         </Switch>
       </Router>
     </Provider>
