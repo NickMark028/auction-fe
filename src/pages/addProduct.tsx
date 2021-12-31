@@ -6,8 +6,8 @@ const addItem = () => {
   return (
     <>
       <Header />
-     
-      <AddProduct/>
+
+      <AddProduct />
 
       <Footer />
     </>
