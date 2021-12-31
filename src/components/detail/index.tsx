@@ -61,9 +61,9 @@ export const Detail: React.FC = () => {
                 <OwlCarousel className="product__details__pic__slider " loop items={4} autoplay>
                   {productDetails.status == 'success' &&
                     <>
-                      <img src={productDetails.data.productimg0} alt="" />
-                      <img src={productDetails.data.productimg0} alt="" />
-                      <img src={productDetails.data.productimg0} alt="" />
+                      <img src={productDetails.data?.productimg0} alt="" />
+                      <img src={productDetails.data?.productimg0} alt="" />
+                      <img src={productDetails.data?.productimg0} alt="" />
                     </>
                   }
 
