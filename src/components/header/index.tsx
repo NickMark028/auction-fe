@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
     <header className="header">
       <div className="container">
         <div className="row">
-          <div className="col-lg-3">
+          <div className="col-lg-3 d-flex flex-column justify-content-center">
             <div className="header__logo">
               <Logo />
             </div>
