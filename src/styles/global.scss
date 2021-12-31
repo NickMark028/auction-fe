@@ -35,3 +35,19 @@
     display: flex; 
     justify-content: space-between;
   }
+  .menu{
+   
+ background-color: #ffffff;
+ background: none;
+    position: sticky;
+
+
+  }
+  .list{
+    border-style: dashed;
+    justify-content: center;
+  }
+  .body{
+   display:inline-flex;
+    justify-content: space-between;
+}

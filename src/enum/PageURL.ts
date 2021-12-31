@@ -5,6 +5,7 @@ export enum PageURL {
   Detail = "/details/:id",
   Category = "/category",
   List = "/list",
-  Register="/register"
+  Register="/register",
+  Admin="/admin"
 
 }
