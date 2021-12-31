@@ -7,3 +7,7 @@ export function selectCategoryList(state: RootState) {
 export function selectProductSearchList(state: RootState) {
   return state.productSearchList;
 }
+
+export function selectProductDetails(state: RootState) {
+    return state.productDetailsList;
+}
