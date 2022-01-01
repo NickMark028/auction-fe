@@ -4,21 +4,26 @@ import { TProduct, TStatus } from 'models';
 import React, { FC, useEffect, useState } from 'react';
 import { getWatchList } from './api';
 
-interface Props {}
+interface Props { }
 
 const WatchLaterBody: FC<Props> = (props: Props) => {
   const [status, setStatus] = useState<TStatus>('idle');
-  const [watchList, setWatchList] = useState<TProduct[] | undefined>(undefined);
+  const [watchList, setWatchList] = useState<TProduct[]>(undefined);
 
   useEffect(() => {
     if (status !== 'idle') return;
 
     setTimeout(async () => {
       try {
+        setStatus('pending');
         const data = await getWatchList();
+
+        console.log(data);
+        
         setWatchList(data);
         setStatus('success');
-      } catch (error) {
+      }
+      catch (error) {
         setStatus('reject');
       }
     });

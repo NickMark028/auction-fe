@@ -6,23 +6,28 @@ import {
   NotificationContainer,
   NotificationManager,
 } from 'react-notifications';
+import { useHistory } from 'react-router-dom';
+import { PageURL } from 'enum/PageURL';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
+  
   async function submitForm() {
-    console.log(process.env.REACT_APP_BE_HOST);
+    // console.log(process.env.REACT_APP_BE_HOST);
     console.log({ email, password });
     instance
-      .post('/auth', {
+      .post('/api/auth', {
         username: email,
         password: password,
       })
       .then((res) => {
-        NotificationManager.success(res.status, 'fuck you', 3000);
+        NotificationManager.success(res.status, 'xxxxx', 3000);
+        history.push(PageURL.Home);
       })
       .catch((error) => {
-        NotificationManager.error(error.response.status, 'fuck you', 3000);
+        NotificationManager.error(error.response.status, 'yyyyy', 3000);
       });
 
     //   const res = await axios({
@@ -34,7 +39,7 @@ export const Login: React.FC = () => {
 
   async function createNotification() {
     console.log('not ok');
-    return NotificationManager.error('Warning message', 'fuck you', 3000);
+    return NotificationManager.error('Warning message', 'zzzzz', 3000);
   }
 
   return (

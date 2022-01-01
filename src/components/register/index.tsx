@@ -25,7 +25,7 @@ export const Register: React.FC = () => {
 
   async function submitForm() {
     console.log(account);
-    instance.post('/user', account).then((res) => console.log(res));
+    instance.post('/api/user', account).then((res) => console.log(res));
   }
   function handleChange(evt) {
     const value = evt.target.value;
