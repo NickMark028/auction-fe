@@ -7,4 +7,6 @@ export enum PageURL {
   List = "/list",
   Register = "/register",
   WatchLater = "/watch-later",
+  Admin="/admin",
+  Addproduct="/add"
 }
