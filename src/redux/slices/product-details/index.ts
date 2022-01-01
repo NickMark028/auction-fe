@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {   TProductDetailsList, TState } from "models";
+import { TProductDetailsList, TState } from "models";
 import { getProductDetailsTC } from "./getProductDetails";
 
 const initialState: TState<TProductDetailsList> = {
-  status: 'idle',
+  status: "idle",
 };
 
 const productDetailsListSlice = createSlice({
@@ -14,18 +14,17 @@ const productDetailsListSlice = createSlice({
     builder
       .addCase(getProductDetailsTC.pending, (state, action) => {
         state.errorMsg = undefined;
-        state.status = 'pending';
+        state.status = "pending";
       })
       .addCase(getProductDetailsTC.fulfilled, (state, action) => {
         state.data = action.payload;
-        state.status = 'success';
+        state.status = "success";
       })
       .addCase(getProductDetailsTC.rejected, (state, action) => {
         state.errorMsg = action.error.message;
-        state.status = 'reject';
-      })
-
-  }
+        state.status = "reject";
+      });
+  },
 });
 
 const productDetailsReducer = productDetailsListSlice.reducer;

@@ -6,10 +6,10 @@ import productSearchListReducer from "./slices/product-search-list";
 import productDetailsReducer from "./slices/product-details";
 
 const rootReducer = combineReducers({
-    counter,
-    categoryList: categoryListReducer,
-    productSearchList: productSearchListReducer,
-    productDetailsList: productDetailsReducer,
+  counter,
+  categoryList: categoryListReducer,
+  productSearchList: productSearchListReducer,
+  productDetailsList: productDetailsReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

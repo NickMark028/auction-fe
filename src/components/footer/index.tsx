@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
             <div className="footer__about">
               <div className="footer__about__logo">
                 <Link to={PageURL.Home}>
-                  <Logo/>
+                  <Logo />
                 </Link>
               </div>
               <ul>
