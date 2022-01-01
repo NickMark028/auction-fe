@@ -9,7 +9,8 @@ export const instance = axios.create({
     "Content-Type": "application/json",
   },
 });
-console.log(process.env.REACT_APP_BE_HOST);
+// console.log(process.env.REACT_APP_BE_HOST);
+
 export function parseJwt(token) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");

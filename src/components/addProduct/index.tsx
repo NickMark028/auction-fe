@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment, ComponentState } from "react";
-import { instance } from "Utils";
+import { instance } from "utils/utils";
 import "../../styles/addproduct.scss";
 
 export const AddProduct: React.FC = () => {

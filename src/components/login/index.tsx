@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { instance } from "Utils";
+import { instance } from "utils/utils";
 import "../../styles/global.scss";
 import "react-notifications/lib/notifications.css";
 import {

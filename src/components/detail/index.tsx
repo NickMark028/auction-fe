@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 //import { render } from "react-dom";
 
-import { instance } from 'Utils';
+import { instance } from 'utils/utils';
 import OwlCarousel from 'react-owl-carousel';
 import Countdown from 'react-countdown';
 import socket from "utils/socket";

@@ -99,8 +99,8 @@ export const Main: React.FC = () => {
         </div>
       </section>
 
-      {/* ??? */}
-      <section className="categories">
+      {/* Carousel */}
+      {/* <section className="categories">
         <div className="container">
           <div className="row">
             <OwlCarousel
@@ -173,10 +173,10 @@ export const Main: React.FC = () => {
             </OwlCarousel>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Featured product */}
-      <section className="featured spad">
+      {/* <section className="featured spad">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -471,10 +471,10 @@ export const Main: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Additional product */}
-      <div className="banner">
+      {/* <div className="banner">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 col-md-6 col-sm-6">
@@ -489,10 +489,10 @@ export const Main: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Latest products, top tated products, review products */}
-      <section className="latest-product spad">
+      {/* <section className="latest-product spad">
         <div className="container">
           <div className="row">
             <div className="col-lg-4 col-md-6">
@@ -710,7 +710,7 @@ export const Main: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* From the blog */}
       {/* <section className="from-blog spad">

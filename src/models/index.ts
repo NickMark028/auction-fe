@@ -1,7 +1,9 @@
 import { type } from "os";
 
+export type TStatus = "idle" | "pending" | "reject" | "success";
+
 export type TState<T> = {
-  status: "idle" | "pending" | "reject" | "success";
+  status: TStatus;
   data?: T;
   errorMsg?: string;
 };
@@ -66,34 +68,33 @@ export type TProduct = {
 export type TProductSearchList = TProduct[];
 // *****************************************
 export type TProductDetailsList = {
-"auctionLogCount": Number,
-"bidderCount": Number,
-"bidderFirst": string,
-"bidderLast": string,
-"bidderNEVCount": Number,
-"bidderPOSCount": Number,
-"coverImageURL": string,
-"createdAt": string,
-"currentPrice": Number,
-"description": string,
-"firstname": string
-"id": Number,
-"instantPrice": Number,
-"isDeleted": Number,
-"isRenewal": Number,
-"lastname": string,
-"name": string,
-"negativeCount": Number,
-"positiveCount": Number,
-"priceStep": Number,
-"productimgNumber": string,
-"productimg0": string,
-"productimg1": string,
-"productimg2": string,
-"reservedPrice": Number,
-"section": string,
-"sellerId": Number,
-"timeExpired":string ,
-"topBidderId":Number,
-    
+  "auctionLogCount": Number,
+  "bidderCount": Number,
+  "bidderFirst": string,
+  "bidderLast": string,
+  "bidderNEVCount": Number,
+  "bidderPOSCount": Number,
+  "coverImageURL": string,
+  "createdAt": string,
+  "currentPrice": Number,
+  "description": string,
+  "firstname": string
+  "id": Number,
+  "instantPrice": Number,
+  "isDeleted": Number,
+  "isRenewal": Number,
+  "lastname": string,
+  "name": string,
+  "negativeCount": Number,
+  "positiveCount": Number,
+  "priceStep": Number,
+  "productimgNumber": string,
+  "productimg0": string,
+  "productimg1": string,
+  "productimg2": string,
+  "reservedPrice": Number,
+  "section": string,
+  "sellerId": Number,
+  "timeExpired": string,
+  "topBidderId": Number,
 }

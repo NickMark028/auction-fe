@@ -1,4 +1,7 @@
+import { Logo } from "components";
+import { PageURL } from "enum/PageURL";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Footer: React.FC = () => {
   return (
@@ -8,9 +11,9 @@ export const Footer: React.FC = () => {
           <div className="col-lg-3 col-md-6 col-sm-6">
             <div className="footer__about">
               <div className="footer__about__logo">
-                <a href="./index.html">
-                  <img src="asset/img/logo.png" alt="" />
-                </a>
+                <Link to={PageURL.Home}>
+                  <Logo/>
+                </Link>
               </div>
               <ul>
                 <li>Address: 60-49 Road 11378 New York</li>

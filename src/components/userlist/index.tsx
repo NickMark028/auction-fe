@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { setConstantValue } from "typescript";
 import { Link } from "react-router-dom";
-import { instance } from "Utils";
+import { instance } from "utils/utils";
 import "../../styles/global.scss";
 import "../../styles/List.scss";
 
