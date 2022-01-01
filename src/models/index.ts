@@ -74,7 +74,7 @@ export type TProductDetailsList = {
   priceStep: number;
   instantPrice: number;
   isRenewal: boolean;
-  coverimageURL: string;
+  coverImageURL: string;
   timeExpired: string;
   createdAt: string;
   topBidderId?: number;

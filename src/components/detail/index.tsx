@@ -10,15 +10,7 @@ import { useHistory } from "react-router-dom";
 import { getProductDetailsTC } from "redux/slices/product-details/getProductDetails";
 import { selectProductDetails } from "redux/selectors";
 import { useAppDispatch, useAppSelector } from "redux/store";
-
 import axiosClient from "utils/axiosClient";
-import { data } from "jquery";
-
-
-
-
-
-
 
 export const Detail: React.FC = () => {
   
@@ -28,7 +20,8 @@ export const Detail: React.FC = () => {
 
   const history = useHistory();
   const productDetails = useAppSelector(selectProductDetails)
-
+const [relatedProduct,SetrelatedProduct]= useState([]); 
+const [bid,setBid]=useState([]);
  useEffect(() => {
    setTimeout(async () => {
     console.log(history.location.pathname);
@@ -37,12 +30,13 @@ export const Detail: React.FC = () => {
 
     const data = await dispatch(getProductDetailsTC(id)).unwrap();
 
-    axiosClient.get(`/api/product/related/${data.section}`).then(res => SetrelatedProduct(res.data))
+    axiosClient.get(`/api/product/related/${data.section}`).then(res => SetrelatedProduct(res.data));
+    axiosClient.get(`/api/auction/${data.id}`).then(res=>setBid(res.data));
    });
   }, [])
   
  
-   const [relatedProduct,SetrelatedProduct]= useState([]);
+   
 
 
 // ${productDetails.data?.section}
@@ -50,6 +44,7 @@ export const Detail: React.FC = () => {
 
   //gửi một bid mới
   const [price,setPrice] = useState<Number>();
+ 
     function send() {
       socket.emit("bid",  {
         
@@ -68,7 +63,7 @@ export const Detail: React.FC = () => {
           
             // setUpdate(data);
             console.log(c);
-            const tr = `<ol> 
+            const tr = `<tr> 
            
             <td>Bidder: ${c.bidderName}     </td>            
             <td>Price: ${c.price}     </td>
@@ -90,7 +85,7 @@ export const Detail: React.FC = () => {
               <div className="product__details__pic">
                 <div className="product__details__pic__item">
                   {productDetails.status === 'success' &&
-                    <img className="product__details__pic__item--large" src={productDetails.data?.coverimageURL} alt="" />
+                    <img className="product__details__pic__item--large" src={productDetails.data?.coverImageURL} />
                   }
                 </div>
 
@@ -118,6 +113,7 @@ export const Detail: React.FC = () => {
                   <i className="fa fa-star-half-o" />
                   <span>(18 reviews)</span>
                 </div>
+               
                 {productDetails.status == 'success' &&
                   <>
                     <div className="product__details__price">Curent Price: {productDetails.data.currentPrice}</div>
@@ -162,6 +158,17 @@ export const Detail: React.FC = () => {
                   <div className="tab-pane active" id="tabs-1" role="tabpanel">
                     <div id="bidinfo" className="product__details__tab__desc" style={{'overflow': 'auto'}}>
                       <h6>Bid History</h6>
+                      {bid.map((c)=>
+                      <tr> 
+           
+                      <td>Bidder: {c.bidderId}     </td>            
+                      <td>Price: {c.price}     </td>
+                      <td>Bid At: {c.createdAt}</td>
+                  
+                    </tr>
+                      )
+
+                      }
              
                     </div>
                   </div>
@@ -218,7 +225,7 @@ export const Detail: React.FC = () => {
                       <h6><a href="#">{item.name}</a></h6>
                       <h6>Bid Price: {item.currentPrice}</h6>
                       <h6>Top bidder: {item.bidderFirst} {item.bidderLast}</h6>
-                      <h6>Count: {item.auctionLogCount}</h6>
+                      <h6>Bid Count: {item.auctionLogCount}</h6>
                     </div>
                   </div>
             </div>
