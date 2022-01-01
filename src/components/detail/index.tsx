@@ -74,7 +74,7 @@ export const Detail: React.FC = () => {
                   {productDetails.status == 'success' && (
                     <img
                       className="product__details__pic__item--large"
-                      src={productDetails.data.coverImageURL}
+                      src={productDetails.data.coverImageUrl}
                       alt=""
                     />
                   )}
@@ -270,7 +270,7 @@ export const Detail: React.FC = () => {
                   <div
                     className="product__item__pic set-bg"
                     style={{
-                      backgroundImage: `url(${item.coverImageURL})`,
+                      backgroundImage: `url(${item.coverImageUrl})`,
                       width: '100%',
                     }}
                   >

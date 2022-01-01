@@ -11,7 +11,7 @@ export const AddProduct: React.FC = () => {
     priceStep: '',
     instantPrice: '',
     isRenewal: '1',
-    coverImageURL: '',
+    coverImageUrl: '',
   });
 
   async function submitForm() {
@@ -120,7 +120,7 @@ export const AddProduct: React.FC = () => {
               type="text"
               className="form-control"
               placeholder="Enter cover image"
-              name="coverImageURL"
+              name="coverImageUrl"
               onChange={handleChange}
             />
           </div>

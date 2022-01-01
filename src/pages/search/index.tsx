@@ -695,14 +695,19 @@ const SearchPage: FC<Props> = (props: Props) => {
 
               <div className="row">
                 {productSearchList.data?.map((product) => {
-                  const { id, currentPrice, name, coverimageURL } = product;
+                  const {
+                    id,
+                    currentPrice,
+                    name,
+                    coverImageUrl: coverImageUrl,
+                  } = product;
 
                   return (
                     <ProductPreview
                       key={id}
                       name={name}
                       pricing={currentPrice}
-                      imageUrl={coverimageURL}
+                      imageUrl={coverImageUrl}
                     />
                   );
                 })}

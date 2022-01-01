@@ -2,7 +2,7 @@ import ProductRow from 'components/product/ProductRow';
 import SearchBar from 'components/search-box';
 import { TProduct, TStatus } from 'models';
 import React, { FC, useEffect, useState } from 'react';
-import { getWatchLater } from './api';
+import { getWatchList } from './api';
 
 interface Props {}
 
@@ -15,7 +15,7 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
 
     setTimeout(async () => {
       try {
-        const data = await getWatchLater();
+        const data = await getWatchList();
         setWatchList(data);
         setStatus('success');
       } catch (error) {
@@ -35,7 +35,7 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
           watchList?.map((product) => (
             <ProductRow
               productId={product.id}
-              imageUrl={product.coverimageURL}
+              imageUrl={product.coverImageUrl}
               name={product.name}
               description={product.description}
               pricing={product.currentPrice}

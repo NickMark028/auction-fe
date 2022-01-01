@@ -10,13 +10,13 @@ import { getCategoryListTC } from 'redux/slices/category-list/getCategoryList';
 import { searchProductTC } from 'redux/slices/product-search-list/searchProduct';
 import { useAppDispatch, useAppSelector } from 'redux/store';
 import OwlCarousel from 'react-owl-carousel';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Container } from 'react-bootstrap';
 import { TProduct, TStatus } from 'models';
 import {
-  getPriciestProducts,
-  getTopAutionLogProducts,
-  getTopClosingProducts,
-} from 'components/watch-later-body/api';
+  PriciestProductsShowcase,
+  TopAutionLogProductsShowcase,
+  TopClosingProductsShowcase,
+} from 'components/top-product-showcase';
 
 export const Main: React.FC = () => {
   //jQuery()
@@ -25,30 +25,11 @@ export const Main: React.FC = () => {
   //document.getElementById('drop') = this.state.isClicked?'none' : ''
   // else
   const [display, setDisplay] = useState('block');
-
-  const [priciestProductsStatus, setPriciestProductsStatus] =
-    useState<TStatus>('idle');
-  const [topAuctionLogProductsStatus, setTopAuctionLogProductsStatus] =
-    useState<TStatus>('idle');
-  const [nearClosingProductsStatus, setnearClosingProductsStatus] =
-    useState<TStatus>('idle');
-
-  const [priciestProducts, setPriciestProducts] =
-    useState<TProduct[]>(undefined);
-  const [topAutionLogProducts, setTopAutionLogProducts] =
-    useState<TProduct[]>(undefined);
-  const [topClosingProducts, setTopClosingProducts] =
-    useState<TProduct[]>(undefined);
-
   const dispatch = useAppDispatch();
   const categoryList = useAppSelector(selectCategoryList);
 
   useEffect(() => {
     dispatch(getCategoryListTC());
-
-    await getPriciestProducts();
-    await getTopClosingProducts();
-    await getTopAutionLogProducts();
   }, []);
 
   function handleChange() {
@@ -123,7 +104,11 @@ export const Main: React.FC = () => {
         </div>
       </section>
 
-      <section></section>
+      <TopClosingProductsShowcase />
+
+      <TopAutionLogProductsShowcase />
+
+      <PriciestProductsShowcase />
 
       {/* Carousel */}
       {/* <section className="categories">

@@ -1,15 +1,7 @@
 import { TProduct } from 'models';
 import axiosClient from 'utils/axiosClient';
 
-export async function getPriciestProducts() {
-  const response = await axiosClient.get('/api/product/top-priciest');
-  return response.data as TProduct[];
-}
-export async function getTopAutionLogProducts() {
-  const response = await axiosClient.get('/api/product/top-auction-log');
-  return response.data as TProduct[];
-}
-export async function getTopClosingProducts() {
-  const response = await axiosClient.get('/api/product/top-near-end');
+export async function getWatchList() {
+  const response = await axiosClient.get('/api/watch-list');
   return response.data as TProduct[];
 }

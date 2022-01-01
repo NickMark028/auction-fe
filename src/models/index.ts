@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 export type TStatus = 'idle' | 'pending' | 'reject' | 'success';
 
 export type TState<T> = {
@@ -45,7 +43,7 @@ export type TProduct = {
   priceStep: number;
   instantPrice: number;
   isRenewal: boolean;
-  coverimageURL: string;
+  coverImageUrl: string;
   timeExpired: string;
   createdAt: string;
   topBidderId?: number;
@@ -66,7 +64,9 @@ export type TProduct = {
 };
 
 export type TProductSearchList = TProduct[];
-// *****************************************
+
+/**********************************************************************************/
+
 export type TProductDetailsList = {
   auctionLogCount: Number;
   bidderCount: Number;
@@ -74,7 +74,7 @@ export type TProductDetailsList = {
   bidderLast: string;
   bidderNEVCount: Number;
   bidderPOSCount: Number;
-  coverImageURL: string;
+  coverImageUrl: string;
   createdAt: string;
   currentPrice: Number;
   description: string;
