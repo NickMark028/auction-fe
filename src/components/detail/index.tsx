@@ -41,17 +41,12 @@ export const Detail: React.FC = () => {
   ]);
 
     useEffect(()=>{ 
+      
+      
     axiosClient.get(`/api/product/related/Electronics`).then(res => SetrelatedProduct(res.data)
     )},[])
 // ${productDetails.data?.section}
-  // const pr = (related());
-  // console.log(typeof(pr));
-  
-  
- 
-  
-  //console.log(productDetails.data);
-  //use redux
+
 
   //gửi một bid mới
     function send() {
@@ -66,16 +61,18 @@ export const Detail: React.FC = () => {
     }
     //lắng nghe và in ra
     //const[update,setUpdate] = useState([]);
-    socket.on('updatebid',(c)=>{
+  socket.on('updatebid',async (data)=>{
       
         // setUpdate(data);
-        const tr = `<tr>
-        <td>${c.bidderName}</td>
-        <td>${c.price}</td>
-        <td>${c.bidAt}</td>
-      </tr>
-`;
-        $('#bidinfo').append(tr)
+        const c = JSON.parse(data)
+        console.log(c);
+//         const tr = `<tr> 
+//         <td>${c.bidderName}</td>
+//         <td>${c.price}</td>
+//         <td>${c.bidAt}</td>
+//       </tr>
+// `;
+//         $('#bidinfo').append(tr)
     })
 
   return (
@@ -94,7 +91,7 @@ export const Detail: React.FC = () => {
 
 
                 <OwlCarousel className="product__details__pic__slider " loop items={4} autoplay>
-                  {productDetails.status == 'success' &&
+                  {productDetails.status === 'success' &&
                     <>
                       <img src={productDetails.data?.productimg0} alt="" />
                       <img src={productDetails.data?.productimg0} alt="" />
