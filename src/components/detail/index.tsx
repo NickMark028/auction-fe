@@ -28,23 +28,22 @@ export const Detail: React.FC = () => {
 
   const history = useHistory();
   const productDetails = useAppSelector(selectProductDetails)
-  useEffect(() => {
+ useEffect(() => {
+   setTimeout(async () => {
     console.log(history.location.pathname);
     const pathname = history.location.pathname;
     const id = (pathname.slice(9));
 
-    dispatch(getProductDetailsTC(id))
+    const data = await dispatch(getProductDetailsTC(id)).unwrap();
+
+    axiosClient.get(`/api/product/related/${data.section}`).then(res => SetrelatedProduct(res.data))
+   });
   }, [])
 
  
-   const [relatedProduct,SetrelatedProduct]= useState([
-  ]);
+   const [relatedProduct,SetrelatedProduct]= useState([]);
 
-    useEffect(()=>{ 
-      
-      
-    axiosClient.get(`/api/product/related/Electronics`).then(res => SetrelatedProduct(res.data)
-    )},[])
+
 // ${productDetails.data?.section}
 
 
@@ -61,19 +60,22 @@ export const Detail: React.FC = () => {
     }
     //lắng nghe và in ra
     //const[update,setUpdate] = useState([]);
-  socket.on('updatebid',async (data)=>{
-      
-        // setUpdate(data);
-        const c = JSON.parse(data)
-        console.log(c);
-//         const tr = `<tr> 
-//         <td>${c.bidderName}</td>
-//         <td>${c.price}</td>
-//         <td>${c.bidAt}</td>
-//       </tr>
-// `;
-//         $('#bidinfo').append(tr)
-    })
+    useEffect(()=>{
+      socket.on('updatebid',async (c)=>{
+          
+            // setUpdate(data);
+            console.log(c);
+            const tr = `<ol> 
+           
+            <td>${c.bidderName} </td>
+            <td>${c.price}</td>
+            <td>${c.bidAt}</td>
+        
+          </tr>
+    `;
+            $('#bidinfo').append(tr)
+        })
+    },[])
 
   return (
 
