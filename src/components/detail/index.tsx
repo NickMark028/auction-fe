@@ -11,37 +11,71 @@ import { getProductDetailsTC } from "redux/slices/product-details/getProductDeta
 import { selectProductDetails } from "redux/selectors";
 import { useAppDispatch, useAppSelector } from "redux/store";
 
-var i = 0;
+import axiosClient from "utils/axiosClient";
+import { data } from "jquery";
 
-function send() {
-  socket.emit("bid", (data) => {
-    bidPrice: { }
-  })
 
-}
+
+
+
 
 
 export const Detail: React.FC = () => {
-
+  
+  
 
   const dispatch = useAppDispatch();
 
   const history = useHistory();
   const productDetails = useAppSelector(selectProductDetails)
-  useEffect(() => {
+ useEffect(() => {
+   setTimeout(async () => {
     console.log(history.location.pathname);
     const pathname = history.location.pathname;
     const id = (pathname.slice(9));
 
-    dispatch(getProductDetailsTC(id))
+    const data = await dispatch(getProductDetailsTC(id)).unwrap();
+
+    axiosClient.get(`/api/product/related/${data.section}`).then(res => SetrelatedProduct(res.data))
+   });
   }, [])
 
+ 
+   const [relatedProduct,SetrelatedProduct]= useState([]);
 
 
-  console.log(productDetails.data);
-  //use redux
+// ${productDetails.data?.section}
 
 
+  //gửi một bid mới
+    function send() {
+      socket.emit("bid",  {
+        
+          bidderName : 'tên của mình',
+          price :'giá bid',
+          bidAt : String(Date())
+        
+      })
+
+    }
+    //lắng nghe và in ra
+    //const[update,setUpdate] = useState([]);
+    useEffect(()=>{
+      socket.on('updatebid',async (c)=>{
+          
+            // setUpdate(data);
+            console.log(c);
+            const tr = `<ol> 
+           
+            <td>${c.bidderName} </td>
+            <td>${c.price}</td>
+            <td>${c.bidAt}</td>
+        
+          </tr>
+    `;
+            $('#bidinfo').append(tr)
+        })
+    },[])
 
   return (
 
@@ -59,11 +93,11 @@ export const Detail: React.FC = () => {
 
 
                 <OwlCarousel className="product__details__pic__slider " loop items={4} autoplay>
-                  {productDetails.status == 'success' &&
+                  {productDetails.status === 'success' &&
                     <>
-                      <img src={productDetails.data.productimg0} alt="" />
-                      <img src={productDetails.data.productimg0} alt="" />
-                      <img src={productDetails.data.productimg0} alt="" />
+                      <img src={productDetails.data?.productimg0} alt="" />
+                      <img src={productDetails.data?.productimg0} alt="" />
+                      <img src={productDetails.data?.productimg0} alt="" />
                     </>
                   }
 
@@ -93,7 +127,7 @@ export const Detail: React.FC = () => {
                   <label >BID Price:</label>
                   <div className="pro-qty">
 
-                    <input type="Number" defaultValue={100000} step={10000} />
+                    <input id="price" type="Number" defaultValue={100000} step={10000} />
                     {/* add price + step */}
                   </div>
 
@@ -112,63 +146,32 @@ export const Detail: React.FC = () => {
               <div className="product__details__tab">
                 <ul className="nav nav-tabs" role="tablist">
                   <li className="nav-item">
-                    <a className="nav-link active" data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Description</a>
+                    <a className="nav-link active" data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Bid History</a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">Information</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Reviews <span>(1)</span></a>
+                    <a className="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Reviews </a>
                   </li>
                 </ul>
                 <div className="tab-content">
                   <div className="tab-pane active" id="tabs-1" role="tabpanel">
-                    <div className="product__details__tab__desc">
-                      <h6>Products Infomation</h6>
-                      <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus
-                        suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                        vehicula elementum sed sit amet dui. Donec rutrum congue leo eget malesuada.
-                        Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
-                        accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a
-                        pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula
-                        elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
-                        et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-                        vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-                      <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
-                        ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
-                        elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                        porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
-                        nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                        Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Sed
-                        porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum
-                        sed sit amet dui. Proin eget tortor risus.</p>
+                    <div id="bidinfo" className="product__details__tab__desc">
+                      <h6>Bid History</h6>
+
                     </div>
                   </div>
                   <div className="tab-pane" id="tabs-2" role="tabpanel">
                     <div className="product__details__tab__desc">
                       <h6>Products Infomation</h6>
-                      <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                        Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                        sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
-                        eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
-                        sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
-                        diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
-                        ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-                        Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-                        Proin eget tortor risus.</p>
-                      <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
-                        ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
-                        elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                        porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
-                        nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
+                      <p>{productDetails.data?.description}</p>
+                      
                     </div>
                   </div>
                   <div className="tab-pane" id="tabs-3" role="tabpanel">
                     <div className="product__details__tab__desc">
-                      <h6>Products Infomation</h6>
+                      <h6>Review</h6>
                       <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
                         Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
                         Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
@@ -189,78 +192,43 @@ export const Detail: React.FC = () => {
         </div>
       </section>
       <section className="related-product">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title related__product__title">
-                <h2>Related Product</h2>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-3 col-md-4 col-sm-6">
-              <div className="product__item">
-                <div className="product__item__pic set-bg" style={{ backgroundImage: "url('asset/img/product/product-1.jpg')" }}>
-                  <ul className="product__item__pic__hover">
-                    <li><a href="#"><i className="fa fa-heart" /></a></li>
-                    <li><a href="#"><i className="fa fa-retweet" /></a></li>
-                    <li><a href="#"><i className="fa fa-shopping-cart" /></a></li>
-                  </ul>
-                </div>
-                <div className="product__item__text">
-                  <h6><a href="#">Crab Pool Security</a></h6>
-                  <h5>$30.00</h5>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6">
-              <div className="product__item">
-                <div className="product__item__pic set-bg" style={{ backgroundImage: "url('asset/img/product/product-2.jpg')" }}>
-                  <ul className="product__item__pic__hover">
-                    <li><a href="#"><i className="fa fa-heart" /></a></li>
-                    <li><a href="#"><i className="fa fa-retweet" /></a></li>
-                    <li><a href="#"><i className="fa fa-shopping-cart" /></a></li>
-                  </ul>
-                </div>
-                <div className="product__item__text">
-                  <h6><a href="#">Crab Pool Security</a></h6>
-                  <h5>$30.00</h5>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6">
-              <div className="product__item">
-                <div className="product__item__pic set-bg" style={{ backgroundImage: "url('asset/img/product/product-3.jpg')" }}>
-                  <ul className="product__item__pic__hover">
-                    <li><a href="#"><i className="fa fa-heart" /></a></li>
-                    <li><a href="#"><i className="fa fa-retweet" /></a></li>
-                    <li><a href="#"><i className="fa fa-shopping-cart" /></a></li>
-                  </ul>
-                </div>
-                <div className="product__item__text">
-                  <h6><a href="#">Crab Pool Security</a></h6>
-                  <h5>$30.00</h5>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6">
-              <div className="product__item">
-                <div className="product__item__pic set-bg" style={{ backgroundImage: "url('asset/img/product/product-7.jpg')" }}>
-                  <ul className="product__item__pic__hover">
-                    <li><a href="#"><i className="fa fa-heart" /></a></li>
-                    <li><a href="#"><i className="fa fa-retweet" /></a></li>
-                    <li><a href="#"><i className="fa fa-shopping-cart" /></a></li>
-                  </ul>
-                </div>
-                <div className="product__item__text">
-                  <h6><a href="#">Crab Pool Security</a></h6>
-                  <h5>$30.00</h5>
-                </div>
-              </div>
-            </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="section-title related__product__title">
+            <h2>Related Product</h2>
           </div>
         </div>
-      </section>
+      </div>
+      <div className="row" >
+       { relatedProduct.map((item)=>(
+          <div className="col-lg-2 col-md-4 col-sm-6" >
+                  <div className="product__item">
+                    <div className="product__item__pic set-bg" style={{ 'backgroundImage' :`url(${item.coverImageURL})`, width: "100%",}}>
+                      <ul className="product__item__pic__hover">
+                        <li><a href="#"><i className="fa fa-heart" /></a></li>
+                        
+                        <li><a href="#"><i className="fa fa-gavel" /></a></li>
+                      </ul>
+                    </div>
+                    <div className="product__item__text">
+                      <h6><a href="#">{item.name}</a></h6>
+                      <h6>Bid Price: {item.currentPrice}</h6>
+                      <h6>Top bidder: {item.bidderFirst} {item.bidderLast}</h6>
+                      <h6>Count: {item.auctionLogCount}</h6>
+                    </div>
+                  </div>
+            </div>
+        ))}
+
+
+
+     
+       
+        
+</div>
+</div>
+</section>
     </div>
 
 
