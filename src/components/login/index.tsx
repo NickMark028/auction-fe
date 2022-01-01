@@ -1,28 +1,28 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { instance } from "utils/utils";
-import "../../styles/global.scss";
-import "react-notifications/lib/notifications.css";
+import React, { useEffect, useState, Fragment } from 'react';
+import { instance } from 'utils/utils';
+import '../../styles/global.scss';
+import 'react-notifications/lib/notifications.css';
 import {
   NotificationContainer,
   NotificationManager,
-} from "react-notifications";
+} from 'react-notifications';
 
 export const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   async function submitForm() {
     console.log(process.env.REACT_APP_BE_HOST);
     console.log({ email, password });
     instance
-      .post("/auth", {
+      .post('/auth', {
         username: email,
         password: password,
       })
       .then((res) => {
-        NotificationManager.success(res.status, "fuck you", 3000);
+        NotificationManager.success(res.status, 'fuck you', 3000);
       })
       .catch((error) => {
-        NotificationManager.error(error.response.status, "fuck you", 3000);
+        NotificationManager.error(error.response.status, 'fuck you', 3000);
       });
 
     //   const res = await axios({
@@ -33,8 +33,8 @@ export const Login: React.FC = () => {
   }
 
   async function createNotification() {
-    console.log("not ok");
-    return NotificationManager.error("Warning message", "fuck you", 3000);
+    console.log('not ok');
+    return NotificationManager.error('Warning message', 'fuck you', 3000);
   }
 
   return (

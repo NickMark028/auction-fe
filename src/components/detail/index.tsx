@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 //import { render } from "react-dom";
 
-import { instance } from "utils/utils";
-import OwlCarousel from "react-owl-carousel";
-import Countdown from "react-countdown";
-import socket from "utils/socket";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { getProductDetailsTC } from "redux/slices/product-details/getProductDetails";
-import { selectProductDetails } from "redux/selectors";
-import { useAppDispatch, useAppSelector } from "redux/store";
+import { instance } from 'utils/utils';
+import OwlCarousel from 'react-owl-carousel';
+import Countdown from 'react-countdown';
+import socket from 'utils/socket';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { getProductDetailsTC } from 'redux/slices/product-details/getProductDetails';
+import { selectProductDetails } from 'redux/selectors';
+import { useAppDispatch, useAppSelector } from 'redux/store';
 
-import axiosClient from "utils/axiosClient";
-import { data } from "jquery";
+import axiosClient from 'utils/axiosClient';
+import { data } from 'jquery';
 
 export const Detail: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -39,16 +39,16 @@ export const Detail: React.FC = () => {
 
   //gửi một bid mới
   function send() {
-    socket.emit("bid", {
-      bidderName: "tên của mình",
-      price: "giá bid",
+    socket.emit('bid', {
+      bidderName: 'tên của mình',
+      price: 'giá bid',
       bidAt: String(Date()),
     });
   }
   //lắng nghe và in ra
   //const[update,setUpdate] = useState([]);
   useEffect(() => {
-    socket.on("updatebid", async (c) => {
+    socket.on('updatebid', async (c) => {
       // setUpdate(data);
       console.log(c);
       const tr = `<ol> 
@@ -59,7 +59,7 @@ export const Detail: React.FC = () => {
         
           </tr>
     `;
-      $("#bidinfo").append(tr);
+      $('#bidinfo').append(tr);
     });
   }, []);
 
@@ -71,7 +71,7 @@ export const Detail: React.FC = () => {
             <div className="col-lg-6 col-md-6">
               <div className="product__details__pic">
                 <div className="product__details__pic__item">
-                  {productDetails.status == "success" && (
+                  {productDetails.status == 'success' && (
                     <img
                       className="product__details__pic__item--large"
                       src={productDetails.data.coverImageURL}
@@ -86,7 +86,7 @@ export const Detail: React.FC = () => {
                   items={4}
                   autoplay
                 >
-                  {productDetails.status === "success" && (
+                  {productDetails.status === 'success' && (
                     <>
                       <img src={productDetails.data?.productimg0} alt="" />
                       <img src={productDetails.data?.productimg0} alt="" />
@@ -107,7 +107,7 @@ export const Detail: React.FC = () => {
                   <i className="fa fa-star-half-o" />
                   <span>(18 reviews)</span>
                 </div>
-                {productDetails.status == "success" && (
+                {productDetails.status == 'success' && (
                   <>
                     <div className="product__details__price">
                       Curent Price: {productDetails.data.currentPrice}
@@ -125,14 +125,14 @@ export const Detail: React.FC = () => {
                       />
                     </div>
                     <div className="product__details__price">
-                      Create:{" "}
-                      {new Intl.DateTimeFormat("en-US", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        second: "2-digit",
+                      Create:{' '}
+                      {new Intl.DateTimeFormat('en-US', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
                       }).format(Date.parse(productDetails.data.createdAt))}
                     </div>
                   </>
@@ -157,21 +157,21 @@ export const Detail: React.FC = () => {
                 </a>
                 <ul>
                   <li>
-                    <b>Bidder Count</b>{" "}
+                    <b>Bidder Count</b>{' '}
                     <span>{productDetails.data?.bidderCount}</span>
                   </li>
                   <li>
-                    <b>seller: </b>{" "}
+                    <b>seller: </b>{' '}
                     <span>
-                      {productDetails.data?.firstname}{" "}
+                      {productDetails.data?.firstname}{' '}
                       {productDetails.data?.lastname}
                     </span>
                   </li>
                   <li>
-                    <b>Evaluate: </b>{" "}
+                    <b>Evaluate: </b>{' '}
                     <span>
-                      {Number(productDetails.data?.negativeCount)} +{" "}
-                      {Number(productDetails.data?.positiveCount)}{" "}
+                      {Number(productDetails.data?.negativeCount)} +{' '}
+                      {Number(productDetails.data?.positiveCount)}{' '}
                     </span>
                   </li>
                 </ul>
@@ -210,7 +210,7 @@ export const Detail: React.FC = () => {
                       role="tab"
                       aria-selected="false"
                     >
-                      Reviews{" "}
+                      Reviews{' '}
                     </a>
                   </li>
                 </ul>
@@ -271,7 +271,7 @@ export const Detail: React.FC = () => {
                     className="product__item__pic set-bg"
                     style={{
                       backgroundImage: `url(${item.coverImageURL})`,
-                      width: "100%",
+                      width: '100%',
                     }}
                   >
                     <ul className="product__item__pic__hover">

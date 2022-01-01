@@ -1,16 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import SearchBar from "components/search-box";
-import { PageURL } from "enum/PageURL";
-import React, { FormEvent, SyntheticEvent, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import SearchBar from 'components/search-box';
+import { PageURL } from 'enum/PageURL';
+import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import "react-toggle/style.css";
-import { selectCategoryList } from "redux/selectors";
-import { getCategoryListTC } from "redux/slices/category-list/getCategoryList";
-import { searchProductTC } from "redux/slices/product-search-list/searchProduct";
-import { useAppDispatch, useAppSelector } from "redux/store";
-import OwlCarousel from "react-owl-carousel";
-import { Carousel } from "react-bootstrap";
+import 'react-toggle/style.css';
+import { selectCategoryList } from 'redux/selectors';
+import { getCategoryListTC } from 'redux/slices/category-list/getCategoryList';
+import { searchProductTC } from 'redux/slices/product-search-list/searchProduct';
+import { useAppDispatch, useAppSelector } from 'redux/store';
+import OwlCarousel from 'react-owl-carousel';
+import { Carousel } from 'react-bootstrap';
+import { TProduct, TStatus } from 'models';
+import {
+  getPriciestProducts,
+  getTopAutionLogProducts,
+  getTopClosingProducts,
+} from 'components/watch-later-body/api';
 
 export const Main: React.FC = () => {
   //jQuery()
@@ -18,19 +24,37 @@ export const Main: React.FC = () => {
   // if( document.getElementById('drop').style.display= "block")
   //document.getElementById('drop') = this.state.isClicked?'none' : ''
   // else
-  const [display, setDisplay] = useState("block");
+  const [display, setDisplay] = useState('block');
+
+  const [priciestProductsStatus, setPriciestProductsStatus] =
+    useState<TStatus>('idle');
+  const [topAuctionLogProductsStatus, setTopAuctionLogProductsStatus] =
+    useState<TStatus>('idle');
+  const [nearClosingProductsStatus, setnearClosingProductsStatus] =
+    useState<TStatus>('idle');
+
+  const [priciestProducts, setPriciestProducts] =
+    useState<TProduct[]>(undefined);
+  const [topAutionLogProducts, setTopAutionLogProducts] =
+    useState<TProduct[]>(undefined);
+  const [topClosingProducts, setTopClosingProducts] =
+    useState<TProduct[]>(undefined);
 
   const dispatch = useAppDispatch();
   const categoryList = useAppSelector(selectCategoryList);
 
   useEffect(() => {
     dispatch(getCategoryListTC());
+
+    await getPriciestProducts();
+    await getTopClosingProducts();
+    await getTopAutionLogProducts();
   }, []);
 
   function handleChange() {
-    if (categoryList.status != "success") return;
+    if (categoryList.status != 'success') return;
 
-    setDisplay(display === "none" ? "block" : "none");
+    setDisplay(display === 'none' ? 'block' : 'none');
   }
 
   return (
@@ -47,7 +71,7 @@ export const Main: React.FC = () => {
                   <span>All Categories</span>
                 </div>
 
-                {categoryList.status == "success" && (
+                {categoryList.status == 'success' && (
                   <ul className="drop" style={{ display }}>
                     {categoryList.data?.map((category) => (
                       <li>
@@ -98,6 +122,8 @@ export const Main: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <section></section>
 
       {/* Carousel */}
       {/* <section className="categories">

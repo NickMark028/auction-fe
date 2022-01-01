@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Header, Login, Footer } from "components";
+import { Header, Login, Footer } from 'components';
 
 const loginItem = () => {
   return (

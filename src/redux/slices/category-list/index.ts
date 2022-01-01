@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { TCategoryList, TState } from "models";
-import { addThunkBuilderCases } from "redux/thunk";
-import { getCategoryListTC } from "./getCategoryList";
+import { createSlice } from '@reduxjs/toolkit';
+import { TCategoryList, TState } from 'models';
+import { addThunkBuilderCases } from 'redux/thunk';
+import { getCategoryListTC } from './getCategoryList';
 
 const initialState: TState<TCategoryList> = {
-  status: "success",
+  status: 'success',
 };
 
 const categoryListSlice = createSlice({
-  name: "categoryList",
+  name: 'categoryList',
   initialState,
   reducers: {},
   extraReducers(builder) {

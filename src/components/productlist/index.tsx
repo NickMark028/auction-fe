@@ -1,13 +1,13 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { setConstantValue } from "typescript";
-import { Link } from "react-router-dom";
-import { instance } from "utils/utils";
-import "../../styles/global.scss";
+import React, { useEffect, useState, Fragment } from 'react';
+import { setConstantValue } from 'typescript';
+import { Link } from 'react-router-dom';
+import { instance } from 'utils/utils';
+import '../../styles/global.scss';
 
 export const Productlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {
-    instance.get("/product").then((res) => set(res.data));
+    instance.get('/product').then((res) => set(res.data));
 
     console.log(customers);
   }, []);
@@ -15,7 +15,7 @@ export const Productlist: React.FC = () => {
   async function submitForm(id: any) {
     console.log(id);
     instance
-      .delete("/product", {
+      .delete('/product', {
         data: {
           id: id,
         },
@@ -58,7 +58,7 @@ export const Productlist: React.FC = () => {
                     <div className="d-flex justify-content-between align-items-center">
                       <div
                         className="btn-group"
-                        style={{ marginBottom: "20px" }}
+                        style={{ marginBottom: '20px' }}
                       >
                         <button
                           type="button"
@@ -67,7 +67,7 @@ export const Productlist: React.FC = () => {
                             window.location.href = `edit/${customer.id}`;
                           }}
                         >
-                          {" "}
+                          {' '}
                           Edit customer
                         </button>
                         <button

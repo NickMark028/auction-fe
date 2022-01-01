@@ -1,12 +1,12 @@
-import { Footer, Header, Logo } from "components";
-import ProductPreview from "components/product-preview";
-import SearchBar from "components/search-box";
-import { FC, useEffect } from "react";
-import { RouteProps } from "react-router-dom";
-import { selectProductSearchList } from "redux/selectors";
-import { searchProductTC } from "redux/slices/product-search-list/searchProduct";
-import { useAppDispatch, useAppSelector } from "redux/store";
-import { parseQuery } from "utils/parser";
+import { Footer, Header, Logo } from 'components';
+import ProductPreview from 'components/product-preview';
+import SearchBar from 'components/search-box';
+import { FC, useEffect } from 'react';
+import { RouteProps } from 'react-router-dom';
+import { selectProductSearchList } from 'redux/selectors';
+import { searchProductTC } from 'redux/slices/product-search-list/searchProduct';
+import { useAppDispatch, useAppSelector } from 'redux/store';
+import { parseQuery } from 'utils/parser';
 
 interface Props extends RouteProps {}
 
@@ -21,11 +21,11 @@ const SearchPage: FC<Props> = (props: Props) => {
 
     dispatch(
       searchProductTC({
-        keyword: query.get("keyword"),
-        category: query.get("category"),
-        page: query.get("page"),
-        pricing: query.get("pricing") as any,
-        time: query.get("time") as any,
+        keyword: query.get('keyword'),
+        category: query.get('category'),
+        page: query.get('page'),
+        pricing: query.get('pricing') as any,
+        time: query.get('time') as any,
       })
     );
   }, [dispatch, location.search]);

@@ -1,31 +1,31 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { instance } from "utils/utils";
-import "../../styles/global.scss";
-import "react-notifications/lib/notifications.css";
+import React, { useEffect, useState, Fragment } from 'react';
+import { instance } from 'utils/utils';
+import '../../styles/global.scss';
+import 'react-notifications/lib/notifications.css';
 import {
   NotificationContainer,
   NotificationManager,
-} from "react-notifications";
+} from 'react-notifications';
 
 function createNotification() {
   return () => {
-    NotificationManager.warning("Warning message", "Close after 3000ms", 3000);
+    NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
   };
 }
 
 export const Register: React.FC = () => {
   const [account, setaccount] = useState({
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    dateOfBirth: "",
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    dateOfBirth: '',
   });
 
   async function submitForm() {
     console.log(account);
-    instance.post("/user", account).then((res) => console.log(res));
+    instance.post('/user', account).then((res) => console.log(res));
   }
   function handleChange(evt) {
     const value = evt.target.value;

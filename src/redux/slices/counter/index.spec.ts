@@ -1,14 +1,14 @@
-import Counter, { decrease, increase } from "./index";
+import Counter, { decrease, increase } from './index';
 
-describe("Redux Counter Reducer", () => {
-  it("should create reducer with initial props", () => {
+describe('Redux Counter Reducer', () => {
+  it('should create reducer with initial props', () => {
     const initial = {
       count: 0,
     };
     const reducer = Counter(initial, {});
     expect(reducer).toEqual(initial);
   });
-  it("increase action should increase counter by 1", () => {
+  it('increase action should increase counter by 1', () => {
     const initial = {
       count: 0,
     };
@@ -18,7 +18,7 @@ describe("Redux Counter Reducer", () => {
     const reducer = Counter(initial, increase());
     expect(reducer).toEqual(expected);
   });
-  it("decrease action should decrease counter by 1", () => {
+  it('decrease action should decrease counter by 1', () => {
     const initial = {
       count: 0,
     };

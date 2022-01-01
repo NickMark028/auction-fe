@@ -1,6 +1,6 @@
-import { type } from "os";
+import { type } from 'os';
 
-export type TStatus = "idle" | "pending" | "reject" | "success";
+export type TStatus = 'idle' | 'pending' | 'reject' | 'success';
 
 export type TState<T> = {
   status: TStatus;
@@ -32,8 +32,8 @@ export type TProductQuery = {
   category?: string;
 
   // Sorting
-  time?: "asc" | "desc";
-  pricing?: "asc" | "desc";
+  time?: 'asc' | 'desc';
+  pricing?: 'asc' | 'desc';
 };
 
 export type TProduct = {

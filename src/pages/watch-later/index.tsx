@@ -1,6 +1,6 @@
-import { Footer, Header } from "components";
-import WatchLaterBody from "components/watch-later-body";
-import { FC } from "react";
+import { Footer, Header } from 'components';
+import WatchLaterBody from 'components/watch-later-body';
+import { FC } from 'react';
 
 interface Props {}
 

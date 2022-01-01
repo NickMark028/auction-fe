@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Header, Register, Footer } from "components";
+import { Header, Register, Footer } from 'components';
 
 const regItem = () => {
   return (

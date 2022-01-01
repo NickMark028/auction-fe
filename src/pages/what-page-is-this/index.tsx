@@ -1,6 +1,6 @@
-import { Header, Logo } from "components";
-import { Begin } from "components/begin/begin";
-import React from "react";
+import { Header, Logo } from 'components';
+import { Begin } from 'components/begin/begin';
+import React from 'react';
 
 interface Props {}
 

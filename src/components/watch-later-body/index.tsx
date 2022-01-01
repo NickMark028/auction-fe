@@ -1,25 +1,25 @@
-import ProductRow from "components/product/ProductRow";
-import SearchBar from "components/search-box";
-import { TProduct, TStatus } from "models";
-import React, { FC, useEffect, useState } from "react";
-import { getWatchLater } from "./api";
+import ProductRow from 'components/product/ProductRow';
+import SearchBar from 'components/search-box';
+import { TProduct, TStatus } from 'models';
+import React, { FC, useEffect, useState } from 'react';
+import { getWatchLater } from './api';
 
 interface Props {}
 
 const WatchLaterBody: FC<Props> = (props: Props) => {
-  const [status, setStatus] = useState<TStatus>("idle");
+  const [status, setStatus] = useState<TStatus>('idle');
   const [watchList, setWatchList] = useState<TProduct[] | undefined>(undefined);
 
   useEffect(() => {
-    if (status !== "idle") return;
+    if (status !== 'idle') return;
 
     setTimeout(async () => {
       try {
         const data = await getWatchLater();
         setWatchList(data);
-        setStatus("success");
+        setStatus('success');
       } catch (error) {
-        setStatus("reject");
+        setStatus('reject');
       }
     });
   }, [status]);
@@ -31,7 +31,7 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
       </section>
 
       <section className="">
-        {status == "success" &&
+        {status == 'success' &&
           watchList?.map((product) => (
             <ProductRow
               productId={product.id}

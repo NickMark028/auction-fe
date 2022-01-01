@@ -1,6 +1,6 @@
-import { PageURL } from "enum/PageURL";
-import React, { FormEvent, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { PageURL } from 'enum/PageURL';
+import React, { FormEvent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   // initialText?: string;
@@ -8,7 +8,7 @@ interface Props {
 
 const SearchBar = (props: Props) => {
   // const { initialText = '' } = props;
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const history = useHistory();
 
   function onSearchTextChange(e: FormEvent<HTMLInputElement>) {

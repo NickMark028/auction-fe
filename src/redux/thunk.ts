@@ -1,5 +1,5 @@
-import { ActionReducerMapBuilder, AsyncThunk } from "@reduxjs/toolkit";
-import { TState } from "models";
+import { ActionReducerMapBuilder, AsyncThunk } from '@reduxjs/toolkit';
+import { TState } from 'models';
 
 export interface ThunkOption {
   state?: unknown;
@@ -20,14 +20,14 @@ export function addThunkBuilderCases<
   builder
     .addCase(thunk.pending, (state, action) => {
       state.errorMsg = undefined;
-      state.status = "pending";
+      state.status = 'pending';
     })
     .addCase(thunk.fulfilled, (state, action) => {
       state.data = action.payload;
-      state.status = "success";
+      state.status = 'success';
     })
     .addCase(thunk.rejected, (state, action) => {
       state.errorMsg = action.payload;
-      state.status = "reject";
+      state.status = 'reject';
     });
 }

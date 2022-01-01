@@ -1,24 +1,24 @@
-import React, { useEffect, useState, Fragment, ComponentState } from "react";
-import { instance } from "utils/utils";
-import "../../styles/addproduct.scss";
+import React, { useEffect, useState, Fragment, ComponentState } from 'react';
+import { instance } from 'utils/utils';
+import '../../styles/addproduct.scss';
 
 export const AddProduct: React.FC = () => {
   const [product, setProduct] = useState({
-    sellerId: "1000053",
-    name: "",
-    description: "",
-    reservedPrice: "",
-    priceStep: "",
-    instantPrice: "",
-    isRenewal: "1",
-    coverImageURL: "",
+    sellerId: '1000053',
+    name: '',
+    description: '',
+    reservedPrice: '',
+    priceStep: '',
+    instantPrice: '',
+    isRenewal: '1',
+    coverImageURL: '',
   });
 
   async function submitForm() {
     // console.log({ email, password });
     instance
       .post(
-        "/product",
+        '/product',
 
         product
       )
@@ -39,12 +39,12 @@ export const AddProduct: React.FC = () => {
     if (value == true)
       setProduct({
         ...product,
-        [evt.target.name]: "1",
+        [evt.target.name]: '1',
       });
     else {
       setProduct({
         ...product,
-        [evt.target.name]: "0",
+        [evt.target.name]: '0',
       });
     }
   }

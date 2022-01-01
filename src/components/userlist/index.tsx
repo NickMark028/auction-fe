@@ -1,14 +1,14 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { setConstantValue } from "typescript";
-import { Link } from "react-router-dom";
-import { instance } from "utils/utils";
-import "../../styles/global.scss";
-import "../../styles/List.scss";
+import React, { useEffect, useState, Fragment } from 'react';
+import { setConstantValue } from 'typescript';
+import { Link } from 'react-router-dom';
+import { instance } from 'utils/utils';
+import '../../styles/global.scss';
+import '../../styles/List.scss';
 
 export const Userlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {
-    instance.get("/user").then((res) => set(res.data));
+    instance.get('/user').then((res) => set(res.data));
 
     console.log(customers);
   }, []);
@@ -16,7 +16,7 @@ export const Userlist: React.FC = () => {
   async function submitForm(id: any) {
     console.log(id);
     instance
-      .delete("/user", {
+      .delete('/user', {
         data: {
           id: id,
         },
@@ -57,7 +57,7 @@ export const Userlist: React.FC = () => {
                     <div className="d-flex justify-content-between align-items-center">
                       <div
                         className="btn-group"
-                        style={{ marginBottom: "20px" }}
+                        style={{ marginBottom: '20px' }}
                       >
                         <button
                           type="button"
@@ -66,7 +66,7 @@ export const Userlist: React.FC = () => {
                             window.location.href = `edit/${customer.id}`;
                           }}
                         >
-                          {" "}
+                          {' '}
                           Edit customer
                         </button>
                         <button
