@@ -1,16 +1,20 @@
 import React, {useEffect, useState, Fragment } from "react";
-import { instance } from 'Utils';
+import  instance  from '../../utils/axiosClient';
 import "../../styles/global.scss"
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-
-
+import { useCookies } from 'react-cookie';
+import Cookies from 'universal-cookie';
 
 export const Login: React.FC = () => {
 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+ // const [cookies, setCookie] = useCookies(['name']);
+  const cookies = new Cookies();
+  localStorage.setItem ('name', 'Bepatient');
+  
   async function submitForm() {
     console.log(process.env.REACT_APP_BE_HOST);
     console.log({ email, password });
@@ -19,12 +23,16 @@ export const Login: React.FC = () => {
       password:password
 
     }).then((res)=>{
-
-      NotificationManager.success(res.status, 'fuck you', 3000);
+    
+   
+      localStorage.setItem ("user-token", res.data.accessToken);
+      console.log(res.data.userInfo)
+      localStorage.setItem ("user-data", JSON.stringify(res.data.userInfo));
+      NotificationManager.success(res.status, 'Login success', 3000);
     }
     )
     .catch((error) => {
-      NotificationManager.error(error.response.status, 'fuck you', 3000);
+      NotificationManager.error(error.response.status, 'Login Failed', 3000);
   })
 
   

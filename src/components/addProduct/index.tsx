@@ -16,12 +16,15 @@ export const AddProduct: React.FC = () => {
         priceStep: '',
         instantPrice: '',
         isRenewal: '1',
-        coverImageURL: ''
+        coverImageURL:""
 
     });
-  
+
   async function submitForm() {
-    
+    const photo = product.coverImageURL
+   let formdata = new FormData();
+   formdata.append("product[images_attributes[0][file]]",JSON.parse(JSON.stringify( {uri: photo, name: 'image.jpg', type: 'image/jpeg'})))
+  // product.coverImageURL=formdata
    // console.log({ email, password });
     instance.post('/product',
  
@@ -106,7 +109,7 @@ function handlecheck(evt){
 
     <div className="form-7">
         <label>Cover image</label>
-        <input type="text" className="form-control" placeholder="Enter cover image"  name="coverImageURL"  onChange={handleChange}
+        <input type="file" className="form-control" placeholder="Enter cover image"  name="coverImageURL"  onChange={handleChange}
           />
     </div>
 

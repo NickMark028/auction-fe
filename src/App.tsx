@@ -9,6 +9,7 @@ import loginItem from "pages/login";
 import userList from "pages/userlist";
 import regItem from "pages/register";
 import Admin from "pages/admin";
+import AddProduct from "pages/addProduct";
 import { HomePage, SearchPage } from "pages";
 import store from "redux/store";
 
@@ -24,6 +25,7 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.List} component={userList} />
           <PublicRoute path={PageURL.Register} component={regItem} />
           <PublicRoute path={PageURL.Admin} component={Admin} />
+          <PublicRoute path={PageURL.Addproduct} component={AddProduct} />
           {/* id */}
         </Switch>
       </Router>

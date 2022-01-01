@@ -6,6 +6,6 @@ export enum PageURL {
   Category = "/category",
   List = "/list",
   Register="/register",
-  Admin="/admin"
-
+  Admin="/admin",
+  Addproduct="/add"
 }

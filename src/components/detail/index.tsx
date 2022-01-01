@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { instance } from "Utils";
 import OwlCarousel from "react-owl-carousel";
 import Countdown from "react-countdown";
-
+import Cookies from 'universal-cookie';
 export const Detail: React.FC = () => {
   const [product, setProduct] = useState({
     name: "",
@@ -25,6 +25,10 @@ export const Detail: React.FC = () => {
     bidderCount: "",
   });
 
+  const cookies = new Cookies();
+
+  console.log(localStorage.getItem("user-token"))
+  console.log(JSON.parse(localStorage.getItem("user-data")))
   //   instance.get(`/product/${id}`)
   useEffect(() => {
     const id = 1000001;

@@ -9,3 +9,4 @@ export { Register } from "./register";
 export { Userlist } from "./userlist";
 export { Productlist } from "./productlist";
 export {Admin} from "./admin"
+export{ Navbar } from "./navbar/index"
