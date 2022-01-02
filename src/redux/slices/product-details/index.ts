@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {   TProductDetailsList, TState } from "models";
-import { getProductDetailsTC } from "./getProductDetails";
+import { createSlice } from '@reduxjs/toolkit';
+import { TProductDetailsList, TState } from 'models';
+import { getProductDetailsTC } from './getProductDetails';
 
 const initialState: TState<TProductDetailsList> = {
   status: 'idle',
 };
 
 const productDetailsListSlice = createSlice({
-  name: "productDetailsList",
+  name: 'productDetailsList',
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -23,9 +23,8 @@ const productDetailsListSlice = createSlice({
       .addCase(getProductDetailsTC.rejected, (state, action) => {
         state.errorMsg = action.error.message;
         state.status = 'reject';
-      })
-
-  }
+      });
+  },
 });
 
 const productDetailsReducer = productDetailsListSlice.reducer;

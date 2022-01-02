@@ -1,6 +1,6 @@
-import { PageURL } from "enum/PageURL";
-import React from "react";
-import { Link } from "react-router-dom";
+import { PageURL } from 'enum/PageURL';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Logo: React.FC = () => {
   return (

@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { TProductSearchList, TState } from "models";
-import { addThunkBuilderCases } from "redux/thunk";
-import { searchProductTC } from "./searchProduct";
+import { createSlice } from '@reduxjs/toolkit';
+import { TProductSearchList, TState } from 'models';
+import { addThunkBuilderCases } from 'redux/thunk';
+import { searchProductTC } from './searchProduct';
 
 const initialState: TState<TProductSearchList> = {
-  status: "success",
+  status: 'success',
 };
 
 const productSearchList = createSlice({
-  name: "productSearchList",
+  name: 'productSearchList',
   initialState,
   reducers: {},
   extraReducers(builder) {

@@ -5,6 +5,8 @@ import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
+import { useHistory } from 'react-router-dom';
+import { PageURL } from 'enum/PageURL';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -12,17 +14,17 @@ export const Login: React.FC = () => {
  // const [cookies, setCookie] = useCookies(['name']);
   const cookies = new Cookies();
   localStorage.setItem ('name', 'Bepatient');
+
+  const history = useHistory();
   
   async function submitForm() {
-    console.log(process.env.REACT_APP_BE_HOST);
+    // console.log(process.env.REACT_APP_BE_HOST);
     console.log({ email, password });
     instance
-      .post("/auth", {
+      .post('/api/auth', {
         username: email,
         password: password,
     }).then((res)=>{
-    
-   
       localStorage.setItem ("user-token", res.data.accessToken);
       console.log(res.data.userInfo)
       localStorage.setItem ("user-data", JSON.stringify(res.data.userInfo));
@@ -34,8 +36,8 @@ export const Login: React.FC = () => {
   })
   }
   async function createNotification() {
-    console.log("not ok");
-    return NotificationManager.error("Warning message", "fuck you", 3000);
+    console.log('not ok');
+    return NotificationManager.error('Warning message', 'zzzzz', 3000);
   }
 
   return (

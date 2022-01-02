@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Header, Detail, Footer } from "components";
+import { Header, Detail, Footer } from 'components';
 
 const DetailItem: React.FC = () => {
   return (

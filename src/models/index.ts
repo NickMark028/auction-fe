@@ -1,7 +1,7 @@
-import { type } from "os";
+export type TStatus = 'idle' | 'pending' | 'reject' | 'success';
 
 export type TState<T> = {
-  status: "idle" | "pending" | "reject" | "success";
+  status: TStatus;
   data?: T;
   errorMsg?: string;
 };
@@ -30,8 +30,8 @@ export type TProductQuery = {
   category?: string;
 
   // Sorting
-  time?: "asc" | "desc";
-  pricing?: "asc" | "desc";
+  time?: 'asc' | 'desc';
+  pricing?: 'asc' | 'desc';
 };
 
 export type TProduct = {
@@ -43,7 +43,7 @@ export type TProduct = {
   priceStep: number;
   instantPrice: number;
   isRenewal: boolean;
-  coverimageURL: string;
+  coverImageUrl: string;
   timeExpired: string;
   createdAt: string;
   topBidderId?: number;
@@ -64,7 +64,9 @@ export type TProduct = {
 };
 
 export type TProductSearchList = TProduct[];
-// *****************************************
+
+/**********************************************************************************/
+
 export type TProductDetailsList = {
   id: number;
   sellerId: number;
@@ -92,10 +94,9 @@ export type TProductDetailsList = {
     lastName: string;
     firstName: string;
   };
-  urls:{
+  urls: {
     
-  },
+  }
   positiveCount:Number,
   negativeCount:Number
-    
 }

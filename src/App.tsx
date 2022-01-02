@@ -1,5 +1,5 @@
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { PublicRoute } from "routers";
 import { PageURL } from "enum/PageURL";

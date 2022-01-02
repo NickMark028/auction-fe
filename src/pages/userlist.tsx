@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Header, Userlist, Footer } from "components";
+import { Header, Userlist, Footer } from 'components';
 
 const list = () => {
   return (

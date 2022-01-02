@@ -1,6 +1,6 @@
-import { PageURL } from "enum/PageURL";
-import React, { FC } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { PageURL } from 'enum/PageURL';
+import React, { FC } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 interface Props {
   productId: number;

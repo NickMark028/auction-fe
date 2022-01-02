@@ -1,16 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import SearchBar from "components/search-box";
-import { PageURL } from "enum/PageURL";
-import React, { FormEvent, SyntheticEvent, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import SearchBar from 'components/search-box';
+import { PageURL } from 'enum/PageURL';
+import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import "react-toggle/style.css";
-import { selectCategoryList } from "redux/selectors";
-import { getCategoryListTC } from "redux/slices/category-list/getCategoryList";
-import { searchProductTC } from "redux/slices/product-search-list/searchProduct";
-import { useAppDispatch, useAppSelector } from "redux/store";
-import OwlCarousel from "react-owl-carousel";
-import { Carousel } from "react-bootstrap";
+import 'react-toggle/style.css';
+import { selectCategoryList } from 'redux/selectors';
+import { getCategoryListTC } from 'redux/slices/category-list/getCategoryList';
+import { searchProductTC } from 'redux/slices/product-search-list/searchProduct';
+import { useAppDispatch, useAppSelector } from 'redux/store';
+import OwlCarousel from 'react-owl-carousel';
+import { Carousel, Container } from 'react-bootstrap';
+import { TProduct, TStatus } from 'models';
+import {
+  PriciestProductsShowcase,
+  TopAutionLogProductsShowcase,
+  TopClosingProductsShowcase,
+} from 'components/top-product-showcase';
 
 export const Main: React.FC = () => {
   //jQuery()
@@ -18,8 +24,7 @@ export const Main: React.FC = () => {
   // if( document.getElementById('drop').style.display= "block")
   //document.getElementById('drop') = this.state.isClicked?'none' : ''
   // else
-  const [display, setDisplay] = useState("block");
-
+  const [display, setDisplay] = useState('block');
   const dispatch = useAppDispatch();
   const categoryList = useAppSelector(selectCategoryList);
 
@@ -28,9 +33,9 @@ export const Main: React.FC = () => {
   }, []);
 
   function handleChange() {
-    if (categoryList.status != "success") return;
+    if (categoryList.status != 'success') return;
 
-    setDisplay(display === "none" ? "block" : "none");
+    setDisplay(display === 'none' ? 'block' : 'none');
   }
 
   return (
@@ -47,7 +52,7 @@ export const Main: React.FC = () => {
                   <span>All Categories</span>
                 </div>
 
-                {categoryList.status == "success" && (
+                {categoryList.status == 'success' && (
                   <ul className="drop" style={{ display }}>
                     {categoryList.data?.map((category) => (
                       <li>
@@ -99,8 +104,14 @@ export const Main: React.FC = () => {
         </div>
       </section>
 
-      {/* ??? */}
-      <section className="categories">
+      <TopClosingProductsShowcase />
+
+      <TopAutionLogProductsShowcase />
+
+      <PriciestProductsShowcase />
+
+      {/* Carousel */}
+      {/* <section className="categories">
         <div className="container">
           <div className="row">
             <OwlCarousel
@@ -173,10 +184,10 @@ export const Main: React.FC = () => {
             </OwlCarousel>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Featured product */}
-      <section className="featured spad">
+      {/* <section className="featured spad">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -471,10 +482,10 @@ export const Main: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Additional product */}
-      <div className="banner">
+      {/* <div className="banner">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 col-md-6 col-sm-6">
@@ -489,10 +500,10 @@ export const Main: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Latest products, top tated products, review products */}
-      <section className="latest-product spad">
+      {/* <section className="latest-product spad">
         <div className="container">
           <div className="row">
             <div className="col-lg-4 col-md-6">
@@ -710,7 +721,7 @@ export const Main: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* From the blog */}
       {/* <section className="from-blog spad">

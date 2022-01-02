@@ -1,4 +1,4 @@
-import { RootState } from "./reducers";
+import { RootState } from './reducers';
 
 export function selectCategoryList(state: RootState) {
   return state.categoryList;
@@ -9,5 +9,5 @@ export function selectProductSearchList(state: RootState) {
 }
 
 export function selectProductDetails(state: RootState) {
-    return state.productDetailsList;
+  return state.productDetailsList;
 }
