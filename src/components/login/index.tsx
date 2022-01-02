@@ -3,6 +3,7 @@ import  instance  from '../../utils/axiosClient';
 import "../../styles/global.scss"
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import jwt_decode from "jwt-decode";
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 
@@ -17,14 +18,16 @@ export const Login: React.FC = () => {
     console.log(process.env.REACT_APP_BE_HOST);
     console.log({ email, password });
     instance
-      .post("/auth", {
+      .post("/api/auth", {
         username: email,
         password: password,
     }).then((res)=>{
     
    
       localStorage.setItem ("user-token", res.data.accessToken);
-      console.log(res.data.userInfo)
+      
+      var decoded = jwt_decode(res.data.accessToken);
+      console.log(decoded)
       localStorage.setItem ("user-data", JSON.stringify(res.data.userInfo));
       NotificationManager.success(res.status, 'Login success', 3000);
     }
