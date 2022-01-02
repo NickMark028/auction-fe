@@ -6,7 +6,6 @@ import {
   NotificationContainer,
   NotificationManager,
 } from 'react-notifications';
-import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
 import { PageURL } from 'enum/PageURL';
@@ -14,7 +13,6 @@ import { PageURL } from 'enum/PageURL';
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [cookies, setCookie] = useCookies(['name']);
   const cookies = new Cookies();
   localStorage.setItem('name', 'Bepatient');
 
@@ -37,10 +35,6 @@ export const Login: React.FC = () => {
       .catch((error) => {
         NotificationManager.error(error.response.status, 'Login Failed', 3000);
       });
-  }
-  async function createNotification() {
-    console.log('not ok');
-    return NotificationManager.error('Warning message', 'zzzzz', 3000);
   }
 
   return (
