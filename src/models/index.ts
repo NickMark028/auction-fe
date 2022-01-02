@@ -94,9 +94,7 @@ export type TProductDetailsList = {
     lastName: string;
     firstName: string;
   };
-  urls: {
-    
-  }
-  positiveCount:Number,
-  negativeCount:Number
-}
+  urls: {};
+  positiveCount: Number;
+  negativeCount: Number;
+};

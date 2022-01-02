@@ -1,22 +1,25 @@
-import React, {useEffect, useState, Fragment } from "react";
-import  instance  from '../../utils/axiosClient';
-import "../../styles/global.scss"
+import React, { useEffect, useState, Fragment } from 'react';
+import instance from '../../utils/axiosClient';
+import '../../styles/global.scss';
 import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
 import { PageURL } from 'enum/PageURL';
 
 export const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
- // const [cookies, setCookie] = useCookies(['name']);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const [cookies, setCookie] = useCookies(['name']);
   const cookies = new Cookies();
-  localStorage.setItem ('name', 'Bepatient');
+  localStorage.setItem('name', 'Bepatient');
 
   const history = useHistory();
-  
+
   async function submitForm() {
     // console.log(process.env.REACT_APP_BE_HOST);
     console.log({ email, password });
@@ -24,16 +27,16 @@ export const Login: React.FC = () => {
       .post('/api/auth', {
         username: email,
         password: password,
-    }).then((res)=>{
-      localStorage.setItem ("user-token", res.data.accessToken);
-      console.log(res.data.userInfo)
-      localStorage.setItem ("user-data", JSON.stringify(res.data.userInfo));
-      NotificationManager.success(res.status, 'Login success', 3000);
-    }
-    )
-    .catch((error) => {
-      NotificationManager.error(error.response.status, 'Login Failed', 3000);
-  })
+      })
+      .then((res) => {
+        localStorage.setItem('user-token', res.data.accessToken);
+        console.log(res.data.userInfo);
+        localStorage.setItem('user-data', JSON.stringify(res.data.userInfo));
+        NotificationManager.success(res.status, 'Login success', 3000);
+      })
+      .catch((error) => {
+        NotificationManager.error(error.response.status, 'Login Failed', 3000);
+      });
   }
   async function createNotification() {
     console.log('not ok');

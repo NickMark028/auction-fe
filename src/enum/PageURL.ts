@@ -1,12 +1,12 @@
 export enum PageURL {
-  Home = "/",
-  Search = "/search",
-  Login = "/login",
-  Detail = "/details/:id",
-  Category = "/category",
-  List = "/list",
-  Register = "/register",
-  WatchLater = "/watch-later",
-  Admin="/admin",
-  Addproduct="/add"
+  Home = '/',
+  Search = '/search',
+  Login = '/login',
+  Detail = '/details/:id',
+  Category = '/category',
+  List = '/list',
+  Register = '/register',
+  WatchLater = '/watch-later',
+  Admin = '/admin',
+  Addproduct = '/add',
 }

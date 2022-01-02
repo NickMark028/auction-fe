@@ -4,20 +4,20 @@ import React, { useEffect, useState } from 'react';
 import { instance } from 'utils/utils';
 import OwlCarousel from 'react-owl-carousel';
 import Countdown from 'react-countdown';
-import socket from "utils/socket";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { getProductDetailsTC } from "redux/slices/product-details/getProductDetails";
-import { selectProductDetails } from "redux/selectors";
-import { useAppDispatch, useAppSelector } from "redux/store";
-import axiosClient from "utils/axiosClient";
+import socket from 'utils/socket';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { getProductDetailsTC } from 'redux/slices/product-details/getProductDetails';
+import { selectProductDetails } from 'redux/selectors';
+import { useAppDispatch, useAppSelector } from 'redux/store';
+import axiosClient from 'utils/axiosClient';
 import { Container } from 'react-bootstrap';
 
 export const Detail: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const history = useHistory();
-  const productDetails = useAppSelector(selectProductDetails)
+  const productDetails = useAppSelector(selectProductDetails);
   const [relatedProduct, SetrelatedProduct] = useState([]);
   const [bid, setBid] = useState([]);
   const [price, setPrice] = useState<Number>();
@@ -26,18 +26,21 @@ export const Detail: React.FC = () => {
     setTimeout(async () => {
       console.log(history.location.pathname);
       const pathname = history.location.pathname;
-      const id = (pathname.slice(9));
+      const id = pathname.slice(9);
 
       const data = await dispatch(getProductDetailsTC(id)).unwrap();
 
-      axiosClient.get(`/api/product/related/${data.section}`).then(res => SetrelatedProduct(res.data));
-      axiosClient.get(`/api/auction/${data.id}`).then(res => setBid(res.data));
+      axiosClient
+        .get(`/api/product/related/${data.section}`)
+        .then((res) => SetrelatedProduct(res.data));
+      axiosClient
+        .get(`/api/auction/${data.id}`)
+        .then((res) => setBid(res.data));
     });
-  }, [])
+  }, []);
 
   useEffect(() => {
     socket.on('updatebid', async (c) => {
-
       // setUpdate(data);
       console.log(c);
       const tr = `<tr> 
@@ -57,14 +60,19 @@ export const Detail: React.FC = () => {
   //gửi một bid mới
 
   function send() {
-    socket.emit("bid", {
-
-      bidderName: localStorage.getItem('firstName') + localStorage.getItem('lastName'),
+    socket.emit('bid', {
+      bidderName:
+        localStorage.getItem('firstName') + localStorage.getItem('lastName'),
       price: price,
-      bidAt: (new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(Date.now())),
-
-
-    })
+      bidAt: new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(Date.now()),
+    });
     //call api luu auctionLog
   }
   //lắng nghe và in ra
@@ -78,9 +86,12 @@ export const Detail: React.FC = () => {
             <div className="col-lg-6 col-md-6">
               <div className="product__details__pic">
                 <div className="product__details__pic__item">
-                  {productDetails.status === 'success' &&
-                    <img className="product__details__pic__item--large" src={productDetails.data?.coverImageURL} />
-                  }
+                  {productDetails.status === 'success' && (
+                    <img
+                      className="product__details__pic__item--large"
+                      src={productDetails.data?.coverImageURL}
+                    />
+                  )}
                 </div>
 
                 <OwlCarousel
@@ -101,7 +112,7 @@ export const Detail: React.FC = () => {
             </div>
             <div className="col-lg-6 col-md-6">
               <div className="product__details__text">
-                <h3>{ }</h3>
+                <h3>{}</h3>
                 <div className="product__details__rating">
                   <i className="fa fa-star" />
                   <i className="fa fa-star" />
@@ -123,7 +134,7 @@ export const Detail: React.FC = () => {
                         date={
                           Date.now() +
                           Number(Date.parse(productDetails.data.timeExpired)) /
-                          1000
+                            1000
                         }
                       />
                     </div>
@@ -141,10 +152,17 @@ export const Detail: React.FC = () => {
                   </>
                 )}
                 <div className="product__details__quantity">
-                  <label >BID Price:</label>
-                  <div className="pro-qty"  >
-
-                    <input id="price" type="number" defaultValue={1000} step={Number(productDetails.data?.priceStep)} onChange={(e) => { setPrice(Number(e.target.value)) }} />
+                  <label>BID Price:</label>
+                  <div className="pro-qty">
+                    <input
+                      id="price"
+                      type="number"
+                      defaultValue={1000}
+                      step={Number(productDetails.data?.priceStep)}
+                      onChange={(e) => {
+                        setPrice(Number(e.target.value));
+                      }}
+                    />
                     {/* add price + step */}
                   </div>
                 </div>
@@ -155,10 +173,24 @@ export const Detail: React.FC = () => {
                   <span className="icon_heart_alt=" />
                 </a>
                 <ul>
-                  <li><b>Bidder Count</b> <span>{productDetails.data?.bidderCount}</span></li>
-                  <li><b>seller: </b> <span>{productDetails.data?.seller.firstName} {productDetails.data?.seller.lastName}</span></li>
-                  <li><b>Evaluate: </b> <span>{Number(productDetails.data?.negativeCount)} + {Number(productDetails.data?.positiveCount)} </span></li>
-
+                  <li>
+                    <b>Bidder Count</b>{' '}
+                    <span>{productDetails.data?.bidderCount}</span>
+                  </li>
+                  <li>
+                    <b>seller: </b>{' '}
+                    <span>
+                      {productDetails.data?.seller.firstName}{' '}
+                      {productDetails.data?.seller.lastName}
+                    </span>
+                  </li>
+                  <li>
+                    <b>Evaluate: </b>{' '}
+                    <span>
+                      {Number(productDetails.data?.negativeCount)} +{' '}
+                      {Number(productDetails.data?.positiveCount)}{' '}
+                    </span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -201,20 +233,19 @@ export const Detail: React.FC = () => {
                 </ul>
                 <div className="tab-content">
                   <div className="tab-pane active" id="tabs-1" role="tabpanel">
-                    <div id="bidinfo" className="product__details__tab__desc" style={{ 'overflow': 'auto' }}>
+                    <div
+                      id="bidinfo"
+                      className="product__details__tab__desc"
+                      style={{ overflow: 'auto' }}
+                    >
                       <h6>Bid History</h6>
-                      {bid.map((c) =>
+                      {bid.map((c) => (
                         <tr>
-
-                          <td>Bidder: {c.bidderId}     </td>
-                          <td>Price: {c.price}     </td>
+                          <td>Bidder: {c.bidderId} </td>
+                          <td>Price: {c.price} </td>
                           <td>Bid At: {c.createdAt}</td>
-
                         </tr>
-                      )
-
-                      }
-
+                      ))}
                     </div>
                   </div>
                   <div className="tab-pane" id="tabs-2" role="tabpanel">
@@ -264,18 +295,36 @@ export const Detail: React.FC = () => {
 
           <div className="row">
             {relatedProduct.map((item) => (
-              <div className="col-lg-2 col-md-4 col-sm-6" >
+              <div className="col-lg-2 col-md-4 col-sm-6">
                 <div className="product__item">
-                  <div className="product__item__pic set-bg" style={{ 'backgroundImage': `url(${item.coverImageURL})`, width: "100%", }}>
+                  <div
+                    className="product__item__pic set-bg"
+                    style={{
+                      backgroundImage: `url(${item.coverImageURL})`,
+                      width: '100%',
+                    }}
+                  >
                     <ul className="product__item__pic__hover">
-                      <li><a href="#"><i className="fa fa-heart" /></a></li>
-                      <li><a href="#"><i className="fa fa-gavel" /></a></li>
+                      <li>
+                        <a href="#">
+                          <i className="fa fa-heart" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i className="fa fa-gavel" />
+                        </a>
+                      </li>
                     </ul>
                   </div>
                   <div className="product__item__text">
-                    <h6><a href="#">{item.name}</a></h6>
+                    <h6>
+                      <a href="#">{item.name}</a>
+                    </h6>
                     <h6>Bid Price: {item.currentPrice}</h6>
-                    <h6>Top bidder: {item.bidderFirst} {item.bidderLast}</h6>
+                    <h6>
+                      Top bidder: {item.bidderFirst} {item.bidderLast}
+                    </h6>
                     <h6>Bid Count: {item.auctionLogCount}</h6>
                   </div>
                 </div>
@@ -290,9 +339,8 @@ export const Detail: React.FC = () => {
                   <h6>Count: {item.auctionLogCount}</h6>
                 </div>
               </div>
-            ))
-            }
-          </div >
+            ))}
+          </div>
         </div>
       </section>
     </div>

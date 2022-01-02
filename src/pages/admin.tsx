@@ -1,15 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import { Header, Admin, Footer } from "components";
+import { Header, Admin, Footer } from 'components';
 
 const adminItem = () => {
   return (
     <>
       <Header />
-  
 
-      <Admin/>
-      
+      <Admin />
 
       <Footer />
     </>
