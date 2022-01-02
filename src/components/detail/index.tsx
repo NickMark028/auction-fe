@@ -65,9 +65,9 @@ const [bid,setBid]=useState([]);
             console.log(c);
             const tr = `<tr> 
            
-            <td>Bidder: ${c.bidderName}     </td>            
-            <td>Price: ${c.price}     </td>
-            <td>Bid At: ${c.bidAt}</td>
+            <td>${c.bidderName}</td>            
+            <td>${c.price}</td>
+            <td>${c.bidAt}</td>
         
           </tr>
     `;
@@ -156,19 +156,31 @@ const [bid,setBid]=useState([]);
                 </ul>
                 <div className="tab-content">
                   <div className="tab-pane active" id="tabs-1" role="tabpanel">
-                    <div id="bidinfo" className="product__details__tab__desc" style={{'overflow': 'auto'}}>
+                    <div  className="product__details__tab__desc" style={{'overflow': 'auto'}}>
                       <h6>Bid History</h6>
-                      {bid.map((c)=>
-                      <tr> 
-           
-                      <td>Bidder: {c.bidderId}     </td>            
-                      <td>Price: {c.price}     </td>
-                      <td>Bid At: {c.createdAt}</td>
-                  
-                    </tr>
-                      )
+                      <table id="bidinfo" className="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Bidder Name</th>
+                            <th>Price</th>
+                            <th>Bid At</th>
+                          </tr>
+                        </thead>
+                              <tbody id="category-container">
+                                  {bid.map((c)=>
+                            <tr> 
+                
+                            <td>{c.bidderId}     </td>            
+                            <td> {c.price}     </td>
+                            <td>{c.createdAt}</td>
+                        
+                          </tr>
+                            )  }
+                        </tbody>
+                      </table>
+                    
 
-                      }
+                    
              
                     </div>
                   </div>
