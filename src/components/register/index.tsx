@@ -1,10 +1,9 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { instance } from "Utils";
+import  instance  from "../../utils/axiosClient";
 import "../../styles/global.scss";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer,NotificationManager,} from "react-notifications";
 import Validator from '../../utils/validator';
-import { error } from "console";
 
 
 const rules = [
