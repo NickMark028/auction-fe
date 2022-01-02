@@ -5,13 +5,14 @@ import { instance } from 'Utils';
 import OwlCarousel from 'react-owl-carousel';
 import Countdown from 'react-countdown';
 import socket from "utils/socket";
-import { useDispatch, useSelector } from "react-redux";
+
 import { useHistory } from "react-router-dom";
 import { getProductDetailsTC } from "redux/slices/product-details/getProductDetails";
 import { selectProductDetails } from "redux/selectors";
 import { useAppDispatch, useAppSelector } from "redux/store";
 import axiosClient from "utils/axiosClient";
 
+import moment from 'moment'
 export const Detail: React.FC = () => {
   
   
@@ -20,8 +21,10 @@ export const Detail: React.FC = () => {
 
   const history = useHistory();
   const productDetails = useAppSelector(selectProductDetails)
-const [relatedProduct,SetrelatedProduct]= useState([]); 
-const [bid,setBid]=useState([]);
+  const [relatedProduct,SetrelatedProduct]= useState([]); 
+  const [bid,setBid]=useState([]);
+  const [topBidder,setTopBidder]=useState({firstName:'', lastName:'',price:''});
+
  useEffect(() => {
    setTimeout(async () => {
     console.log(history.location.pathname);
@@ -31,30 +34,43 @@ const [bid,setBid]=useState([]);
     const data = await dispatch(getProductDetailsTC(id)).unwrap();
 
     axiosClient.get(`/api/product/related/${data.section}`).then(res => SetrelatedProduct(res.data));
-    axiosClient.get(`/api/auction/${data.id}`).then(res=>setBid(res.data));
+    axiosClient.get(`/api/auction/${data.id}`).then(res=>
+      {
+        setBid(res.data);
+     
+      });
+    axiosClient.get(`/api/product//topbidder/${data.id}`).then(res =>setTopBidder(res.data));
    });
   }, [])
   
+
+
  
    
 
 
 // ${productDetails.data?.section}
 
-
+// (new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format())
   //gửi một bid mới
   const [price,setPrice] = useState<Number>();
  
     function send() {
       socket.emit("bid",  {
         
-          bidderName : localStorage.getItem('firstName') + localStorage.getItem('lastName'),
+          firstName : localStorage.getItem('firstName') ,
+          lastName: localStorage.getItem('lastName'),
           price :price,
-          bidAt : (new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(Date.now())),
+          bidAt :  Date.now(),
           
         
       })
       //call api luu auctionLog
+    axiosClient.post('/api/auction',{
+      bidderId: localStorage.getItem('Id'), //localStorage.getItem('Id');
+      productId : productDetails.data?.id,//productDetails.data?.id;
+      price : price
+    }).then((res) => console.log(res))
     }
     //lắng nghe và in ra
     //const[update,setUpdate] = useState([]);
@@ -62,12 +78,13 @@ const [bid,setBid]=useState([]);
       socket.on('updatebid',async (c)=>{
           
             // setUpdate(data);
-            console.log(c);
+            // console.log(c);
+            setTopBidder(c);
             const tr = `<tr> 
            
-            <td>${c.bidderName}</td>            
+            <td>${c.firstName + c.lastName} </td>            
             <td>${c.price}</td>
-            <td>${c.bidAt}</td>
+            <td>${(new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(c.bidAt))}</td>
         
           </tr>
     `;
@@ -104,21 +121,15 @@ const [bid,setBid]=useState([]);
             </div>
             <div className="col-lg-6 col-md-6">
               <div className="product__details__text">
-                <h3>{ }</h3>
-                <div className="product__details__rating">
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star-half-o" />
-                  <span>(18 reviews)</span>
-                </div>
+             
                
                 {productDetails.status == 'success' &&
                   <>
-                    <div className="product__details__price">Curent Price: {productDetails.data.currentPrice}</div>
+                    <div className="product__details__price">{productDetails.data?.name}</div>
+                    <div className="product__details__price">Curent Price: {topBidder.price||(productDetails.data?.currentPrice)}</div>
                     <div className="product__details__price">Price Step: {productDetails.data.priceStep}</div>
-                    <div className="product__details__price"><Countdown date={Date.now() + (Number(Date.parse(productDetails.data.timeExpired)) / 1000)} /></div>
+                    <div className="product__details__price">Top bidder: {topBidder.firstName} {topBidder.lastName}</div>
+                    <div className="product__details__price">{moment(productDetails.data.timeExpired).fromNow()} ago</div>
                     <div className="product__details__price">Create: {(new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(Date.parse(productDetails.data.createdAt)))}
                     </div>
                   </>}
@@ -126,17 +137,17 @@ const [bid,setBid]=useState([]);
                   <label >BID Price:</label>
                   <div className="pro-qty"  >
 
-                    <input id="price" type="number" defaultValue={1000} step={Number(productDetails.data?.priceStep)} onChange={(e)=>{setPrice(Number(e.target.value))} } />
-                    {/* add price + step */}
+                    <input id="price" type="number" defaultValue={topBidder.price||(productDetails.data?.currentPrice)} step={Number(productDetails.data?.priceStep)} onChange={(e)=>{setPrice(Number(e.target.value))} } />
+          
                   </div>
 
                 </div>
                 <button type="button" className="primary-btn" onClick={send}>BID</button>
                 <a href="#" className="heart-icon"><span className="icon_heart_alt=" /></a>
                 <ul>
-                  <li><b>Bidder Count</b> <span>{productDetails.data?.bidderCount}</span></li>
+                  <li><b>Bidder Count</b> <span>{productDetails.data?.auctionLogCount}</span></li>
                   <li><b>seller: </b> <span>{productDetails.data?.seller.firstName} {productDetails.data?.seller.lastName}</span></li>
-                  <li><b>Evaluate: </b> <span>{Number(productDetails.data?.negativeCount)} + {Number(productDetails.data?.positiveCount)} </span></li>
+                  <li><b>Star: </b> <span>{Number(productDetails.data?.negativeCount) + Number(productDetails.data?.positiveCount)} </span></li>
 
                 </ul>
               </div>
@@ -157,7 +168,7 @@ const [bid,setBid]=useState([]);
                 <div className="tab-content">
                   <div className="tab-pane active" id="tabs-1" role="tabpanel">
                     <div  className="product__details__tab__desc" style={{'overflow': 'auto'}}>
-                      <h6>Bid History</h6>
+                     
                       <table id="bidinfo" className="table table-hover">
                         <thead>
                           <tr>
@@ -167,12 +178,12 @@ const [bid,setBid]=useState([]);
                           </tr>
                         </thead>
                               <tbody id="category-container">
-                                  {bid.map((c)=>
+                                  {bid.slice(0).reverse().map((c)=>
                             <tr> 
                 
-                            <td>{c.bidderId}     </td>            
+                            <td>{c.firstName} {c.lastName}     </td>            
                             <td> {c.price}     </td>
-                            <td>{c.createdAt}</td>
+                            <td>{(new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format((Number(Date.parse(c.createdAt)))))}</td>
                         
                           </tr>
                             )  }
@@ -193,7 +204,7 @@ const [bid,setBid]=useState([]);
                   </div>
                   <div className="tab-pane" id="tabs-3" role="tabpanel">
                     <div className="product__details__tab__desc">
-                      <h6>Review</h6>
+                     
                       <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
                         Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
                         Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
@@ -213,6 +224,7 @@ const [bid,setBid]=useState([]);
           </div>
         </div>
       </section>
+     
       <section className="related-product">
     <div className="container">
       <div className="row">
@@ -234,7 +246,7 @@ const [bid,setBid]=useState([]);
                       </ul>
                     </div>
                     <div className="product__item__text">
-                      <h6><a href="#">{item.name}</a></h6>
+                      <h4>{item.name}</h4>
                       <h6>Bid Price: {item.currentPrice}</h6>
                       <h6>Top bidder: {item.bidderFirst} {item.bidderLast}</h6>
                       <h6>Bid Count: {item.auctionLogCount}</h6>
@@ -250,7 +262,7 @@ const [bid,setBid]=useState([]);
         
 </div>
 </div>
-</section>
+      </section>
     </div>
 
 
