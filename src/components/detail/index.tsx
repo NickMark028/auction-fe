@@ -71,7 +71,7 @@ const [bid,setBid]=useState([]);
         
           </tr>
     `;
-            $('#bidinfo').append(tr)
+            $('#bidinfo').prepend(tr)
         })
     },[])
 
@@ -156,8 +156,9 @@ const [bid,setBid]=useState([]);
                 </ul>
                 <div className="tab-content">
                   <div className="tab-pane active" id="tabs-1" role="tabpanel">
+                  <h5 style={{fontWeight: 'bold' }} >Bid History</h5>
                     <div id="bidinfo" className="product__details__tab__desc" style={{'overflow': 'auto'}}>
-                      <h6>Bid History</h6>
+                   
                       {bid.map((c)=>
                       <tr> 
            
