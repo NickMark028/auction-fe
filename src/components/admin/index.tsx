@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { setConstantValue } from 'typescript';
 
-import { instance } from 'Utils';
 import '../../styles/global.scss';
 
 import { Userlist } from '../userlist';

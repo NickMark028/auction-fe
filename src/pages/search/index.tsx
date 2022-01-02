@@ -699,7 +699,7 @@ const SearchPage: FC<Props> = (props: Props) => {
                     id,
                     currentPrice,
                     name,
-                    coverImageUrl: coverImageUrl,
+                    coverImageUrl,
                   } = product;
 
                   return (

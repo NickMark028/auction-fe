@@ -24,7 +24,7 @@ export const Detail: React.FC = () => {
 
   useEffect(() => {
     setTimeout(async () => {
-      console.log(history.location.pathname);
+      // console.log(history.location.pathname);
       const pathname = history.location.pathname;
       const id = pathname.slice(9);
 
@@ -42,16 +42,7 @@ export const Detail: React.FC = () => {
   useEffect(() => {
     socket.on('updatebid', async (c) => {
       // setUpdate(data);
-      console.log(c);
-      const tr = `<tr> 
-           
-            <td>Bidder: ${c.bidderName}     </td>            
-            <td>Price: ${c.price}     </td>
-            <td>Bid At: ${c.bidAt}</td>
-        
-          </tr>
-    `;
-      $('#bidinfo').append(tr);
+      setBid([...bid, c]);
     });
   }, []);
 
@@ -112,7 +103,7 @@ export const Detail: React.FC = () => {
             </div>
             <div className="col-lg-6 col-md-6">
               <div className="product__details__text">
-                <h3>{}</h3>
+                <h3>{ }</h3>
                 <div className="product__details__rating">
                   <i className="fa fa-star" />
                   <i className="fa fa-star" />
@@ -134,7 +125,7 @@ export const Detail: React.FC = () => {
                         date={
                           Date.now() +
                           Number(Date.parse(productDetails.data.timeExpired)) /
-                            1000
+                          1000
                         }
                       />
                     </div>
