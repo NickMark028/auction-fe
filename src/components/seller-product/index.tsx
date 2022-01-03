@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosClient from 'utils/axiosClient';
-
+import moment from 'moment';
 export const SellerProduct: React.FC = () => {
   const [sellerProduct, setSellerProduct] = useState([]);
   useEffect(() => {
@@ -32,7 +32,7 @@ export const SellerProduct: React.FC = () => {
                 <td> {auctionLog.currentPrice} </td>
                 <td>{auctionLog.auctionLogCount}</td>
                 <td>{auctionLog.bidderCount}</td>
-                <td>{auctionLog.createdAt}</td>
+                <td> {moment(auctionLog.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</td>
               </tr>
             ))}
           </tbody>
