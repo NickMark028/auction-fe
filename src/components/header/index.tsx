@@ -14,7 +14,7 @@ export const Header: React.FC = () => {
             </div>
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-4">
             <nav className="header__menu">
               <ul>
                 <li className="active">
@@ -50,9 +50,19 @@ export const Header: React.FC = () => {
             </nav>
           </div>
 
-          <div className="col-lg-3">
+          <div className="col-lg-4">
             <div className="header__cart">
               <ul>
+              <li>
+                  <Link to={PageURL.Login}>Login
+                    {/* <span>1</span> */}
+                  </Link>
+                </li>
+                <li>
+                  <Link to={PageURL.Register}>SignUp
+                    {/* <span>1</span> */}
+                  </Link>
+                </li>
                 <li>
                   <Link to={PageURL.WatchLater}>
                     <i className="fa fa-heart" />
@@ -71,6 +81,8 @@ export const Header: React.FC = () => {
               </div>
             </div>
           </div>
+
+          
         </div>
 
         <div className="humberger__open">
