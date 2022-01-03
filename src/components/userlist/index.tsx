@@ -8,7 +8,7 @@ import '../../styles/List.scss';
 export const Userlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {
-    instance.get('/user').then((res) => set(res.data));
+    instance.get('/api/user').then((res) => set(res.data));
 
     console.log(customers);
   }, []);
@@ -16,12 +16,15 @@ export const Userlist: React.FC = () => {
   async function submitForm(id: any) {
     console.log(id);
     instance
-      .delete('/user', {
+      .delete('/api/user', {
         data: {
           id: id,
         },
       })
-      .then((res) => console.log(res));
+      .then((res) => console.log(res))
+      .catch((err)=>{
+        console.log(err.response)
+      })
   }
 
   function update(id: any) {
@@ -37,22 +40,18 @@ export const Userlist: React.FC = () => {
             <thead className="thead-light">
               <tr>
                 <th scope="col">username</th>
-                <th scope="col">password</th>
                 <th scope="col">Email</th>
                 <th scope="col">first name</th>
                 <th scope="col">last name </th>
-                <th scope="col">Birthday</th>
               </tr>
             </thead>
             <tbody>
               {customers.map((customer) => (
                 <tr key={customer.id}>
                   <td>{customer.username}</td>
-                  <td>{customer.password}</td>
                   <td>{customer.email}</td>
                   <td>{customer.firstName}</td>
                   <td>{customer.lastName}</td>
-                  <td>{customer.dateOfBirth}</td>
                   <td>
                     <div className="d-flex justify-content-between align-items-center">
                       <div

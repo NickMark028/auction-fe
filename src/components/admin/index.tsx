@@ -1,39 +1,38 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { setConstantValue } from 'typescript';
-
-import '../../styles/global.scss';
-
+import '../../styles/admin.scss';
 import { Userlist } from '../userlist';
 import { Productlist } from '../productlist';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import 'react-pro-sidebar/dist/css/styles.css';
+
 import { BrowserRouter as Router, Switch, Route,Link } from 'react-router-dom';
-import { Navbar } from 'components';
 
 export const Admin: React.FC = () => {
   
 
   return (
-    <div className='row'>
+    <div className='admin-app-container'>
+    <div className='admin-sidebar'>
     <ProSidebar className="pro">
-    <Menu iconShape="square">
+    <Menu iconShape="square" className="menu">
      
-      <MenuItem >Dashboard
+      <MenuItem >Userlist
       <Link to="/admin"/>
        </MenuItem>
-      <MenuItem >Component 1
+      <MenuItem >Product list
       <Link to="/admin/product"/>
       </MenuItem>
       <MenuItem>Component 2</MenuItem>
       
     </Menu>
     </ProSidebar>
- <main className='main'>
+    </div>
+ <div className='admin-content'>
   <Switch>
           <Route path="/admin"exact component={Userlist} />
           <Route path="/admin/product" exact component={Productlist} />
   </Switch>
-  </main>
+  </div>
+  
   </div>
   );
 };
