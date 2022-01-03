@@ -12,19 +12,29 @@ import { useAppDispatch, useAppSelector } from 'redux/store';
 import axiosClient from 'utils/axiosClient';
 
 import moment from 'moment';
+import { TStatus } from 'models';
+import RelatedProductsSection from 'components/top-product-showcase/RelatedProductsSection';
+
+interface AuctionLog {
+  firstName: string;
+  lastName: string;
+  price: number;
+  createdAt: string;
+}
 
 export const Detail: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const history = useHistory();
   const productDetails = useAppSelector(selectProductDetails);
-  const [relatedProduct, SetrelatedProduct] = useState([]);
-  const [bidders, setBidders] = useState<any[]>([]);
+  const [auctionLogs, setAuctionLogs] = useState<AuctionLog[]>([]);
   const [topBidder, setTopBidder] = useState({
     firstName: '',
     lastName: '',
     price: 0,
   });
+  const [price, setPrice] = useState<number>();
+  const [topBidderStatus, setTopBidderStatus] = useState<TStatus>('idle');
 
   useEffect(() => {
     setTimeout(async () => {
@@ -32,27 +42,52 @@ export const Detail: React.FC = () => {
       const pathname = history.location.pathname;
       const id = pathname.slice(9);
 
-      const data = await dispatch(getProductDetailsTC(id)).unwrap();
+      try {
+        const data = await dispatch(getProductDetailsTC(id)).unwrap();
 
-      axiosClient
-        .get(`/api/product/related/${data.section}`)
-        .then((res) => SetrelatedProduct(res.data));
-      axiosClient.get(`/api/auction/${data.id}`).then((res) => {
-        setBidders(res.data as any[]);
-      });
-      axiosClient
-        .get(`/api/product/topbidder/${data.id}`)
-        .then((res) => setTopBidder(res.data));
-    });
+        const res = await axiosClient.get(`/api/auction/${data.id}`)
+        const formattedData = (res.data as AuctionLog[]).map(log => {
+          return {
+            ...log,
+            createdAt: moment(log.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+          }
+        });
+        setAuctionLogs(formattedData.reverse());
+
+        axiosClient
+          .get(`/api/product/topbidder/${data.id}`)
+          .then((res) => setTopBidder(res.data));
+
+        // ----------------------------------------------------------------- //
+        socket.on('updatebid', async (c: AuctionLog) => {
+          // setUpdate(data);
+          // console.log(c);
+          setTopBidder({
+            firstName: c.firstName,
+            lastName: c.lastName,
+            price: c.price
+          });
+        });
+      }
+      catch (error) {
+      }
+    })
   }, []);
 
   // ${productDetails.data?.section}
 
   // (new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format())
   //gửi một bid mới
-  const [price, setPrice] = useState<Number>();
 
   function send() {
+    const log: AuctionLog = {
+      firstName: localStorage.getItem('firstName'),
+      lastName: localStorage.getItem('firstName'),
+      price: price,
+      createdAt: moment().format('MMMM Do YYYY, h:mm:ss a')
+    }
+    setAuctionLogs([log, ...auctionLogs]);
+
     socket.emit('bid', {
       firstName: localStorage.getItem('firstName'),
       lastName: localStorage.getItem('lastName'),
@@ -62,37 +97,11 @@ export const Detail: React.FC = () => {
     //call api luu auctionLog
     axiosClient
       .post('/api/auction', {
-        bidderId: localStorage.getItem('Id'), //localStorage.getItem('Id');
+        bidderId: localStorage.getItem('id'), //localStorage.getItem('Id');
         productId: productDetails.data?.id, //productDetails.data?.id;
         price: price,
       })
-      .then((res) => console.log(res));
   }
-  //lắng nghe và in ra
-  //const[update,setUpdate] = useState([]);
-  useEffect(() => {
-    socket.on('updatebid', async (c: {firstName: string; lastName: string; price: number}) => {
-      // setUpdate(data);
-      // console.log(c);
-      setTopBidder(c);
-      //   const tr = `<tr>
-      //         <td>${c.firstName + c.lastName} </td>
-      //         <td>${c.price}</td>
-      //         <td>${new Intl.DateTimeFormat('en-US', {
-      //     year: 'numeric',
-      //     month: '2-digit',
-      //     day: '2-digit',
-      //     hour: '2-digit',
-      //     minute: '2-digit',
-      //     second: '2-digit',
-      //   }).format(c.bidAt)}</td>
-
-      //       </tr>
-      // `;
-      //   $('#bidinfo').prepend(tr);
-      setBidders([...bidders, c]);
-    });
-  }, []);
 
   return (
     <div>
@@ -135,19 +144,20 @@ export const Detail: React.FC = () => {
                     </div>
                     <div className="product__details__price">
                       Curent Price:{' '}
-                      {topBidder.price || productDetails.data?.currentPrice}
+                      {topBidder.price || productDetails.data?.currentPrice}$
                     </div>
                     <div className="product__details__price">
-                      Price Step: {productDetails.data.priceStep}
+                      Price Step: {productDetails.data.priceStep}$
                     </div>
                     <div className="product__details__price">
                       Top bidder: {topBidder.firstName} {topBidder.lastName}
                     </div>
                     <div className="product__details__price">
-                      {moment(productDetails.data.timeExpired).fromNow()} ago
+                      {moment(productDetails.data.timeExpired).fromNow()}
                     </div>
                     <div className="product__details__price">
                       Create:{' '}
+                      {moment(productDetails.data?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                       {/* {new Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
                         month: '2-digit',
@@ -163,17 +173,17 @@ export const Detail: React.FC = () => {
                   <label>BID Price:</label>
                   <div className="pro-qty">
                     {productDetails.data !== undefined &&
-                    <input
-                      id="price"
-                      type="number"
-                      defaultValue={
-                        topBidder.price || productDetails.data?.currentPrice
-                      }
-                      step={Number(productDetails.data!.priceStep)}
-                      onChange={(e) => {
-                        setPrice(Number(e.target.value));
-                      }}
-                    />
+                      <input
+                        id="price"
+                        type="number"
+                        defaultValue={
+                          topBidder.price || productDetails.data?.currentPrice
+                        }
+                        step={Number(productDetails.data!.priceStep)}
+                        onChange={(e) => {
+                          setPrice(Number(e.target.value));
+                        }}
+                      />
                     }
                   </div>
                 </div>
@@ -257,13 +267,14 @@ export const Detail: React.FC = () => {
                           </tr>
                         </thead>
                         <tbody id="category-container">
-                          {bidders?.map((bidder, index) => (
+                          {auctionLogs?.map((auctionLog, index) => (
                             <tr key={index}>
                               <td>
-                                {bidder.firstName} {bidder.lastName}{' '}
+                                {auctionLog.firstName} {auctionLog.lastName}
                               </td>
-                              <td> {bidder.price} </td>
+                              <td> {auctionLog.price} </td>
                               <td>
+                                {auctionLog.createdAt}
                                 {/* TODO: Fix date time format */}
                                 {/* {new Intl.DateTimeFormat('en-US', {
                                   year: 'numeric',
@@ -277,7 +288,7 @@ export const Detail: React.FC = () => {
                                 )} */}
                               </td>
                             </tr>
-                          ))?.reverse()
+                          ))
                           }
                         </tbody>
                       </table>
@@ -317,54 +328,7 @@ export const Detail: React.FC = () => {
         </div>
       </section>
 
-      <section className="related-product">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title related__product__title">
-                <h2>Related Product</h2>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            {relatedProduct.map((item, index) => (
-              <div className="col-lg-2 col-md-4 col-sm-6" key={index}>
-                <div className="product__item">
-                  <div
-                    className="product__item__pic set-bg"
-                    style={{
-                      backgroundImage: `url(${item.coverImageUrl})`,
-                      width: '100%',
-                    }}
-                  >
-                    <ul className="product__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-gavel" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="product__item__text">
-                    <h4>{item.name}</h4>
-                    <h6>Bid Price: {item.currentPrice}</h6>
-                    <h6>
-                      Top bidder: {item.bidderFirst} {item.bidderLast}
-                    </h6>
-                    <h6>Bid Count: {item.auctionLogCount}</h6>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <RelatedProductsSection section={productDetails.data?.section} />
     </div>
   );
 };
