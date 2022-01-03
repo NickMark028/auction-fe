@@ -11,3 +11,6 @@ export { Productlist } from './productlist';
 export { Admin } from './admin';
 export { Navbar } from './navbar/index';
 export { SellerProduct } from './seller-product/index';
+export { Profile } from './profile'
+export { UserInfo } from './profile-form'
+export { ChangePass } from './updatepass'
