@@ -36,8 +36,9 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
 
       <section className="">
         {status === 'success' &&
-          watchList?.map((product) => (
+          watchList?.map((product, index) => (
             <ProductRow
+              key={product.id}
               productId={product.id}
               imageUrl={product.coverImageUrl}
               name={product.name}

@@ -25,3 +25,11 @@ export function parseJwt(token) {
 
   return JSON.parse(jsonPayload);
 }
+
+// function BeautifulDate(dateString: string)
+// {
+//   var date = Date.parse(dateString);
+//   return date.getUTCFullYear() + "/" + (date.getUTCMonth() + 1) + "/" + date.getUTCDate() + " " + date.getUTCHours() + ":" + date.getUTCMinutes() + ":" + date.getUTCSeconds();
+
+// }
+

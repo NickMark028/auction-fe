@@ -48,8 +48,8 @@ export const Main: React.FC = () => {
 
                 {categoryList.status === 'success' && (
                   <ul className="drop" style={{ display }}>
-                    {categoryList.data?.map((category) => (
-                      <li>
+                    {categoryList.data?.map((category, index) => (
+                      <li key={index}>
                         <a href="#">{category.section}</a>
                       </li>
                     ))}

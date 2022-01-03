@@ -25,8 +25,8 @@ export const SellerProduct: React.FC = () => {
             {sellerProduct
               .slice(0)
               .reverse()
-              .map((c) => (
-                <tr>
+              .map((c, index) => (
+                <tr key={index}>
                   <td> c.Name </td>
                   <td> {c.price} </td>
                   <td>

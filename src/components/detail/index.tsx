@@ -13,19 +13,17 @@ import axiosClient from 'utils/axiosClient';
 
 import moment from 'moment';
 
-type Bidder = any;
-
 export const Detail: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const history = useHistory();
   const productDetails = useAppSelector(selectProductDetails);
   const [relatedProduct, SetrelatedProduct] = useState([]);
-  const [bidders, setBidders] = useState<Bidder[]>([]);
+  const [bidders, setBidders] = useState<any[]>([]);
   const [topBidder, setTopBidder] = useState({
     firstName: '',
     lastName: '',
-    price: '',
+    price: 0,
   });
 
   useEffect(() => {
@@ -40,7 +38,7 @@ export const Detail: React.FC = () => {
         .get(`/api/product/related/${data.section}`)
         .then((res) => SetrelatedProduct(res.data));
       axiosClient.get(`/api/auction/${data.id}`).then((res) => {
-        setBidders(res.data);
+        setBidders(res.data as any[]);
       });
       axiosClient
         .get(`/api/product/topbidder/${data.id}`)
@@ -73,7 +71,7 @@ export const Detail: React.FC = () => {
   //lắng nghe và in ra
   //const[update,setUpdate] = useState([]);
   useEffect(() => {
-    socket.on('updatebid', async (c) => {
+    socket.on('updatebid', async (c: {firstName: string; lastName: string; price: number}) => {
       // setUpdate(data);
       // console.log(c);
       setTopBidder(c);
@@ -150,31 +148,33 @@ export const Detail: React.FC = () => {
                     </div>
                     <div className="product__details__price">
                       Create:{' '}
-                      {new Intl.DateTimeFormat('en-US', {
+                      {/* {new Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
                         month: '2-digit',
                         day: '2-digit',
                         hour: '2-digit',
                         minute: '2-digit',
                         second: '2-digit',
-                      }).format(Date.parse(productDetails.data.createdAt))}
+                      }).format(Date.parse(productDetails.data.createdAt))} */}
                     </div>
                   </>
                 )}
                 <div className="product__details__quantity">
                   <label>BID Price:</label>
                   <div className="pro-qty">
+                    {productDetails.data !== undefined &&
                     <input
                       id="price"
                       type="number"
                       defaultValue={
                         topBidder.price || productDetails.data?.currentPrice
                       }
-                      step={Number(productDetails.data?.priceStep)}
+                      step={Number(productDetails.data!.priceStep)}
                       onChange={(e) => {
                         setPrice(Number(e.target.value));
                       }}
                     />
+                    }
                   </div>
                 </div>
                 <button type="button" className="primary-btn" onClick={send}>
@@ -258,26 +258,26 @@ export const Detail: React.FC = () => {
                         </thead>
                         <tbody id="category-container">
                           {bidders?.map((bidder, index) => (
-                              <tr key={index}>
-                                <td>
-                                  {bidder.firstName} {bidder.lastName}{' '}
-                                </td>
-                                <td> {bidder.price} </td>
-                                <td>
-                                  {new Intl.DateTimeFormat('en-US', {
-                                    year: 'numeric',
-                                    month: '2-digit',
-                                    day: '2-digit',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                  }).format(
-                                    Number(Date.parse(bidder.createdAt))
-                                  )}
-                                </td>
-                              </tr>
-                            ))
-                            .reverse()}
+                            <tr key={index}>
+                              <td>
+                                {bidder.firstName} {bidder.lastName}{' '}
+                              </td>
+                              <td> {bidder.price} </td>
+                              <td>
+                                {/* {new Intl.DateTimeFormat('en-US', {
+                                  year: 'numeric',
+                                  month: '2-digit',
+                                  day: '2-digit',
+                                  hour: '2-digit',
+                                  minute: '2-digit',
+                                  second: '2-digit',
+                                }).format(
+                                  Number(Date.parse(bidder.createdAt))
+                                )} */}
+                              </td>
+                            </tr>
+                          ))?.reverse()
+                          }
                         </tbody>
                       </table>
                     </div>
@@ -326,8 +326,8 @@ export const Detail: React.FC = () => {
             </div>
           </div>
           <div className="row">
-            {relatedProduct.map((item) => (
-              <div className="col-lg-2 col-md-4 col-sm-6">
+            {relatedProduct.map((item, index) => (
+              <div className="col-lg-2 col-md-4 col-sm-6" key={index}>
                 <div className="product__item">
                   <div
                     className="product__item__pic set-bg"
