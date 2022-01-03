@@ -37,10 +37,12 @@ export const Detail: React.FC = () => {
   const [topBidderStatus, setTopBidderStatus] = useState<TStatus>('idle');
 
   useEffect(() => {
+    
     setTimeout(async () => {
       // console.log(history.location.pathname);
       const pathname = history.location.pathname;
       const id = pathname.slice(9);
+      window.scrollTo(0, 0);
 
       try {
         const data = await dispatch(getProductDetailsTC(id)).unwrap();
@@ -70,7 +72,7 @@ export const Detail: React.FC = () => {
         });
       } catch (error) {}
     });
-  }, []);
+  }, [history.location.pathname]);
 
   // ${productDetails.data?.section}
 

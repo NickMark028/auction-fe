@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Header, Detail, Footer } from 'components';
 
 const DetailItem: React.FC = () => {
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [])
+
   return (
     <>
       <Header />
