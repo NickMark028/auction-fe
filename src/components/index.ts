@@ -10,3 +10,4 @@ export { Userlist } from "./userlist";
 export { Productlist } from "./productlist";
 export {Admin} from "./admin"
 export{ Navbar } from "./navbar/index"
+export { SellerProduct } from './seller-product/index';
