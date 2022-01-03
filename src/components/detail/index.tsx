@@ -13,9 +13,7 @@ import axiosClient from 'utils/axiosClient';
 
 import moment from 'moment';
 
-interface Bidder {
-
-}
+type Bidder = any;
 
 export const Detail: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +43,7 @@ export const Detail: React.FC = () => {
         setBidders(res.data);
       });
       axiosClient
-        .get(`/api/product//topbidder/${data.id}`)
+        .get(`/api/product/topbidder/${data.id}`)
         .then((res) => setTopBidder(res.data));
     });
   }, []);
@@ -79,8 +77,8 @@ export const Detail: React.FC = () => {
       // setUpdate(data);
       // console.log(c);
       setTopBidder(c);
-      //   const tr = `<tr> 
-      //         <td>${c.firstName + c.lastName} </td>            
+      //   const tr = `<tr>
+      //         <td>${c.firstName + c.lastName} </td>
       //         <td>${c.price}</td>
       //         <td>${new Intl.DateTimeFormat('en-US', {
       //     year: 'numeric',
@@ -274,12 +272,13 @@ export const Detail: React.FC = () => {
                                     hour: '2-digit',
                                     minute: '2-digit',
                                     second: '2-digit',
-                                  }).format(Number(Date.parse(bidder.createdAt)))}
+                                  }).format(
+                                    Number(Date.parse(bidder.createdAt))
+                                  )}
                                 </td>
                               </tr>
                             ))
-                            .reverse()
-                          }
+                            .reverse()}
                         </tbody>
                       </table>
                     </div>
