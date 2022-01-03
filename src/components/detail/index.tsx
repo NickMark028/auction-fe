@@ -264,6 +264,7 @@ export const Detail: React.FC = () => {
                               </td>
                               <td> {bidder.price} </td>
                               <td>
+                                {/* TODO: Fix date time format */}
                                 {/* {new Intl.DateTimeFormat('en-US', {
                                   year: 'numeric',
                                   month: '2-digit',
