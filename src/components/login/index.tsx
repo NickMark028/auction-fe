@@ -44,7 +44,7 @@ export const Login: React.FC = () => {
   const cookies = new Cookies();
 
   async function submitForm() {
-    if (Object.keys(validate.validate(credential)).length == 0) {
+    if (Object.keys(validate.validate(credential)).length === 0) {
       set({ status: 'ok' });
     } else {
       set(validate.validate(credential));
@@ -55,7 +55,7 @@ export const Login: React.FC = () => {
 
   useEffect(() => {
     console.log(errors);
-    if (errors.status == 'ok') {
+    if (errors.status === 'ok') {
       instance
         .post('/api/auth', {
           username: credential.username,

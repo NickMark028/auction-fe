@@ -46,7 +46,7 @@ export const Main: React.FC = () => {
                   <span>All Categories</span>
                 </div>
 
-                {categoryList.status == 'success' && (
+                {categoryList.status === 'success' && (
                   <ul className="drop" style={{ display }}>
                     {categoryList.data?.map((category) => (
                       <li>

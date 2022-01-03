@@ -94,7 +94,7 @@ export const Register: React.FC = () => {
   const [errors, set] = useState<any>({ status: 'not ok' });
 
   async function submitForm() {
-    if (Object.keys(validate.validate(account)).length == 0) {
+    if (Object.keys(validate.validate(account)).length === 0) {
       set({ status: 'ok' });
     } else {
       set(validate.validate(account));
@@ -103,7 +103,7 @@ export const Register: React.FC = () => {
   }
 
   useEffect(() => {
-    if (errors.status == 'ok') {
+    if (errors.status === 'ok') {
       instance
         .post('/api/user', {
           username: account.username,

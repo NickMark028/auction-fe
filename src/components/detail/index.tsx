@@ -12,13 +12,16 @@ import { useAppDispatch, useAppSelector } from 'redux/store';
 import axiosClient from 'utils/axiosClient';
 
 import moment from 'moment';
+
+type Bidder = any;
+
 export const Detail: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const history = useHistory();
   const productDetails = useAppSelector(selectProductDetails);
   const [relatedProduct, SetrelatedProduct] = useState([]);
-  const [bid, setBid] = useState([]);
+  const [bidders, setBidders] = useState<Bidder[]>([]);
   const [topBidder, setTopBidder] = useState({
     firstName: '',
     lastName: '',
@@ -27,7 +30,7 @@ export const Detail: React.FC = () => {
 
   useEffect(() => {
     setTimeout(async () => {
-      console.log(history.location.pathname);
+      // console.log(history.location.pathname);
       const pathname = history.location.pathname;
       const id = pathname.slice(9);
 
@@ -37,10 +40,10 @@ export const Detail: React.FC = () => {
         .get(`/api/product/related/${data.section}`)
         .then((res) => SetrelatedProduct(res.data));
       axiosClient.get(`/api/auction/${data.id}`).then((res) => {
-        setBid(res.data);
+        setBidders(res.data);
       });
       axiosClient
-        .get(`/api/product//topbidder/${data.id}`)
+        .get(`/api/product/topbidder/${data.id}`)
         .then((res) => setTopBidder(res.data));
     });
   }, []);
@@ -74,21 +77,22 @@ export const Detail: React.FC = () => {
       // setUpdate(data);
       // console.log(c);
       setTopBidder(c);
-      const tr = `<tr> 
-            <td>${c.firstName + c.lastName} </td>            
-            <td>${c.price}</td>
-            <td>${new Intl.DateTimeFormat('en-US', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-            }).format(c.bidAt)}</td>
-        
-          </tr>
-    `;
-      $('#bidinfo').prepend(tr);
+      //   const tr = `<tr>
+      //         <td>${c.firstName + c.lastName} </td>
+      //         <td>${c.price}</td>
+      //         <td>${new Intl.DateTimeFormat('en-US', {
+      //     year: 'numeric',
+      //     month: '2-digit',
+      //     day: '2-digit',
+      //     hour: '2-digit',
+      //     minute: '2-digit',
+      //     second: '2-digit',
+      //   }).format(c.bidAt)}</td>
+
+      //       </tr>
+      // `;
+      //   $('#bidinfo').prepend(tr);
+      setBidders([...bidders, c]);
     });
   }, []);
 
@@ -103,7 +107,7 @@ export const Detail: React.FC = () => {
                   {productDetails.status === 'success' && (
                     <img
                       className="product__details__pic__item--large"
-                      src={productDetails.data?.coverImageURL}
+                      src={productDetails.data?.coverImageUrl}
                     />
                   )}
                 </div>
@@ -126,7 +130,7 @@ export const Detail: React.FC = () => {
             </div>
             <div className="col-lg-6 col-md-6">
               <div className="product__details__text">
-                {productDetails.status == 'success' && (
+                {productDetails.status === 'success' && (
                   <>
                     <div className="product__details__price">
                       {productDetails.data?.name}
@@ -253,15 +257,12 @@ export const Detail: React.FC = () => {
                           </tr>
                         </thead>
                         <tbody id="category-container">
-                          {bid
-                            .slice(0)
-                            .reverse()
-                            .map((c) => (
-                              <tr>
+                          {bidders?.map((bidder, index) => (
+                              <tr key={index}>
                                 <td>
-                                  {c.firstName} {c.lastName}{' '}
+                                  {bidder.firstName} {bidder.lastName}{' '}
                                 </td>
-                                <td> {c.price} </td>
+                                <td> {bidder.price} </td>
                                 <td>
                                   {new Intl.DateTimeFormat('en-US', {
                                     year: 'numeric',
@@ -270,10 +271,13 @@ export const Detail: React.FC = () => {
                                     hour: '2-digit',
                                     minute: '2-digit',
                                     second: '2-digit',
-                                  }).format(Number(Date.parse(c.createdAt)))}
+                                  }).format(
+                                    Number(Date.parse(bidder.createdAt))
+                                  )}
                                 </td>
                               </tr>
-                            ))}
+                            ))
+                            .reverse()}
                         </tbody>
                       </table>
                     </div>
@@ -328,7 +332,7 @@ export const Detail: React.FC = () => {
                   <div
                     className="product__item__pic set-bg"
                     style={{
-                      backgroundImage: `url(${item.coverImageURL})`,
+                      backgroundImage: `url(${item.coverImageUrl})`,
                       width: '100%',
                     }}
                   >
