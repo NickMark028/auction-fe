@@ -14,7 +14,7 @@ function loginState(){
     return  <ul>
     <li>
       <Link to={PageURL.Profile}>
-        welcome
+      <i className="fa fa-user" />
         {/* <span>1</span> */}
       </Link>
     </li>
