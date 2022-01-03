@@ -10104,6 +10104,13 @@ react-move@^6.5.0:
     kapellmeister "^3.0.1"
     prop-types "^15.7.2"
 
+react-multilevel-dropdown@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-multilevel-dropdown/-/react-multilevel-dropdown-3.0.3.tgz#9084652bda5fe1a54b0b7b08ddb2568fabb2df72"
+  integrity sha512-ldtoBqJxntqCkJMa2vEHZ3anRkTClfaCalQ9UK7Gv+VkLktkf3pl5vCIC+LjdvgX5tcvws9uENTwPn5jLuNSAQ==
+  dependencies:
+    react-style-classes "^2.0.2"
+
 react-notifications@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/react-notifications/-/react-notifications-1.7.3.tgz#86abe38e0b5cc2ec451dfad8993754ad3f23ef45"
@@ -10315,6 +10322,11 @@ react-slidedown@^2.4.5:
   integrity sha512-O6cJOQpTwleO4jRlw768dCOZ//K6tHZIjtEhGNcdHm4v5tWD/pFVuNfvBD0n3hnyeMcp9NR+nmHTF4W+VUKzeA==
   dependencies:
     tslib "^1.9.0"
+
+react-style-classes@^2.0.2:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-style-classes/-/react-style-classes-2.0.3.tgz#4af25b75048fd8b1b10a41c2d50b5d3d857c260e"
+  integrity sha512-GVkst4dq8n5bckKDcucTQvIuS5gzGX0BGE3OqaWZsN6eeesrvmyqLW+qyTSCYizWw8xpQ5+18Yxeqnm8iID13A==
 
 react-text-mask@^5.4.3:
   version "5.4.3"
