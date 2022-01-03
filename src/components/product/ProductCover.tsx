@@ -3,7 +3,7 @@ import { TProduct } from 'models';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-interface Props extends TProduct { }
+interface Props extends TProduct {}
 
 const ProductCover = (props: Props) => {
   const { id, coverImageUrl, currentPrice, topBidder, name, auctionLogCount } =
@@ -12,7 +12,6 @@ const ProductCover = (props: Props) => {
   return (
     <div className="col-lg-3 col-md-6 col-sm-12">
       <div className="product__item">
-
         <Link to={PageURL.Detail.replace(':id', id.toString())}>
           <div
             className="product__item__pic set-bg"
@@ -47,7 +46,6 @@ const ProductCover = (props: Props) => {
           </h6>
           <h6>Count: {auctionLogCount}</h6>
         </div>
-
       </div>
     </div>
   );

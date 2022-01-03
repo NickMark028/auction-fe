@@ -1,5 +1,6 @@
-import axios from "axios";
-const token = localStorage.getItem("user-token")
+import axios from 'axios';
+// const token = localStorage.getItem("user-token");
+
 const axiosClient = axios.create({
   timeout: 10000,
   baseURL: process.env.REACT_APP_BE_HOST,

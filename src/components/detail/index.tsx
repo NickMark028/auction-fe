@@ -103,7 +103,7 @@ export const Detail: React.FC = () => {
             </div>
             <div className="col-lg-6 col-md-6">
               <div className="product__details__text">
-                <h3>{ }</h3>
+                <h3>{}</h3>
                 <div className="product__details__rating">
                   <i className="fa fa-star" />
                   <i className="fa fa-star" />
@@ -125,7 +125,7 @@ export const Detail: React.FC = () => {
                         date={
                           Date.now() +
                           Number(Date.parse(productDetails.data.timeExpired)) /
-                          1000
+                            1000
                         }
                       />
                     </div>

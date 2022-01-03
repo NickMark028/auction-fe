@@ -1,9 +1,9 @@
 import methods from 'validator';
 
 class Validator {
-rules: any;
-isValid: boolean;
-errors: {};
+  rules: any;
+  isValid: boolean;
+  errors: {};
   constructor(rules) {
     this.rules = rules;
     this.initiate();
@@ -21,9 +21,8 @@ errors: {};
 
       const fieldValue = state[rule.field] || '';
       const args = rule.args || [];
-      const validationMethod = typeof rule.method === 'string'
-        ? methods[rule.method]
-        : rule.method;
+      const validationMethod =
+        typeof rule.method === 'string' ? methods[rule.method] : rule.method;
 
       if (validationMethod(fieldValue, ...args, state) !== rule.validWhen) {
         this.errors[rule.field] = rule.message;

@@ -34,5 +34,10 @@
   display: flex;
   justify-content: space-between;
 }
-a:hover {color: rgb(0, 238, 255)}
-    a { color: rgb(0, 81, 255); text-decoration: none;}
+a:hover {
+  color: rgb(0, 238, 255);
+}
+a {
+  color: rgb(0, 81, 255);
+  text-decoration: none;
+}
