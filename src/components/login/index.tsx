@@ -2,13 +2,14 @@ import React, { useEffect, useState, Fragment } from 'react';
 import instance from '../../utils/axiosClient';
 import '../../styles/global.scss';
 import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import jwt_decode from "jwt-decode";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
+import jwt_decode from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import Validator from '../../utils/validator';
-
-
 
 const rules = [
   {
@@ -26,62 +27,56 @@ const rules = [
   {
     field: 'password',
     method: 'isLength',
-    args: [{min: 6}],
+    args: [{ min: 6 }],
     validWhen: true,
     message: 'Invalid password.',
-  }
-]
-const validate = new Validator(rules)
-
+  },
+];
+const validate = new Validator(rules);
 
 export const Login: React.FC = () => {
-  const [errors, set] = useState<any>({status:"not ok"});
-  const [credential,setCre]=useState({
-    username: "",
-    password: ""
-  })
- 
+  const [errors, set] = useState<any>({ status: 'not ok' });
+  const [credential, setCre] = useState({
+    username: '',
+    password: '',
+  });
+
   const cookies = new Cookies();
-  
+
   async function submitForm() {
- 
-   
-    
-      
-   if( Object.keys(validate.validate(credential)).length==0){
-     set({status:"ok"})
-   }else{
-     set(validate.validate(credential))
-   }
-  
-    console.log(credential)
-  
-  
-  
+    if (Object.keys(validate.validate(credential)).length == 0) {
+      set({ status: 'ok' });
+    } else {
+      set(validate.validate(credential));
+    }
+
+    console.log(credential);
   }
 
   useEffect(() => {
-    console.log(errors)
-    if(errors.status=="ok"){
+    console.log(errors);
+    if (errors.status == 'ok') {
       instance
-      .post("/api/auth", {
-        username:credential.username,
-        password:credential.password
-      
-    }).then((res)=>{
-    
-      localStorage.setItem ("user-token", res.data.accessToken);
-      var decoded = jwt_decode(res.data.accessToken);
-      console.log(decoded)
-      localStorage.setItem ("user-data", JSON.stringify(res.data.userInfo));
-      NotificationManager.success(res.status, 'Login success', 3000);
+        .post('/api/auth', {
+          username: credential.username,
+          password: credential.password,
+        })
+        .then((res) => {
+          localStorage.setItem('user-token', res.data.accessToken);
+          var decoded = jwt_decode(res.data.accessToken);
+          console.log(decoded);
+          localStorage.setItem('user-data', JSON.stringify(res.data.userInfo));
+          NotificationManager.success(res.status, 'Login success', 3000);
+        })
+        .catch((error) => {
+          NotificationManager.error(
+            error.response.status,
+            'Login Failed',
+            3000
+          );
+        });
     }
-    )
-    .catch((error) => {
-      NotificationManager.error(error.response.status, 'Login Failed', 3000);
-  })
-    }
-}, [errors]);
+  }, [errors]);
   function handleChange(evt) {
     const value = evt.target.value;
 
@@ -90,7 +85,7 @@ export const Login: React.FC = () => {
       [evt.target.name]: value,
     });
   }
- 
+
   return (
     <div className="outer">
       <div className="inner">
@@ -107,7 +102,14 @@ export const Login: React.FC = () => {
               name="username"
               onChange={handleChange}
             />
-            {errors.username && <div className="validation" style={{display: 'block',color:'red'}}>{errors.username}</div>}
+            {errors.username && (
+              <div
+                className="validation"
+                style={{ display: 'block', color: 'red' }}
+              >
+                {errors.username}
+              </div>
+            )}
           </div>
 
           <div className="form-group">
@@ -120,7 +122,14 @@ export const Login: React.FC = () => {
               name="password"
               onChange={handleChange}
             />
-            {errors.password && <div className="validation" style={{display: 'block',color:'red'}}>{errors.password}</div>}
+            {errors.password && (
+              <div
+                className="validation"
+                style={{ display: 'block', color: 'red' }}
+              >
+                {errors.password}
+              </div>
+            )}
           </div>
 
           <div className="form-group">
@@ -145,10 +154,14 @@ export const Login: React.FC = () => {
           <NotificationContainer />
           <div className="redirect">
             <p className="create-account text-left">
-              <a href="/register" className="link">Create account</a>
+              <a href="/register" className="link">
+                Create account
+              </a>
             </p>
             <p className="forgot-password text-right">
-              <a href="#" className="link">Forgot password?</a>
+              <a href="#" className="link">
+                Forgot password?
+              </a>
             </p>
           </div>
         </form>

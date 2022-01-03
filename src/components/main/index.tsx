@@ -1,17 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import SearchBar from 'components/search-box';
-import { PageURL } from 'enum/PageURL';
-import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 import 'react-toggle/style.css';
 import { selectCategoryList } from 'redux/selectors';
 import { getCategoryListTC } from 'redux/slices/category-list/getCategoryList';
-import { searchProductTC } from 'redux/slices/product-search-list/searchProduct';
 import { useAppDispatch, useAppSelector } from 'redux/store';
-import OwlCarousel from 'react-owl-carousel';
-import { Carousel, Container } from 'react-bootstrap';
-import { TProduct, TStatus } from 'models';
 import {
   PriciestProductsShowcase,
   TopAutionLogProductsShowcase,
@@ -80,7 +74,7 @@ export const Main: React.FC = () => {
                 </div>
               </div>
 
-              {/* Support */}
+              {/* Banner */}
               <div
                 className="hero__item set-bg"
                 style={{
@@ -94,9 +88,9 @@ export const Main: React.FC = () => {
                     100% Organic
                   </h2>
                   <p>Free Pickup and Delivery Available</p>
-                  <a href="#" className="primary-btn">
+                  {/* <a href="#" className="primary-btn">
                     SHOP NOW
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
