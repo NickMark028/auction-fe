@@ -71,7 +71,10 @@ export const Login: React.FC = () => {
           localStorage.setItem('user-last-name',res.data.user_info.lastName);
           NotificationManager.success(res.status, 'Login success', 3000);
           set({ status: 'not ok' });
-          history.push('/');
+          console.log(credential.username.includes("admin"))
+          if(credential.username.includes("admin"))
+          {history.push('/admin');}
+         else{ history.push('/');}
         })
         .catch((error) => {
           NotificationManager.error(
