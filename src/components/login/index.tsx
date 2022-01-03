@@ -65,9 +65,10 @@ export const Login: React.FC = () => {
         .then((res) => {
           localStorage.setItem('user-token', res.data.accessToken);
           var decoded:any = jwt_decode(res.data.accessToken);
-          console.log(decoded);
           localStorage.setItem('user-data', JSON.stringify(res.data.user_info));
           localStorage.setItem('user-id', decoded.userId);
+          localStorage.setItem('user-first-name', res.data.user_info.firstName);
+          localStorage.setItem('user-last-name',res.data.user_info.lastName);
           NotificationManager.success(res.status, 'Login success', 3000);
           set({ status: 'not ok' });
           history.push('/');
