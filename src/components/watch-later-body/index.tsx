@@ -35,7 +35,7 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
       </section>
 
       <section className="">
-        {status == 'success' &&
+        {status === 'success' &&
           watchList?.map((product) => (
             <ProductRow
               productId={product.id}

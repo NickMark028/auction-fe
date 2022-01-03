@@ -36,7 +36,7 @@ export const AddProduct: React.FC = () => {
   function handlecheck(evt) {
     const value = evt.target.checked;
 
-    if (value == true)
+    if (value === true)
       setProduct({
         ...product,
         [evt.target.name]: '1',

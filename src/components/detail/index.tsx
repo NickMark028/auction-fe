@@ -13,9 +13,7 @@ import axiosClient from 'utils/axiosClient';
 
 import moment from 'moment';
 
-interface Bidder {
-
-}
+type Bidder = any;
 
 export const Detail: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +43,7 @@ export const Detail: React.FC = () => {
         setBidders(res.data);
       });
       axiosClient
-        .get(`/api/product//topbidder/${data.id}`)
+        .get(`/api/product/topbidder/${data.id}`)
         .then((res) => setTopBidder(res.data));
     });
   }, []);
@@ -79,8 +77,8 @@ export const Detail: React.FC = () => {
       // setUpdate(data);
       // console.log(c);
       setTopBidder(c);
-      //   const tr = `<tr> 
-      //         <td>${c.firstName + c.lastName} </td>            
+      //   const tr = `<tr>
+      //         <td>${c.firstName + c.lastName} </td>
       //         <td>${c.price}</td>
       //         <td>${new Intl.DateTimeFormat('en-US', {
       //     year: 'numeric',
@@ -109,7 +107,7 @@ export const Detail: React.FC = () => {
                   {productDetails.status === 'success' && (
                     <img
                       className="product__details__pic__item--large"
-                      src={productDetails.data?.coverImageURL}
+                      src={productDetails.data?.coverImageUrl}
                     />
                   )}
                 </div>
@@ -132,7 +130,7 @@ export const Detail: React.FC = () => {
             </div>
             <div className="col-lg-6 col-md-6">
               <div className="product__details__text">
-                {productDetails.status == 'success' && (
+                {productDetails.status === 'success' && (
                   <>
                     <div className="product__details__price">
                       {productDetails.data?.name}
@@ -259,8 +257,7 @@ export const Detail: React.FC = () => {
                           </tr>
                         </thead>
                         <tbody id="category-container">
-                          {bidders
-                            .map((bidder, index) => (
+                          {bidders?.map((bidder, index) => (
                               <tr key={index}>
                                 <td>
                                   {bidder.firstName} {bidder.lastName}{' '}
@@ -274,12 +271,13 @@ export const Detail: React.FC = () => {
                                     hour: '2-digit',
                                     minute: '2-digit',
                                     second: '2-digit',
-                                  }).format(Number(Date.parse(bidder.createdAt)))}
+                                  }).format(
+                                    Number(Date.parse(bidder.createdAt))
+                                  )}
                                 </td>
                               </tr>
                             ))
-                            .reverse()
-                          }
+                            .reverse()}
                         </tbody>
                       </table>
                     </div>
@@ -334,7 +332,7 @@ export const Detail: React.FC = () => {
                   <div
                     className="product__item__pic set-bg"
                     style={{
-                      backgroundImage: `url(${item.coverImageURL})`,
+                      backgroundImage: `url(${item.coverImageUrl})`,
                       width: '100%',
                     }}
                   >

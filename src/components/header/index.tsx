@@ -53,13 +53,15 @@ export const Header: React.FC = () => {
           <div className="col-lg-4">
             <div className="header__cart">
               <ul>
-              <li>
-                  <Link to={PageURL.Login}>Login
+                <li>
+                  <Link to={PageURL.Login}>
+                    Login
                     {/* <span>1</span> */}
                   </Link>
                 </li>
                 <li>
-                  <Link to={PageURL.Register}>SignUp
+                  <Link to={PageURL.Register}>
+                    SignUp
                     {/* <span>1</span> */}
                   </Link>
                 </li>
@@ -81,8 +83,6 @@ export const Header: React.FC = () => {
               </div>
             </div>
           </div>
-
-          
         </div>
 
         <div className="humberger__open">
