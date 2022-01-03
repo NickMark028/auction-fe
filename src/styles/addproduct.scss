@@ -21,12 +21,12 @@
   transition: all 0.3s;
 }
 
-.outer .form-control:focus {
+.outer1 .form-control:focus {
   border-color: #33ff00;
   box-shadow: none;
 }
 
-.outer h3 {
+.outer1 h3 {
   text-align: center;
   margin: 0;
   line-height: 1;
@@ -35,4 +35,9 @@
 .form-2 .form-control {
   height: 100px;
   text-align: left;
+}
+.form-6  {
+  height: 100px;
+  text-align: left;
+  display: flex;
 }

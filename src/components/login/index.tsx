@@ -71,7 +71,10 @@ export const Login: React.FC = () => {
           localStorage.setItem('lastName', res.data.user_info.lastName);
           NotificationManager.success(res.status, 'Login success', 3000);
           set({ status: 'not ok' });
-          history.push('/');
+          console.log(credential.username.includes("admin"))
+          if(credential.username.includes("admin"))
+          {history.push('/admin');}
+         else{ history.push('/');}
         })
         .catch((error) => {
           NotificationManager.error(
@@ -157,7 +160,7 @@ export const Login: React.FC = () => {
             Sign in
           </button>
           <NotificationContainer />
-          <div className="redirect">
+          <div className="login-redirect">
             <p className="create-account text-left">
               <a href="/register" className="link">
                 Create account
