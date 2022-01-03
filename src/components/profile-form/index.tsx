@@ -69,20 +69,17 @@ function handleChange(evt) {
               <div className="form-group">
                 <p>First name </p>
                 <span className="icon-case"><i className="fa fa-user"></i></span>
-                <input type="text" name="firstName" defaultValue={account.firstName} onChange={handleChange} />
-         
+                <input  type="text" name="firstName" defaultValue={account.firstName} onChange={handleChange} />         
               </div>
               <div className="form-group">
                 <p>E-mail </p>
                 <span className="icon-case"><i className="fa fa-envelope-o"></i></span>
-                <input type="email" name="email" defaultValue={account.email} onChange={handleChange}/>
-         
+                <input  type="email" name="email" defaultValue={account.email} onChange={handleChange}/>         
               </div>
               <div className="form-group">
                 <p>Birthday </p>
                 <span className="icon-case"><i className="fa fa-calendar"></i></span>
-                <input type="date" name="dateOfBirth" defaultValue={account.dateOfBirth} onChange={handleChange}/>
-               
+                <input  type="date" name="dateOfBirth" defaultValue={account.dateOfBirth} onChange={handleChange}/>               
               </div>
             </div>
 
@@ -90,14 +87,12 @@ function handleChange(evt) {
               <div className="form-group">
                 <p>Last name </p>
                 <span className="icon-case"><i className="fa fa-user"></i></span>
-                <input type="text" name="lastName" defaultValue={account.lastName} onChange={handleChange}/>
-               
+                <input  type="text" name="lastName" defaultValue={account.lastName} onChange={handleChange}/>
               </div>
               <div className="form-group">
                 <p>Username </p>
                 <span className="icon-case"><i className="fa fa-user"></i></span>
-                <input type="text" name="username" value={account.username} readOnly/>
-                <div className="validation"></div>
+                <input  type="text" name="username" value={account.username} readOnly/>
               </div>
             </div>
           </div>
