@@ -157,7 +157,7 @@ export const Login: React.FC = () => {
             Sign in
           </button>
           <NotificationContainer />
-          <div className="redirect">
+          <div className="login-redirect">
             <p className="create-account text-left">
               <a href="/register" className="link">
                 Create account
