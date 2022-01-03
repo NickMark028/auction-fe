@@ -1,18 +1,19 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
-import { PublicRoute } from 'routers';
-import { PageURL } from 'enum/PageURL';
-import PrivateRoute from 'routers/PrivateRoute';
-import { DetailItem } from 'pages';
-import loginItem from 'pages/login';
-import userList from 'pages/userlist';
-import regItem from 'pages/register';
-import Admin from 'pages/admin';
-import AddProduct from 'pages/addProduct';
-import { HomePage, SearchPage } from 'pages';
-import store from 'redux/store';
-import WatchLaterPage from 'pages/watch-later';
+import { PublicRoute } from "routers";
+import { PageURL } from "enum/PageURL";
+import PrivateRoute from "routers/PrivateRoute";
+import { DetailItem } from "pages";
+import loginItem from "pages/login";
+import userList from "pages/userlist";
+import regItem from "pages/register";
+import Admin from "pages/admin";
+import AddProduct from "pages/addProduct";
+import SellerProductView from "pages/sellerProductView";
+import { HomePage, SearchPage } from "pages";
+import store from "redux/store";
+import WatchLaterPage from "pages/watch-later";
 
 function App(): JSX.Element {
   return (
@@ -27,7 +28,8 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.Register} component={regItem} />
           <PrivateRoute path={PageURL.WatchLater} component={WatchLaterPage} />
           <PublicRoute path={PageURL.Admin} component={Admin} />
-          <PublicRoute path={PageURL.Addproduct} component={AddProduct} />
+          <PublicRoute path={PageURL.AddProduct} component={AddProduct} />
+          <PublicRoute  path={PageURL.SellerProductView} component={SellerProductView}/>
           {/* id */}
         </Switch>
       </Router>
