@@ -45,12 +45,12 @@ export const Detail: React.FC = () => {
       try {
         const data = await dispatch(getProductDetailsTC(id)).unwrap();
 
-        const res = await axiosClient.get(`/api/auction/${data.id}`)
-        const formattedData = (res.data as AuctionLog[]).map(log => {
+        const res = await axiosClient.get(`/api/auction/${data.id}`);
+        const formattedData = (res.data as AuctionLog[]).map((log) => {
           return {
             ...log,
-            createdAt: moment(log.createdAt).format('MMMM Do YYYY, h:mm:ss a')
-          }
+            createdAt: moment(log.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+          };
         });
         setAuctionLogs(formattedData.reverse());
 
@@ -65,13 +65,11 @@ export const Detail: React.FC = () => {
           setTopBidder({
             firstName: c.firstName,
             lastName: c.lastName,
-            price: c.price
+            price: c.price,
           });
         });
-      }
-      catch (error) {
-      }
-    })
+      } catch (error) {}
+    });
   }, []);
 
   // ${productDetails.data?.section}
@@ -82,10 +80,10 @@ export const Detail: React.FC = () => {
   function send() {
     const log: AuctionLog = {
       firstName: localStorage.getItem('firstName'),
-      lastName: localStorage.getItem('firstName'),
+      lastName: localStorage.getItem('lastName'),
       price: price,
-      createdAt: moment().format('MMMM Do YYYY, h:mm:ss a')
-    }
+      createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
+    };
     setAuctionLogs([log, ...auctionLogs]);
 
     socket.emit('bid', {
@@ -95,12 +93,11 @@ export const Detail: React.FC = () => {
       bidAt: Date.now(),
     });
     //call api luu auctionLog
-    axiosClient
-      .post('/api/auction', {
-        bidderId: localStorage.getItem('id'), //localStorage.getItem('Id');
-        productId: productDetails.data?.id, //productDetails.data?.id;
-        price: price,
-      })
+    axiosClient.post('/api/auction', {
+      bidderId: localStorage.getItem('id'), //localStorage.getItem('Id');
+      productId: productDetails.data?.id, //productDetails.data?.id;
+      price: price,
+    });
   }
 
   return (
@@ -157,7 +154,9 @@ export const Detail: React.FC = () => {
                     </div>
                     <div className="product__details__price">
                       Create:{' '}
-                      {moment(productDetails.data?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
+                      {moment(productDetails.data?.createdAt).format(
+                        'MMMM Do YYYY, h:mm:ss a'
+                      )}
                       {/* {new Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
                         month: '2-digit',
@@ -172,7 +171,7 @@ export const Detail: React.FC = () => {
                 <div className="product__details__quantity">
                   <label>BID Price:</label>
                   <div className="pro-qty">
-                    {productDetails.data !== undefined &&
+                    {productDetails.data !== undefined && (
                       <input
                         id="price"
                         type="number"
@@ -184,7 +183,7 @@ export const Detail: React.FC = () => {
                           setPrice(Number(e.target.value));
                         }}
                       />
-                    }
+                    )}
                   </div>
                 </div>
                 <button type="button" className="primary-btn" onClick={send}>
@@ -288,8 +287,7 @@ export const Detail: React.FC = () => {
                                 )} */}
                               </td>
                             </tr>
-                          ))
-                          }
+                          ))}
                         </tbody>
                       </table>
                     </div>
