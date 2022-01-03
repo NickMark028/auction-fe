@@ -1,3 +1,5 @@
+import SellerProductView from 'pages/sellerProductView';
+
 export enum PageURL {
   Home = '/',
   Search = '/search',
@@ -8,5 +10,6 @@ export enum PageURL {
   Register = '/register',
   WatchLater = '/watch-later',
   Admin = '/admin',
-  Addproduct = '/add',
+  AddProduct = '/add',
+  SellerProductView = '/seller-product/:id',
 }

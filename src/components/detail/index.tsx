@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 //import { render } from "react-dom";
 
-import { instance } from 'utils/utils';
 import OwlCarousel from 'react-owl-carousel';
 import Countdown from 'react-countdown';
 import socket from 'utils/socket';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { useHistory } from 'react-router-dom';
 import { getProductDetailsTC } from 'redux/slices/product-details/getProductDetails';
 import { selectProductDetails } from 'redux/selectors';
 import { useAppDispatch, useAppSelector } from 'redux/store';
 import axiosClient from 'utils/axiosClient';
-import { Container } from 'react-bootstrap';
 
+import moment from 'moment';
 export const Detail: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -20,11 +19,15 @@ export const Detail: React.FC = () => {
   const productDetails = useAppSelector(selectProductDetails);
   const [relatedProduct, SetrelatedProduct] = useState([]);
   const [bid, setBid] = useState([]);
-  const [price, setPrice] = useState<Number>();
+  const [topBidder, setTopBidder] = useState({
+    firstName: '',
+    lastName: '',
+    price: '',
+  });
 
   useEffect(() => {
     setTimeout(async () => {
-      // console.log(history.location.pathname);
+      console.log(history.location.pathname);
       const pathname = history.location.pathname;
       const id = pathname.slice(9);
 
@@ -33,41 +36,61 @@ export const Detail: React.FC = () => {
       axiosClient
         .get(`/api/product/related/${data.section}`)
         .then((res) => SetrelatedProduct(res.data));
+      axiosClient.get(`/api/auction/${data.id}`).then((res) => {
+        setBid(res.data);
+      });
       axiosClient
-        .get(`/api/auction/${data.id}`)
-        .then((res) => setBid(res.data));
-    });
-  }, []);
-
-  useEffect(() => {
-    socket.on('updatebid', async (c) => {
-      // setUpdate(data);
-      setBid([...bid, c]);
+        .get(`/api/product//topbidder/${data.id}`)
+        .then((res) => setTopBidder(res.data));
     });
   }, []);
 
   // ${productDetails.data?.section}
 
+  // (new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format())
   //gửi một bid mới
+  const [price, setPrice] = useState<Number>();
 
   function send() {
     socket.emit('bid', {
-      bidderName:
-        localStorage.getItem('firstName') + localStorage.getItem('lastName'),
+      firstName: localStorage.getItem('firstName'),
+      lastName: localStorage.getItem('lastName'),
       price: price,
-      bidAt: new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }).format(Date.now()),
+      bidAt: Date.now(),
     });
     //call api luu auctionLog
+    axiosClient
+      .post('/api/auction', {
+        bidderId: localStorage.getItem('Id'), //localStorage.getItem('Id');
+        productId: productDetails.data?.id, //productDetails.data?.id;
+        price: price,
+      })
+      .then((res) => console.log(res));
   }
   //lắng nghe và in ra
   //const[update,setUpdate] = useState([]);
+  useEffect(() => {
+    socket.on('updatebid', async (c) => {
+      // setUpdate(data);
+      // console.log(c);
+      setTopBidder(c);
+      const tr = `<tr> 
+            <td>${c.firstName + c.lastName} </td>            
+            <td>${c.price}</td>
+            <td>${new Intl.DateTimeFormat('en-US', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+            }).format(c.bidAt)}</td>
+        
+          </tr>
+    `;
+      $('#bidinfo').prepend(tr);
+    });
+  }, []);
 
   return (
     <div>
@@ -103,31 +126,23 @@ export const Detail: React.FC = () => {
             </div>
             <div className="col-lg-6 col-md-6">
               <div className="product__details__text">
-                <h3>{}</h3>
-                <div className="product__details__rating">
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star-half-o" />
-                  <span>(18 reviews)</span>
-                </div>
                 {productDetails.status == 'success' && (
                   <>
                     <div className="product__details__price">
-                      Curent Price: {productDetails.data.currentPrice}
+                      {productDetails.data?.name}
+                    </div>
+                    <div className="product__details__price">
+                      Curent Price:{' '}
+                      {topBidder.price || productDetails.data?.currentPrice}
                     </div>
                     <div className="product__details__price">
                       Price Step: {productDetails.data.priceStep}
                     </div>
                     <div className="product__details__price">
-                      <Countdown
-                        date={
-                          Date.now() +
-                          Number(Date.parse(productDetails.data.timeExpired)) /
-                            1000
-                        }
-                      />
+                      Top bidder: {topBidder.firstName} {topBidder.lastName}
+                    </div>
+                    <div className="product__details__price">
+                      {moment(productDetails.data.timeExpired).fromNow()} ago
                     </div>
                     <div className="product__details__price">
                       Create:{' '}
@@ -148,13 +163,14 @@ export const Detail: React.FC = () => {
                     <input
                       id="price"
                       type="number"
-                      defaultValue={1000}
+                      defaultValue={
+                        topBidder.price || productDetails.data?.currentPrice
+                      }
                       step={Number(productDetails.data?.priceStep)}
                       onChange={(e) => {
                         setPrice(Number(e.target.value));
                       }}
                     />
-                    {/* add price + step */}
                   </div>
                 </div>
                 <button type="button" className="primary-btn" onClick={send}>
@@ -166,7 +182,7 @@ export const Detail: React.FC = () => {
                 <ul>
                   <li>
                     <b>Bidder Count</b>{' '}
-                    <span>{productDetails.data?.bidderCount}</span>
+                    <span>{productDetails.data?.auctionLogCount}</span>
                   </li>
                   <li>
                     <b>seller: </b>{' '}
@@ -176,10 +192,10 @@ export const Detail: React.FC = () => {
                     </span>
                   </li>
                   <li>
-                    <b>Evaluate: </b>{' '}
+                    <b>Star: </b>{' '}
                     <span>
-                      {Number(productDetails.data?.negativeCount)} +{' '}
-                      {Number(productDetails.data?.positiveCount)}{' '}
+                      {Number(productDetails.data?.negativeCount) +
+                        Number(productDetails.data?.positiveCount)}{' '}
                     </span>
                   </li>
                 </ul>
@@ -225,18 +241,41 @@ export const Detail: React.FC = () => {
                 <div className="tab-content">
                   <div className="tab-pane active" id="tabs-1" role="tabpanel">
                     <div
-                      id="bidinfo"
                       className="product__details__tab__desc"
                       style={{ overflow: 'auto' }}
                     >
-                      <h6>Bid History</h6>
-                      {bid.map((c) => (
-                        <tr>
-                          <td>Bidder: {c.bidderId} </td>
-                          <td>Price: {c.price} </td>
-                          <td>Bid At: {c.createdAt}</td>
-                        </tr>
-                      ))}
+                      <table id="bidinfo" className="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Bidder Name</th>
+                            <th>Price</th>
+                            <th>Bid At</th>
+                          </tr>
+                        </thead>
+                        <tbody id="category-container">
+                          {bid
+                            .slice(0)
+                            .reverse()
+                            .map((c) => (
+                              <tr>
+                                <td>
+                                  {c.firstName} {c.lastName}{' '}
+                                </td>
+                                <td> {c.price} </td>
+                                <td>
+                                  {new Intl.DateTimeFormat('en-US', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                  }).format(Number(Date.parse(c.createdAt)))}
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                   <div className="tab-pane" id="tabs-2" role="tabpanel">
@@ -247,7 +286,6 @@ export const Detail: React.FC = () => {
                   </div>
                   <div className="tab-pane" id="tabs-3" role="tabpanel">
                     <div className="product__details__tab__desc">
-                      <h6>Review</h6>
                       <p>
                         Vestibulum ac diam sit amet quam vehicula elementum sed
                         sit amet dui. Pellentesque in ipsum id orci porta
@@ -283,7 +321,6 @@ export const Detail: React.FC = () => {
               </div>
             </div>
           </div>
-
           <div className="row">
             {relatedProduct.map((item) => (
               <div className="col-lg-2 col-md-4 col-sm-6">
@@ -301,6 +338,7 @@ export const Detail: React.FC = () => {
                           <i className="fa fa-heart" />
                         </a>
                       </li>
+
                       <li>
                         <a href="#">
                           <i className="fa fa-gavel" />
@@ -309,25 +347,13 @@ export const Detail: React.FC = () => {
                     </ul>
                   </div>
                   <div className="product__item__text">
-                    <h6>
-                      <a href="#">{item.name}</a>
-                    </h6>
+                    <h4>{item.name}</h4>
                     <h6>Bid Price: {item.currentPrice}</h6>
                     <h6>
                       Top bidder: {item.bidderFirst} {item.bidderLast}
                     </h6>
                     <h6>Bid Count: {item.auctionLogCount}</h6>
                   </div>
-                </div>
-                <div className="product__item__text">
-                  <h6>
-                    <a href="#">{item.name}</a>
-                  </h6>
-                  <h6>Bid Price: {item.currentPrice}</h6>
-                  <h6>
-                    Top bidder: {item.bidderFirst} {item.bidderLast}
-                  </h6>
-                  <h6>Count: {item.auctionLogCount}</h6>
                 </div>
               </div>
             ))}
