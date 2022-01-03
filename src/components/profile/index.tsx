@@ -13,6 +13,8 @@ function logout(){
   localStorage.removeItem('user-token')
   localStorage.removeItem('user-data')
   localStorage.removeItem('user-id')
+  localStorage.removeItem('user-first-name');
+  localStorage.removeItem('user-last-name');
   history.push("/")
 }
   return (

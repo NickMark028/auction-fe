@@ -7,7 +7,7 @@ import '../../styles/global.scss';
 export const Productlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {
-    instance.get('/product').then((res) => set(res.data));
+    instance.get('/api/product').then((res) => set(res.data));
 
     console.log(customers);
   }, []);
@@ -15,7 +15,7 @@ export const Productlist: React.FC = () => {
   async function submitForm(id: any) {
     console.log(id);
     instance
-      .delete('/product', {
+      .delete('/api/product', {
         data: {
           id: id,
         },
