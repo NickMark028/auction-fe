@@ -9,11 +9,11 @@ localStorage.getItem("user-token")
 
 },[])
 function loginState(){
-  if(localStorage.getItem("user-token")==null){
+  if(localStorage.getItem("user-token")!=null){
     return  <ul>
     <li>
       <Link to={PageURL.Profile}>
-        welcome anh
+        welcome 
         {/* <span>1</span> */}
       </Link>
     </li>
