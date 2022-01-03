@@ -10,7 +10,9 @@ export { Userlist } from './userlist';
 export { Productlist } from './productlist';
 export { Admin } from './admin';
 export { Navbar } from './navbar/index';
+
+export { Profile } from './profile';
+export { UserInfo } from './profile-form';
+export { ChangePass } from './updatepass';
 export { SellerProduct } from './seller-product/index';
-export { Profile } from './profile'
-export { UserInfo } from './profile-form'
-export { ChangePass } from './updatepass'
+export { BidderProduct } from './bidder-product-bidded/index';

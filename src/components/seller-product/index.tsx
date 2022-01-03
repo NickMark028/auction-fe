@@ -18,29 +18,23 @@ export const SellerProduct: React.FC = () => {
             <tr>
               <th>Bidder Name</th>
               <th>Price</th>
+              <th>Current Price</th>
+              <th>Auction Log Count</th>
+              <th>Bidder count</th>
               <th>Bid At</th>
             </tr>
           </thead>
           <tbody id="category-container">
-            {sellerProduct
-              .slice(0)
-              .reverse()
-              .map((c, index) => (
-                <tr key={index}>
-                  <td> c.Name </td>
-                  <td> {c.price} </td>
-                  <td>
-                    {new Intl.DateTimeFormat('en-US', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      second: '2-digit',
-                    }).format(Number(Date.parse(c.createdAt)))}
-                  </td>
-                </tr>
-              ))}
+            {sellerProduct?.map((auctionLog, index) => (
+              <tr key={index}>
+                <td>{auctionLog.name}</td>
+                <td> {auctionLog.reservedPrice} </td>
+                <td> {auctionLog.currentPrice} </td>
+                <td>{auctionLog.auctionLogCount}</td>
+                <td>{auctionLog.bidderCount}</td>
+                <td>{auctionLog.createdAt}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -272,20 +272,7 @@ export const Detail: React.FC = () => {
                                 {auctionLog.firstName} {auctionLog.lastName}
                               </td>
                               <td> {auctionLog.price} </td>
-                              <td>
-                                {auctionLog.createdAt}
-                                {/* TODO: Fix date time format */}
-                                {/* {new Intl.DateTimeFormat('en-US', {
-                                  year: 'numeric',
-                                  month: '2-digit',
-                                  day: '2-digit',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                  second: '2-digit',
-                                }).format(
-                                  Number(Date.parse(bidder.createdAt))
-                                )} */}
-                              </td>
+                              <td>{auctionLog.createdAt}</td>
                             </tr>
                           ))}
                         </tbody>
