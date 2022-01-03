@@ -1,9 +1,40 @@
 import { Logo } from 'components';
 import { PageURL } from 'enum/PageURL';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
+useEffect(()=>{
+localStorage.getItem("user-token")
+
+},[])
+function loginState(){
+  if(localStorage.getItem("user-token")==null){
+    return  <ul>
+    <li>
+      <Link to={PageURL.Profile}>
+        welcome anh
+        {/* <span>1</span> */}
+      </Link>
+    </li>
+    </ul>
+  }else{
+    return  <ul>
+    <li>
+      <Link to={PageURL.Login}>
+        Login
+        {/* <span>1</span> */}
+      </Link>
+    </li>
+    <li>
+      <Link to={PageURL.Register}>
+        Register
+        {/* <span>1</span> */}
+      </Link>
+    </li>
+    </ul>
+  }
+}
   return (
     <header className="header">
       <div className="container">
@@ -53,18 +84,7 @@ export const Header: React.FC = () => {
           <div className="col-lg-4">
             <div className="header__cart">
               <ul>
-                <li>
-                  <Link to={PageURL.Login}>
-                    Login
-                    {/* <span>1</span> */}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={PageURL.Register}>
-                    SignUp
-                    {/* <span>1</span> */}
-                  </Link>
-                </li>
+               {loginState()}
                 <li>
                   <Link to={PageURL.WatchLater}>
                     <i className="fa fa-heart" />

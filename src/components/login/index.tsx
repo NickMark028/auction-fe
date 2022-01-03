@@ -10,6 +10,7 @@ import jwt_decode from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import Validator from '../../utils/validator';
+import { useHistory } from 'react-router-dom';
 
 const rules = [
   {
@@ -40,7 +41,7 @@ export const Login: React.FC = () => {
     username: '',
     password: '',
   });
-
+  const history = useHistory();
   const cookies = new Cookies();
 
   async function submitForm() {
@@ -67,6 +68,8 @@ export const Login: React.FC = () => {
           console.log(decoded);
           localStorage.setItem('user-data', JSON.stringify(res.data.userInfo));
           NotificationManager.success(res.status, 'Login success', 3000);
+          set({ status: 'not ok' });
+          history.push('/');
         })
         .catch((error) => {
           NotificationManager.error(
@@ -76,7 +79,7 @@ export const Login: React.FC = () => {
           );
         });
     }
-  }, [errors]);
+  }, [errors,history]);
   function handleChange(evt) {
     const value = evt.target.value;
 

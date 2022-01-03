@@ -7,6 +7,7 @@ import {
   NotificationManager,
 } from 'react-notifications';
 import Validator from '../../utils/validator';
+import { useHistory } from 'react-router-dom';
 
 const rules = [
   {
@@ -92,7 +93,7 @@ export const Register: React.FC = () => {
     dateOfBirth: '',
   });
   const [errors, set] = useState<any>({ status: 'not ok' });
-
+  const history = useHistory();
   async function submitForm() {
     if (Object.keys(validate.validate(account)).length === 0) {
       set({ status: 'ok' });
@@ -114,6 +115,7 @@ export const Register: React.FC = () => {
           dateOfBirth: account.dateOfBirth,
         })
         .then((res) => {
+          history.push('/');
           NotificationManager.success(res.status, 'Register success', 3000);
         })
         .catch((err) => {
