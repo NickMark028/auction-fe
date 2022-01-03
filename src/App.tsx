@@ -11,6 +11,7 @@ import regItem from 'pages/register';
 import Admin from 'pages/admin';
 import AddProduct from 'pages/addProduct';
 import SellerProductView from 'pages/sellerProductView';
+import profileItem from 'pages/profile';
 import { HomePage, SearchPage } from 'pages';
 import store from 'redux/store';
 import WatchLaterPage from 'pages/watch-later';
@@ -28,11 +29,13 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.Register} component={regItem} />
           <PrivateRoute path={PageURL.WatchLater} component={WatchLaterPage} />
           <PublicRoute path={PageURL.Admin} component={Admin} />
+          <PublicRoute path={PageURL.Profile} component={profileItem} />
           <PublicRoute path={PageURL.AddProduct} component={AddProduct} />
           <PublicRoute
             path={PageURL.SellerProductView}
             component={SellerProductView}
           />
+
           {/* id */}
         </Switch>
       </Router>

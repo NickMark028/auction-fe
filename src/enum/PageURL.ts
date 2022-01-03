@@ -12,4 +12,5 @@ export enum PageURL {
   Admin = '/admin',
   AddProduct = '/add',
   SellerProductView = '/seller-product/:id',
+  Profile = '/profile'
 }
