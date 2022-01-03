@@ -11,6 +11,8 @@ const history = useHistory();
 function logout(){
   console.log("logged out");
   localStorage.removeItem('user-token')
+  localStorage.removeItem('user-data')
+  localStorage.removeItem('user-id')
   history.push("/")
 }
   return (
