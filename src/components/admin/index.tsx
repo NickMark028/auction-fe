@@ -7,21 +7,33 @@ import { Userlist } from '../userlist';
 import { Productlist } from '../productlist';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route,Link } from 'react-router-dom';
 import { Navbar } from 'components';
 
 export const Admin: React.FC = () => {
-  const [main, set] = useState(<Userlist />);
+  
 
   return (
-    <>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route path="/admin" exact component={Userlist} />
-          <Route path="/admin/product" component={Productlist} />
-        </Switch>
-      </Router>
-    </>
+    <div className='row'>
+    <ProSidebar className="pro">
+    <Menu iconShape="square">
+     
+      <MenuItem >Dashboard
+      <Link to="/admin"/>
+       </MenuItem>
+      <MenuItem >Component 1
+      <Link to="/admin/product"/>
+      </MenuItem>
+      <MenuItem>Component 2</MenuItem>
+      
+    </Menu>
+    </ProSidebar>
+ <main className='main'>
+  <Switch>
+          <Route path="/admin"exact component={Userlist} />
+          <Route path="/admin/product" exact component={Productlist} />
+  </Switch>
+  </main>
+  </div>
   );
 };

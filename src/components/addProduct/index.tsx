@@ -1,8 +1,11 @@
 import React, { useEffect, useState, Fragment, ComponentState } from 'react';
 import { instance } from 'utils/utils';
 import '../../styles/addproduct.scss';
-
+import { readFileSync } from 'fs';
+import axios from 'axios';
+import FileBase64  from 'react-file-base64'
 export const AddProduct: React.FC = () => {
+  const [image, set]=useState<any>({files:[]})
   const [product, setProduct] = useState({
     sellerId: '1000053',
     name: '',
@@ -13,16 +16,12 @@ export const AddProduct: React.FC = () => {
     isRenewal: '1',
     coverImageUrl: '',
   });
-
+  
+ 
   async function submitForm() {
-    // console.log({ email, password });
-    instance
-      .post(
-        '/product',
+  console.log(image)
 
-        product
-      )
-      .then((res) => console.log(res));
+
   }
 
   function handleChange(evt) {
@@ -48,7 +47,9 @@ export const AddProduct: React.FC = () => {
       });
     }
   }
-
+ function getFiles(files){
+    set({ files: files })
+  }
   return (
     <div className="outer1">
       <div className="inner1">
@@ -116,24 +117,28 @@ export const AddProduct: React.FC = () => {
 
           <div className="form-7">
             <label>Cover image</label>
-            <input
-              type="text"
+            {/* <input
+              type="file"
               className="form-control"
               placeholder="Enter cover image"
               name="coverImageUrl"
               onChange={handleChange}
-            />
+            /> */}
+            <FileBase64
+            multiple={ true }
+            onDone={ getFiles} />
           </div>
 
-          <button
+         
+          <p className="forgot-password text-right"></p>
+        </form>
+        <button
             type="button"
             className="btn btn-dark btn-lg btn-block"
             onClick={submitForm}
           >
             Add
           </button>
-          <p className="forgot-password text-right"></p>
-        </form>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import '../../styles/List.scss';
 export const Userlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {
-    instance.get('/user').then((res) => set(res.data));
+    instance.get('/api/user').then((res) => set(res.data));
 
     console.log(customers);
   }, []);
@@ -16,7 +16,7 @@ export const Userlist: React.FC = () => {
   async function submitForm(id: any) {
     console.log(id);
     instance
-      .delete('/user', {
+      .delete('/api/user', {
         data: {
           id: id,
         },

@@ -2,12 +2,12 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { setConstantValue } from 'typescript';
 import { Link } from 'react-router-dom';
 import { instance } from 'utils/utils';
-import '../../styles/global.scss';
+import '../../styles/List.scss';
 
 export const Productlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {
-    instance.get('/product').then((res) => set(res.data));
+    instance.get('/api/product').then((res) => set(res.data));
 
     console.log(customers);
   }, []);
@@ -15,7 +15,7 @@ export const Productlist: React.FC = () => {
   async function submitForm(id: any) {
     console.log(id);
     instance
-      .delete('/product', {
+      .delete('/api/product', {
         data: {
           id: id,
         },
