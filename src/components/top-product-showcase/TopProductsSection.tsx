@@ -26,7 +26,7 @@ const TopProductsShowcase = (props: Props) => {
       <Container>
         <div className="row">
           {products?.map((product) => (
-            <ProductCover {...product} />
+            <ProductCover key={product.id.toString()} {...product} />
           ))}
         </div>
       </Container>
