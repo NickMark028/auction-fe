@@ -81,7 +81,6 @@ const rules = [
     message: 'The email must be a valid email address.',
   },
 ];
-
 const validate = new Validator(rules);
 export const Register: React.FC = () => {
   const [account, setaccount] = useState({
@@ -91,18 +90,21 @@ export const Register: React.FC = () => {
     lastName: '',
     email: '',
     dateOfBirth: '',
+    otp:''
   });
+ 
   const [errors, set] = useState<any>({ status: 'not ok' });
   const history = useHistory();
-  async function submitForm() {
-    if (Object.keys(validate.validate(account)).length === 0) {
-      set({ status: 'ok' });
-    } else {
-      set(validate.validate(account));
-    }
-    console.log(account);
+ 
+  function sendotp(){
+  console.log(account.email)
+  instance.post('/api/user/mail',{
+      email:account.email
+  }).then((res)=>{
+    console.log(res)
+  })
   }
-
+  
   useEffect(() => {
     if (errors.status === 'ok') {
       instance
@@ -128,7 +130,28 @@ export const Register: React.FC = () => {
         });
     }
   }, [errors]);
-
+  function submitForm() {
+    if (Object.keys(validate.validate(account)).length === 0) {
+      instance.post('/api/user/verify-otp',{
+        email:account.email,
+        otp:account.otp
+  
+    }).then((res)=>{
+       set({ status: 'ok' });
+     
+    }).catch((err)=>{
+      NotificationManager.error(
+        err.response.status,
+        'Wrong otp',
+        3000
+      );
+    })
+    
+    } else {
+      set(validate.validate(account));
+    }
+    
+  }
   function handleChange(evt) {
     const value = evt.target.value;
 
@@ -256,7 +279,24 @@ export const Register: React.FC = () => {
               </div>
             )}
           </div>
-
+          <label>Otp</label>
+          <div className="otp-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter otp"
+              name="otp"
+              onChange={handleChange}
+            />
+             <button
+            type="button"
+            className="btn btn-dark"
+            onClick={sendotp}
+          >
+            send otp
+          </button>
+          </div>
+          <div className='btn-control'>
           <button
             type="button"
             className="btn btn-dark btn-lg btn-block"
@@ -264,6 +304,7 @@ export const Register: React.FC = () => {
           >
             Register
           </button>
+          </div>
           <NotificationContainer />
           <p className="forgot-password text-right">
             Already have an{' '}
