@@ -8,7 +8,7 @@ export const RequestToSeller: React.FC = () => {
       <button
         onClick={() => {
           axiosClient.post(
-            `/api/bidder/changeRole/${localStorage.getItem('id')}`
+            `/api/bidder/changeRole/${localStorage.getItem('auction-user-id')}`
           );
           window.alert('WELCOM NEW SELLER!!');
         }}

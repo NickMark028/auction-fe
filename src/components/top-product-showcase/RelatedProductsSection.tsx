@@ -1,10 +1,8 @@
-import {} from 'components/watch-later-body/api';
 import { TProduct, TStatus } from 'models';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Spinner } from 'react-bootstrap';
 import { getRelatedProducts } from './api';
-import TopProductsShowcase from './TopProductsSection';
+import TopProductsShowcase from './ProductsSection';
 
 interface Props {
   section?: string;
@@ -34,19 +32,9 @@ const RelatedProductsSection = (props: Props) => {
     });
   }, [section, productsStatus]);
 
-  const componentMap = {
-    idle: undefined,
-    pending: <Spinner animation="border" />,
-    reject: undefined,
-    success: (
-      <TopProductsShowcase title="Related products" products={products} />
-    ),
-  };
-
-  return section === undefined ? (
-    <Spinner animation="border" />
-  ) : (
-    <>{componentMap[productsStatus]}</>
+  const actualStatus: TStatus = section === undefined ? 'pending' : productsStatus;
+  return (
+    <TopProductsShowcase title="Related products" products={products} status={actualStatus} />
   );
 };
 

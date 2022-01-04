@@ -1,12 +1,13 @@
-import {} from 'components/watch-later-body/api';
+import ServerError from 'components/500-server-error';
+import Loading from 'components/loading';
+import { } from 'components/watch-later-body/api';
 import { TProduct, TStatus } from 'models';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
-import { Spinner } from 'react-bootstrap';
 import { getPriciestProducts } from './api';
-import TopProductsShowcase from './TopProductsSection';
+import TopProductsShowcase from './ProductsSection';
 
-interface Props {}
+interface Props { }
 
 const PriciestProductsShowcase = (props: Props) => {
   const [productsStatus, setProductsStatus] = useState<TStatus>('idle');
@@ -28,16 +29,9 @@ const PriciestProductsShowcase = (props: Props) => {
     });
   }, [productsStatus]);
 
-  const componentMap = {
-    idle: undefined,
-    pending: <Spinner animation="border" />,
-    reject: undefined,
-    success: (
-      <TopProductsShowcase title="Priciest products" products={products} />
-    ),
-  };
-
-  return <>{componentMap[productsStatus]}</>;
+  return (
+    <TopProductsShowcase title="Priciest products" products={products} status={productsStatus}/>
+  );
 };
 
 export default PriciestProductsShowcase;

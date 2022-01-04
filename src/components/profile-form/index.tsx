@@ -12,7 +12,7 @@ export const UserInfo: React.FC = () => {
     dateOfBirth: '',
   });
   useEffect(() => {
-    const token = localStorage.getItem('user-token');
+    const token = localStorage.getItem('auction-user-token');
 
     const id: any = jwt_decode(token);
 
@@ -31,7 +31,7 @@ export const UserInfo: React.FC = () => {
       });
   }, []);
   function submitform() {
-    const token = localStorage.getItem('user-token');
+    const token = localStorage.getItem('auction-user-token');
 
     const id: any = jwt_decode(token);
     instance

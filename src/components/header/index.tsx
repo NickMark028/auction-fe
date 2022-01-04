@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
   useEffect(() => {
-    localStorage.getItem('user-token');
+    localStorage.getItem('auction-user-token');
   }, []);
   function loginState() {
-    console.log(localStorage.getItem('user-token'));
-    if (localStorage.getItem('user-token') != null) {
+    console.log(localStorage.getItem('auction-user-token'));
+    if (localStorage.getItem('auction-user-token') != null) {
       return (
         <ul>
           <li>

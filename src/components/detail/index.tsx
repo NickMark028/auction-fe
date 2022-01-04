@@ -41,7 +41,6 @@ export const Detail: React.FC = () => {
       // console.log(history.location.pathname);
       const pathname = history.location.pathname;
       const id = pathname.slice(9);
-      window.scrollTo(0, 0);
 
       try {
         const data = await dispatch(getProductDetailsTC(id)).unwrap();
@@ -80,22 +79,22 @@ export const Detail: React.FC = () => {
 
   function send() {
     const log: AuctionLog = {
-      firstName: localStorage.getItem('firstName'),
-      lastName: localStorage.getItem('lastName'),
+      firstName: localStorage.getItem('auction-first-name'),
+      lastName: localStorage.getItem('auction-last-name'),
       price: price,
       createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
     };
     setAuctionLogs([log, ...auctionLogs]);
 
     socket.emit('bid', {
-      firstName: localStorage.getItem('firstName'),
-      lastName: localStorage.getItem('lastName'),
+      firstName: localStorage.getItem('auction-first-name'),
+      lastName: localStorage.getItem('auction-last-name'),
       price: price,
       bidAt: Date.now(),
     });
     //call api luu auctionLog
     axiosClient.post('/api/auction', {
-      bidderId: localStorage.getItem('id'), //localStorage.getItem('Id');
+      bidderId: localStorage.getItem('auction-user-id'), //localStorage.getItem('Id');
       productId: productDetails.data?.id, //productDetails.data?.id;
       price: price,
     });

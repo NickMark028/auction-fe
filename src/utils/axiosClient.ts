@@ -10,6 +10,22 @@ const axiosClient = axios.create({
   },
 });
 
+axiosClient.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  const accessToken = localStorage.getItem('auction-access-token');
+
+  if (accessToken) {
+    config.headers = {
+      Authorization: `Bearer ${accessToken}`
+    }
+  }
+  
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
+
 // axiosClient.interceptors.response.use((response) => {
 
 // }, (error) => {

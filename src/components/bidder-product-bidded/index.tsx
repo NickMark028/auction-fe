@@ -6,7 +6,7 @@ export const BidderProduct: React.FC = () => {
   useEffect(() => {
     setTimeout(async () => {
       axiosClient
-        .get(`/api/bidder/product-bidded/${localStorage.getItem('id')}`)
+        .get(`/api/bidder/product-bidded/${localStorage.getItem('auction-user-id')}`)
         .then((res) => setbidderProduct(res.data));
     });
   }, []);

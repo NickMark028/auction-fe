@@ -6,9 +6,7 @@ const loginItem = () => {
   return (
     <>
       <Header />
-
       <Login />
-
       <Footer />
     </>
   );

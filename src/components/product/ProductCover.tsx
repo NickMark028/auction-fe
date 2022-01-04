@@ -12,7 +12,7 @@ const ProductCover = (props: Props) => {
   return (
     <div className="col-lg-3 col-md-6 col-sm-12">
       <div className="product__item">
-        <Link to={PageURL.Detail.replace(':id', id.toString())}>
+        <Link to={PageURL.Detail.replace(':id', id.toString())} onClick={() => window.scrollTo(0, 0)}>
           <div
             className="product__item__pic set-bg"
             style={{

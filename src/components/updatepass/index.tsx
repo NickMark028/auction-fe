@@ -13,7 +13,7 @@ export const ChangePass: React.FC = () => {
     confirm: '',
   });
   useEffect(() => {
-    const token = localStorage.getItem('user-token');
+    const token = localStorage.getItem('auction-user-token');
     const id: any = jwt_decode(token);
     setCre({
       ...credential,

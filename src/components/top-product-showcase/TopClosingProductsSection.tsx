@@ -1,11 +1,10 @@
 import { TProduct, TStatus } from 'models';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Spinner } from 'react-bootstrap';
 import { getTopClosingProducts } from './api';
-import TopProductsShowcase from './TopProductsSection';
+import TopProductsShowcase from './ProductsSection';
 
-interface Props {}
+interface Props { }
 
 const TopClosingProductsShowcase = (props: Props) => {
   const [productsStatus, setProductsStatus] = useState<TStatus>('idle');
@@ -27,16 +26,9 @@ const TopClosingProductsShowcase = (props: Props) => {
     });
   }, [productsStatus]);
 
-  const componentMap = {
-    idle: undefined,
-    pending: <Spinner animation="border" />,
-    reject: undefined,
-    success: (
-      <TopProductsShowcase title="Closing products" products={products} />
-    ),
-  };
-
-  return <div>{componentMap[productsStatus]}</div>;
+  return (
+    <TopProductsShowcase title="Closing products" products={products} status={productsStatus} />
+  );
 };
 
 export default TopClosingProductsShowcase;

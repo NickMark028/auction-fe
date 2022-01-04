@@ -1,9 +1,8 @@
 import { TProduct, TStatus } from 'models';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
-import { Spinner } from 'react-bootstrap';
 import { getTopAutionLogProducts } from './api';
-import TopProductsShowcase from './TopProductsSection';
+import TopProductsShowcase from './ProductsSection';
 
 interface Props {}
 
@@ -27,16 +26,7 @@ const TopAutionLogProductsShowcase = (props: Props) => {
     });
   }, [productsStatus]);
 
-  const componentMap = {
-    idle: undefined,
-    pending: <Spinner animation="border" />,
-    reject: undefined,
-    success: (
-      <TopProductsShowcase title="Most bidding products" products={products} />
-    ),
-  };
-
-  return <>{componentMap[productsStatus]}</>;
+  return <TopProductsShowcase title="Most bidding products" status={productsStatus} products={products} />;
 };
 
 export default TopAutionLogProductsShowcase;
