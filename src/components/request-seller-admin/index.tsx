@@ -13,6 +13,12 @@ export const RequestToSellerAdmin: React.FC = () => {
       } catch (error) {}
     });
   }, []);
+  async function approve(id: any) {
+    await axiosClient.patch(`/api/admin/acceptRole/${id}`);
+  }
+  async function deline(id: any) {
+    await axiosClient.patch(`/api/admin/delineRole/${id}`);
+  }
 
   return (
     <div>
@@ -29,9 +35,8 @@ export const RequestToSellerAdmin: React.FC = () => {
             <tbody>
               {listReq?.map((c, item) => (
                 <tr key={item}>
-                  <td>{c.id}</td>
+                  <td>{c.bidderId}</td>
                   <td>
-                    {' '}
                     {moment(c.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                   </td>
                   <td>{c.message}</td>
@@ -42,11 +47,16 @@ export const RequestToSellerAdmin: React.FC = () => {
                         className="btn-group"
                         style={{ marginBottom: '20px' }}
                       >
-                        <button type="button" onClick={() => {}}>
-                          {' '}
+                        <button
+                          type="button"
+                          onClick={() => approve(c.bidderId)}
+                        >
                           Approve
                         </button>
-                        <button type="button" onClick={() => {}}>
+                        <button
+                          type="button"
+                          onClick={() => deline(c.bidderId)}
+                        >
                           Deline
                         </button>
                       </div>
