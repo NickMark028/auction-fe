@@ -15,11 +15,15 @@ export const RequestToSellerAdmin: React.FC = () => {
   }, []);
   async function approve(id: any) {
     await axiosClient.patch(`/api/admin/acceptRole/${id}`);
+    const del = [...listReq].filter((req) => req.bidderId !== id);
+    setListReq(del);
   }
   async function deline(id: any) {
     await axiosClient.patch(`/api/admin/delineRole/${id}`);
+    const del = [...listReq].filter((req) => req.bidderId !== id);
+    setListReq(del);
   }
-
+  const [isdisabled, setDisabled] = useState(false);
   return (
     <div>
       <div className="container">
