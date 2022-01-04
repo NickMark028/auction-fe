@@ -1,13 +1,13 @@
 import ServerError from 'components/500-server-error';
 import Loading from 'components/loading';
-import { } from 'components/watch-later-body/api';
+import {} from 'components/watch-later-body/api';
 import { TProduct, TStatus } from 'models';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { getPriciestProducts } from './api';
 import TopProductsShowcase from './ProductsSection';
 
-interface Props { }
+interface Props {}
 
 const PriciestProductsShowcase = (props: Props) => {
   const [productsStatus, setProductsStatus] = useState<TStatus>('idle');
@@ -30,7 +30,11 @@ const PriciestProductsShowcase = (props: Props) => {
   }, [productsStatus]);
 
   return (
-    <TopProductsShowcase title="Priciest products" products={products} status={productsStatus}/>
+    <TopProductsShowcase
+      title="Priciest products"
+      products={products}
+      status={productsStatus}
+    />
   );
 };
 

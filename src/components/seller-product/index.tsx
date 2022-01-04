@@ -6,7 +6,11 @@ export const SellerProduct: React.FC = () => {
   useEffect(() => {
     setTimeout(async () => {
       axiosClient
-        .get(`/api/seller/product-selling/${localStorage.getItem('auction-user-id')}`)
+        .get(
+          `/api/seller/product-selling/${localStorage.getItem(
+            'auction-user-id'
+          )}`
+        )
         .then((res) => setSellerProduct(res.data));
     });
   }, []);

@@ -65,10 +65,19 @@ export const Login: React.FC = () => {
         .then((res) => {
           localStorage.setItem('auction-user-token', res.data.accessToken);
           var decoded: any = jwt_decode(res.data.accessToken);
-          localStorage.setItem('auction-user-data', JSON.stringify(res.data.user_info));
+          localStorage.setItem(
+            'auction-user-data',
+            JSON.stringify(res.data.user_info)
+          );
           localStorage.setItem('auction-user-id', decoded.userId);
-          localStorage.setItem('auction-first-name', res.data.user_info.firstName);
-          localStorage.setItem('auction-last-name', res.data.user_info.lastName);
+          localStorage.setItem(
+            'auction-first-name',
+            res.data.user_info.firstName
+          );
+          localStorage.setItem(
+            'auction-last-name',
+            res.data.user_info.lastName
+          );
           NotificationManager.success(res.status, 'Login success', 3000);
           set({ status: 'not ok' });
           console.log(credential.username.includes('admin'));

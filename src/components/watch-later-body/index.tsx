@@ -6,7 +6,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { getWatchList } from './api';
 
-interface Props { }
+interface Props {}
 
 const WatchLaterBody: FC<Props> = (props: Props) => {
   const [status, setStatus] = useState<TStatus>('idle');
@@ -32,7 +32,7 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
 
   const uiMap = {
     idle: undefined,
-    pending: <Spinner animation='border' />,
+    pending: <Spinner animation="border" />,
     success: (
       <>
         <section>
@@ -56,12 +56,8 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
       </>
     ),
     reject: <ServerError />,
-  }
+  };
 
-  return (
-    <div className="container">
-      {uiMap[status]}
-    </div>
-  );
+  return <div className="container">{uiMap[status]}</div>;
 };
 export default WatchLaterBody;

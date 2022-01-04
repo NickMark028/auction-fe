@@ -26,7 +26,13 @@ const TopAutionLogProductsShowcase = (props: Props) => {
     });
   }, [productsStatus]);
 
-  return <TopProductsShowcase title="Most bidding products" status={productsStatus} products={products} />;
+  return (
+    <TopProductsShowcase
+      title="Most bidding products"
+      status={productsStatus}
+      products={products}
+    />
+  );
 };
 
 export default TopAutionLogProductsShowcase;

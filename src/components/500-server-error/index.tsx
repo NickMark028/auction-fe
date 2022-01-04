@@ -2,13 +2,13 @@ import { PageURL } from 'enum/PageURL';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface Props { }
+interface Props {}
 
 const ServerError = (props: Props) => {
   return (
     <div className="main-error-page server-error py-5 mb-5">
       <svg
-        className='my-5'
+        className="my-5"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         width="auto"
@@ -319,9 +319,7 @@ const ServerError = (props: Props) => {
       </h2>
 
       <Link className="error-subtitle" to={PageURL.Home}>
-        <p className='text-center'>
-          Go back home?
-        </p>
+        <p className="text-center">Go back home?</p>
       </Link>
     </div>
   );

@@ -23,11 +23,11 @@ const TopProductsShowcase = (props: Props) => {
       </Row>
     ),
     reject: (
-      <Row className='justify-content-center'>
-        <p className='my-5'>Can't retrieved item</p>
+      <Row className="justify-content-center">
+        <p className="my-5">Can't retrieved item</p>
       </Row>
     ),
-  }
+  };
 
   return (
     <section className="featured spad">
@@ -41,9 +41,7 @@ const TopProductsShowcase = (props: Props) => {
         </Row>
       </Container>
 
-      <Container>
-        {componentMap[status]}
-      </Container>
+      <Container>{componentMap[status]}</Container>
     </section>
   );
 };

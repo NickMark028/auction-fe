@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { getTopClosingProducts } from './api';
 import TopProductsShowcase from './ProductsSection';
 
-interface Props { }
+interface Props {}
 
 const TopClosingProductsShowcase = (props: Props) => {
   const [productsStatus, setProductsStatus] = useState<TStatus>('idle');
@@ -27,7 +27,11 @@ const TopClosingProductsShowcase = (props: Props) => {
   }, [productsStatus]);
 
   return (
-    <TopProductsShowcase title="Closing products" products={products} status={productsStatus} />
+    <TopProductsShowcase
+      title="Closing products"
+      products={products}
+      status={productsStatus}
+    />
   );
 };
 

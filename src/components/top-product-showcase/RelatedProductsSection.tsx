@@ -32,9 +32,14 @@ const RelatedProductsSection = (props: Props) => {
     });
   }, [section, productsStatus]);
 
-  const actualStatus: TStatus = section === undefined ? 'pending' : productsStatus;
+  const actualStatus: TStatus =
+    section === undefined ? 'pending' : productsStatus;
   return (
-    <TopProductsShowcase title="Related products" products={products} status={actualStatus} />
+    <TopProductsShowcase
+      title="Related products"
+      products={products}
+      status={actualStatus}
+    />
   );
 };
 
