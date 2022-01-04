@@ -3,7 +3,6 @@ import { setConstantValue } from 'typescript';
 import { Link } from 'react-router-dom';
 import { instance } from 'utils/utils';
 
-
 export const Productlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {

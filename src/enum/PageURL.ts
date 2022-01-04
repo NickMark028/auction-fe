@@ -8,9 +8,8 @@ export enum PageURL {
   Category = '/category',
   List = '/list',
   Register = '/register',
-  WatchLater = '/watch-later',
+  WatchList = '/watch-list',
   Admin = '/admin',
   AddProduct = '/add',
-
   Profile = '/profile',
 }

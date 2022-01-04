@@ -1,4 +1,4 @@
-import { } from 'components/watch-later-body/api';
+import {} from 'components/watch-later-body/api';
 import { TProduct, TStatus } from 'models';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
@@ -7,11 +7,11 @@ import { getRelatedProducts } from './api';
 import TopProductsShowcase from './TopProductsSection';
 
 interface Props {
-  section?: string
+  section?: string;
 }
 
 const RelatedProductsSection = (props: Props) => {
-  const { section } = props
+  const { section } = props;
   console.log(section);
 
   const [productsStatus, setProductsStatus] = useState<TStatus>('idle');
@@ -28,8 +28,7 @@ const RelatedProductsSection = (props: Props) => {
 
         setProducts(response);
         setProductsStatus('success');
-      }
-       catch (error) {
+      } catch (error) {
         setProductsStatus('reject');
       }
     });
@@ -44,9 +43,11 @@ const RelatedProductsSection = (props: Props) => {
     ),
   };
 
-  return section === undefined
-    ? <Spinner animation='border' />
-    : <>{componentMap[productsStatus]}</>
+  return section === undefined ? (
+    <Spinner animation="border" />
+  ) : (
+    <>{componentMap[productsStatus]}</>
+  );
 };
 
 export default RelatedProductsSection;

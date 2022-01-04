@@ -4,38 +4,41 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
-useEffect(()=>{
-localStorage.getItem("user-token")
-
-},[])
-function loginState(){
-  console.log(localStorage.getItem("user-token"))
-  if(localStorage.getItem("user-token")!=null){
-    return  <ul>
-    <li>
-      <Link to={PageURL.Profile}>
-      <i className="fa fa-user" />
-        {/* <span>1</span> */}
-      </Link>
-    </li>
-    </ul>
-  }else{
-    return  <ul>
-    <li>
-      <Link to={PageURL.Login}>
-        Login
-        {/* <span>1</span> */}
-      </Link>
-    </li>
-    <li>
-      <Link to={PageURL.Register}>
-        Register
-        {/* <span>1</span> */}
-      </Link>
-    </li>
-    </ul>
+  useEffect(() => {
+    localStorage.getItem('user-token');
+  }, []);
+  function loginState() {
+    console.log(localStorage.getItem('user-token'));
+    if (localStorage.getItem('user-token') != null) {
+      return (
+        <ul>
+          <li>
+            <Link to={PageURL.Profile}>
+              <i className="fa fa-user" />
+              {/* <span>1</span> */}
+            </Link>
+          </li>
+        </ul>
+      );
+    } else {
+      return (
+        <ul>
+          <li>
+            <Link to={PageURL.Login}>
+              Login
+              {/* <span>1</span> */}
+            </Link>
+          </li>
+          <li>
+            <Link to={PageURL.Register}>
+              Register
+              {/* <span>1</span> */}
+            </Link>
+          </li>
+        </ul>
+      );
+    }
   }
-}
   return (
     <header className="header">
       <div className="container">
@@ -85,9 +88,9 @@ function loginState(){
           <div className="col-lg-4">
             <div className="header__cart">
               <ul>
-               {loginState()}
+                {loginState()}
                 <li>
-                  <Link to={PageURL.WatchLater}>
+                  <Link to={PageURL.WatchList}>
                     <i className="fa fa-heart" />
                     {/* <span>1</span> */}
                   </Link>

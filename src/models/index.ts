@@ -100,10 +100,10 @@ export type TProductDetailsList = {
 };
 
 export type TRelatedProduct = {
-  name: string,
-  currentPrice: number,
-  timeExpired: string,
-  createdAt: string,
-  auctionLogCount: 0,
-  coverImageUrl: string
-}
+  name: string;
+  currentPrice: number;
+  timeExpired: string;
+  createdAt: string;
+  auctionLogCount: 0;
+  coverImageUrl: string;
+};

@@ -3,10 +3,11 @@ import { TProduct } from 'models';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-interface Props extends TProduct { }
+interface Props extends TProduct {}
 
 const ProductCover = (props: Props) => {
-  const { id, coverImageUrl, currentPrice, topBidder, name, auctionLogCount } = props;
+  const { id, coverImageUrl, currentPrice, topBidder, name, auctionLogCount } =
+    props;
 
   return (
     <div className="col-lg-3 col-md-6 col-sm-12">

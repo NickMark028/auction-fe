@@ -14,7 +14,7 @@ import SellerProductView from 'pages/sellerProductView';
 import profileItem from 'pages/profile';
 import { HomePage, SearchPage } from 'pages';
 import store from 'redux/store';
-import WatchLaterPage from 'pages/watch-later';
+import WatchListPage from 'pages/watch-list';
 
 function App(): JSX.Element {
   return (
@@ -27,7 +27,7 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.Login} component={loginItem} />
           <PublicRoute path={PageURL.List} component={userList} />
           <PublicRoute path={PageURL.Register} component={regItem} />
-          <PrivateRoute path={PageURL.WatchLater} component={WatchLaterPage} />
+          <PrivateRoute path={PageURL.WatchList} component={WatchListPage} />
           <PublicRoute path={PageURL.Admin} component={Admin} />
           <PublicRoute path={PageURL.Profile} component={profileItem} />
           <PublicRoute path={PageURL.AddProduct} component={AddProduct} />

@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 interface Props {}
 
-const WatchLaterPage: FC<Props> = (props: Props) => {
+const WatchListPage: FC<Props> = (props: Props) => {
   return (
     <>
       <Header />
@@ -14,4 +14,4 @@ const WatchLaterPage: FC<Props> = (props: Props) => {
   );
 };
 
-export default WatchLaterPage;
+export default WatchListPage;

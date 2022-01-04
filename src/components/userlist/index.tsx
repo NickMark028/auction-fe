@@ -19,9 +19,9 @@ export const Userlist: React.FC = () => {
         },
       })
       .then((res) => console.log(res))
-      .catch((err)=>{
-        console.log(err.response)
-      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   }
 
   function update(id: any) {
