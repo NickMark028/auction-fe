@@ -37,7 +37,6 @@ export const Detail: React.FC = () => {
   const [topBidderStatus, setTopBidderStatus] = useState<TStatus>('idle');
 
   useEffect(() => {
-    
     setTimeout(async () => {
       // console.log(history.location.pathname);
       const pathname = history.location.pathname;
@@ -177,7 +176,9 @@ export const Detail: React.FC = () => {
                       <input
                         id="price"
                         type="number"
-                        defaultValue={topBidder.price}
+                        defaultValue={
+                          topBidder.price || productDetails.data?.currentPrice
+                        }
                         step={Number(productDetails.data!.priceStep)}
                         onChange={(e) => {
                           setPrice(Number(e.target.value));
