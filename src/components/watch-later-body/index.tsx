@@ -1,12 +1,11 @@
 import ServerError from 'components/500-server-error';
 import ProductRow from 'components/product/ProductRow';
-import SearchBar from 'components/search-box';
 import { TProduct, TStatus } from 'models';
 import React, { FC, useEffect, useState } from 'react';
-import { Spinner } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import { getWatchList } from './api';
 
-interface Props {}
+interface Props { }
 
 const WatchLaterBody: FC<Props> = (props: Props) => {
   const [status, setStatus] = useState<TStatus>('idle');
@@ -24,7 +23,8 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
 
         setWatchList(data);
         setStatus('success');
-      } catch (error) {
+      }
+      catch (error) {
         setStatus('reject');
       }
     });
@@ -40,18 +40,31 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
         </section>
 
         <section className="">
-          {status === 'success' &&
-            watchList?.map((product, index) => (
-              <ProductRow
-                key={product.id}
-                productId={product.id}
-                imageUrl={product.coverImageUrl}
-                name={product.name}
-                description={product.description}
-                pricing={product.currentPrice}
-                timeExpired={product.timeExpired}
-              />
-            ))}
+          <Row>
+            {status === 'success' && watchList &&
+              <>
+                {watchList.length !== 0
+                  ? (
+                    watchList.map((product, index) => (
+                      <ProductRow
+                        key={product.id}
+                        productId={product.id}
+                        imageUrl={product.coverImageUrl}
+                        name={product.name}
+                        description={product.description}
+                        pricing={product.currentPrice}
+                        timeExpired={product.timeExpired}
+                      />
+                    )))
+                  : (
+                    <Col className='align-items-center'>
+                      <img className='my-5' src='./asset/img/empty.png' />
+                    </Col>
+                  )
+                }
+              </>
+            }
+          </Row>
         </section>
       </>
     ),

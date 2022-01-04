@@ -22,12 +22,8 @@ const SearchBar = (props: Props) => {
   }
 
   return (
-    <div className="hero__search__form">
-      <form action="#" onSubmit={onSearchSubmit}>
-        <div className="hero__search__categories">
-          All Categories
-          <span className="arrow_carrot-down" />
-        </div>
+    <div className="hero__search__form my-0">
+      <form onSubmit={onSearchSubmit}>
         <input
           type="text"
           placeholder="What do yo u need?"

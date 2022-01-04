@@ -14,6 +14,7 @@ import {
 import DropDown from 'react-multilevel-dropdown';
 import { Link, useHistory } from 'react-router-dom';
 import { PageURL } from 'enum/PageURL';
+import { Row } from 'react-bootstrap';
 
 export const Main: React.FC = () => {
   //jQuery()
@@ -41,7 +42,7 @@ export const Main: React.FC = () => {
       {/* Category + Preview page */}
       <section className="hero">
         <div className="container">
-          <div className="row">
+          <Row className='my-5'>
             {/* All category */}
             <div className="col-lg-3">
               <div className="hero__categories">
@@ -81,43 +82,26 @@ export const Main: React.FC = () => {
               </div>
             </div>
 
-            {/* Search + Suport */}
-            <div className="col-lg-9">
-              {/* Search */}
-              <div className="hero__search">
-                <SearchBar />
-                <div className="hero__search__phone">
-                  <div className="hero__search__phone__icon">
-                    <i className="fa fa-phone" />
-                  </div>
-                  <div className="hero__search__phone__text">
-                    <h5>+65 11.188.888</h5>
-                    <span>support 24/7 time</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Banner */}
-              <div
-                className="hero__item set-bg"
-                style={{
-                  backgroundImage: "url('asset/img/banner/banner.jpg')",
-                }}
-              >
-                <div className="hero__text">
-                  <span>FRUIT FRESH</span>
-                  <h2>
-                    Vegetable <br />
-                    100% Organic
-                  </h2>
-                  <p>Free Pickup and Delivery Available</p>
-                  {/* <a href="#" className="primary-btn">
+            {/* Banner */}
+            <div
+              className="col-lg-9 hero__item set-bg"
+              style={{
+                backgroundImage: "url('asset/img/banner/banner.jpg')",
+              }}
+            >
+              <div className="hero__text">
+                <span>FRUIT FRESH</span>
+                <h2>
+                  Vegetable <br />
+                  100% Organic
+                </h2>
+                <p>Free Pickup and Delivery Available</p>
+                {/* <a href="#" className="primary-btn">
                     SHOP NOW
                   </a> */}
-                </div>
               </div>
             </div>
-          </div>
+          </Row>
         </div>
       </section>
 

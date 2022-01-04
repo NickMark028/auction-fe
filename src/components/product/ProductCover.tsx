@@ -2,12 +2,17 @@ import { PageURL } from 'enum/PageURL';
 import { TProduct } from 'models';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import axiosClient from 'utils/axiosClient';
+import { toggleWatchList } from './api';
 
-interface Props extends TProduct {}
+interface Props extends TProduct { }
 
 const ProductCover = (props: Props) => {
-  const { id, coverImageUrl, currentPrice, topBidder, name, auctionLogCount } =
-    props;
+  const { id, coverImageUrl, currentPrice, topBidder, name, auctionLogCount } = props;
+
+  function toggleFavorite() {
+    toggleWatchList(id);
+  }
 
   return (
     <div className="col-lg-3 col-md-6 col-sm-12">
@@ -25,7 +30,7 @@ const ProductCover = (props: Props) => {
           >
             <ul className="product__item__pic__hover">
               <li>
-                <a href="#">
+                <a onClick={toggleFavorite}>
                   <i className="fa fa-heart" />
                 </a>
               </li>
