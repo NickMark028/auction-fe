@@ -126,7 +126,6 @@ export const Register: React.FC = () => {
         })
         .then((res) => {
           history.push('/');
-          NotificationManager.success(res.status, 'Register success', 3000);
         })
         .catch((err) => {
           console.log(err.response);
