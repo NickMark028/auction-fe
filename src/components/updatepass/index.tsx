@@ -1,9 +1,7 @@
 import jwt_decode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import '../../styles/profile.scss';
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { BrowserRouter as Router, Switch, Route,Link } from 'react-router-dom';
-import { UserInfo } from 'components';
+
 import  instance  from 'utils/axiosClient';
 export const ChangePass: React.FC = () => {
 const [credential, setCre] = useState({

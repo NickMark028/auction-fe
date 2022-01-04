@@ -75,6 +75,12 @@ const rules = [
     message: 'The Birthday field is required.',
   },
   {
+    field: 'address',
+    method: 'isEmpty',
+    validWhen: false,
+    message: 'The address field is required.',
+  },
+  {
     field: 'email',
     method: 'isEmail',
     validWhen: true,
@@ -90,6 +96,7 @@ export const Register: React.FC = () => {
     lastName: '',
     email: '',
     dateOfBirth: '',
+    address: '',
     otp:''
   });
  
@@ -115,6 +122,7 @@ export const Register: React.FC = () => {
           lastName: account.lastName,
           email: account.email,
           dateOfBirth: account.dateOfBirth,
+          address: account.address
         })
         .then((res) => {
           history.push('/');
@@ -238,6 +246,25 @@ export const Register: React.FC = () => {
                 style={{ display: 'block', color: 'red' }}
               >
                 {errors.dateOfBirth}
+              </div>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label>Address</label>
+            <input
+              type="address"
+              className="form-control"
+              placeholder="Enter address"
+              name="address"
+              onChange={handleChange}
+            />
+            {errors.address && (
+              <div
+                className="validation"
+                style={{ display: 'block', color: 'red' }}
+              >
+                {errors.address}
               </div>
             )}
           </div>
