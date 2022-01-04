@@ -11,6 +11,6 @@ export enum PageURL {
   WatchLater = '/watch-later',
   Admin = '/admin',
   AddProduct = '/add',
-  SellerProductView = '/seller-product/:id',
-  Profile = '/profile'
+
+  Profile = '/profile',
 }
