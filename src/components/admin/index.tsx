@@ -3,9 +3,10 @@ import '../../styles/admin.scss';
 import { Userlist } from '../userlist';
 import { Productlist } from '../productlist';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { RequestToSellerAdmin } from 'components/request-seller-admin';
+import { CategoryList } from 'components';
+import { BrowserRouter as Router, Switch, Route,Link } from 'react-router-dom';
+
 export const Admin: React.FC = () => {
   return (
     <div className="admin-app-container">
@@ -24,7 +25,9 @@ export const Admin: React.FC = () => {
               Request to be Seller
               <Link to="/admin/requestSeller" />
             </MenuItem>
-            <MenuItem>Component 2</MenuItem>
+            <MenuItem>Category list
+            <Link to="/admin/category" />
+            </MenuItem>
           </Menu>
         </ProSidebar>
       </div>
@@ -32,6 +35,7 @@ export const Admin: React.FC = () => {
         <Switch>
           <Route path="/admin" exact component={Userlist} />
           <Route path="/admin/product" exact component={Productlist} />
+          <Route path="/admin/category" exact component={CategoryList} />
           <Route
             path="/admin/requestSeller"
             exact
