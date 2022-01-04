@@ -24,11 +24,11 @@ export const Main: React.FC = () => {
   const [display, setDisplay] = useState('block');
   const dispatch = useAppDispatch();
   const categoryList = useAppSelector(selectCategoryList);
-const history = useHistory();
-
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(getCategoryListTC());
+    if (categoryList.data === undefined)
+      dispatch(getCategoryListTC());
   }, []);
 
   function handleChange() {
@@ -58,7 +58,7 @@ const history = useHistory();
                         {category.section}
                         <DropDown.Submenu position='right'>
                           {category.categories.map(detailCategory => (
-                            <DropDown.Item onClick={() => history.push(`${PageURL.Category}/${detailCategory.name}`)}>
+                            <DropDown.Item onClick={() => history.push(`${PageURL.Category}/${detailCategory.path}`)}>
                               {detailCategory.name}
                             </DropDown.Item>
                           ))}
