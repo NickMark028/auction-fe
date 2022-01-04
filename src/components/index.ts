@@ -13,3 +13,4 @@ export { SellerProduct } from './seller-product/index';
 export { Profile } from './profile'
 export { UserInfo } from './profile-form'
 export { ChangePass } from './updatepass'
+export {CategoryList} from './categorylist'

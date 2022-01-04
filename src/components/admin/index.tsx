@@ -3,7 +3,7 @@ import '../../styles/admin.scss';
 import { Userlist } from '../userlist';
 import { Productlist } from '../productlist';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-
+import { CategoryList } from 'components';
 import { BrowserRouter as Router, Switch, Route,Link } from 'react-router-dom';
 
 export const Admin: React.FC = () => {
@@ -21,7 +21,9 @@ export const Admin: React.FC = () => {
       <MenuItem >Product list
       <Link to="/admin/product"/>
       </MenuItem>
-      <MenuItem>Component 2</MenuItem>
+      <MenuItem>Category
+      <Link to="/admin/category"/>
+      </MenuItem>
       
     </Menu>
     </ProSidebar>
@@ -30,6 +32,7 @@ export const Admin: React.FC = () => {
   <Switch>
           <Route path="/admin"exact component={Userlist} />
           <Route path="/admin/product" exact component={Productlist} />
+          <Route path="/admin/category" exact component={CategoryList}/>
   </Switch>
   </div>
   
