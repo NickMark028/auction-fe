@@ -32,7 +32,12 @@ export const SellerProduct: React.FC = () => {
                 <td> {auctionLog.currentPrice} </td>
                 <td>{auctionLog.auctionLogCount}</td>
                 <td>{auctionLog.bidderCount}</td>
-                <td> {moment(auctionLog.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                <td>
+                  {' '}
+                  {moment(auctionLog.createdAt).format(
+                    'MMMM Do YYYY, h:mm:ss a'
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

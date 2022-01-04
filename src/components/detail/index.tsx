@@ -175,9 +175,7 @@ export const Detail: React.FC = () => {
                       <input
                         id="price"
                         type="number"
-                        defaultValue={
-                          topBidder.price || productDetails.data?.currentPrice
-                        }
+                        defaultValue={topBidder.price}
                         step={Number(productDetails.data!.priceStep)}
                         onChange={(e) => {
                           setPrice(Number(e.target.value));

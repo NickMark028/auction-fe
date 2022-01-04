@@ -32,11 +32,6 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.Profile} component={profileItem} />
           <PublicRoute path={PageURL.AddProduct} component={AddProduct} />
 
-          <PublicRoute
-            path={PageURL.SellerProductView}
-            component={SellerProductView}
-          />
-
           {/* id */}
         </Switch>
       </Router>

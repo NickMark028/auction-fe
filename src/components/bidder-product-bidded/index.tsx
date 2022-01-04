@@ -11,7 +11,7 @@ export const BidderProduct: React.FC = () => {
     });
   }, []);
   return (
-    <>
+    <div className="App">
       <div className="product__details__tab__desc" style={{ overflow: 'auto' }}>
         <table className="table table-hover">
           <thead>
@@ -20,7 +20,7 @@ export const BidderProduct: React.FC = () => {
               <th>Price Bid</th>
               <th>Current Price</th>
               <th>Time Exprired</th>
-              <th>Bidder count</th>
+
               <th>Auction log count</th>
               <th>Bid At</th>
             </tr>
@@ -32,7 +32,7 @@ export const BidderProduct: React.FC = () => {
                 <td> {bidderP.price} </td>
                 <td> {bidderP.currentPrice} </td>
                 <td>{moment(bidderP.timeExpired).fromNow()}</td>
-                <td>{bidderP.bidderCount}</td>
+
                 <td>{bidderP.auctionLogCount}</td>
 
                 <td>
@@ -43,6 +43,6 @@ export const BidderProduct: React.FC = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
