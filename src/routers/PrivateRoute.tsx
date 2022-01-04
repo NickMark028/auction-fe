@@ -7,7 +7,7 @@ interface Props extends RouteProps {}
 const PrivateRoute: FC<Props> = (props: Props) => {
   const { path, exact, strict, component, location } = props;
 
-  const accessToken = localStorage.getItem('auction-access-token');
+  const accessToken = localStorage.getItem('auction-user-token');
   const hasAccess = accessToken !== null;
 
   return hasAccess ? (
