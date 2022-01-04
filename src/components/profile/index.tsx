@@ -16,11 +16,8 @@ export const Profile: React.FC = () => {
   const history = useHistory();
   function logout() {
     console.log('logged out');
-    localStorage.removeItem('user-token');
-    localStorage.removeItem('user-data');
-    localStorage.removeItem('user-id');
-    localStorage.removeItem('user-first-name');
-    localStorage.removeItem('user-last-name');
+
+    localStorage.clear();
     history.push('/');
   }
   return (
