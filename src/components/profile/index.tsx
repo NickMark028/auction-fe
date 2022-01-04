@@ -16,16 +16,8 @@ export const Profile: React.FC = () => {
   const history = useHistory();
   function logout() {
     console.log('logged out');
-<<<<<<< HEAD
-    localStorage.removeItem('auction-user-token');
-    localStorage.removeItem('auction-user-data');
-    localStorage.removeItem('auction-user-id');
-    localStorage.removeItem('auction-first-name');
-    localStorage.removeItem('auction-last-name');
-=======
 
     localStorage.clear();
->>>>>>> thanh_FE
     history.push('/');
   }
   return (
