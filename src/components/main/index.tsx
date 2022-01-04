@@ -11,6 +11,9 @@ import {
   TopAutionLogProductsShowcase,
   TopClosingProductsShowcase,
 } from 'components/top-product-showcase';
+import DropDown from 'react-multilevel-dropdown'
+import { Link, useHistory } from 'react-router-dom';
+import { PageURL } from 'enum/PageURL';
 
 export const Main: React.FC = () => {
   //jQuery()
@@ -21,9 +24,11 @@ export const Main: React.FC = () => {
   const [display, setDisplay] = useState('block');
   const dispatch = useAppDispatch();
   const categoryList = useAppSelector(selectCategoryList);
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(getCategoryListTC());
+    if (categoryList.data === undefined)
+      dispatch(getCategoryListTC());
   }, []);
 
   function handleChange() {
@@ -48,11 +53,26 @@ export const Main: React.FC = () => {
 
                 {categoryList.status === 'success' && (
                   <ul className="drop" style={{ display }}>
-                    {categoryList.data?.map((category, index) => (
+                    {categoryList.data?.map(category => (
+                      <DropDown.Item>
+                        {category.section}
+                        <DropDown.Submenu position='right'>
+                          {category.categories.map(detailCategory => (
+                            <DropDown.Item onClick={() => history.push(`${PageURL.Category}/${detailCategory.path}`)}>
+                              {detailCategory.name}
+                            </DropDown.Item>
+                          ))}
+                        </DropDown.Submenu>
+                      </DropDown.Item>
+                    ))}
+
+                    {/* {categoryList.data?.map((category, index) => (
                       <li key={index}>
                         <a href="#">{category.section}</a>
                       </li>
-                    ))}
+                    ))} */}
+
+
                   </ul>
                 )}
               </div>
