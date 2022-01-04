@@ -17,7 +17,7 @@ export const RequestToSellerAdmin: React.FC = () => {
     await axiosClient.patch(`/api/admin/acceptRole/${id}`);
   }
   async function deline(id: any) {
-    await axiosClient.patch(`/api/admin//delineRole/${id}`);
+    await axiosClient.patch(`/api/admin/delineRole/${id}`);
   }
 
   return (
