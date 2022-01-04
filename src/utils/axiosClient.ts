@@ -92,36 +92,36 @@ function saveToken(accessToken: string) {
 
 // axiosClient.interceptors.response.use(createAxiosResponseInterceptor);
 
-function createAxiosResponseInterceptor() {
-  const interceptor = axiosClient.interceptors.response.use(
-    response => response,
-    error => {
-      // Reject promise if usual error
-      if (error.response.status !== 401) {
-        return Promise.reject(error);
-      }
+// function createAxiosResponseInterceptor() {
+//   const interceptor = axiosClient.interceptors.response.use(
+//     response => response,
+//     error => {
+//       // Reject promise if usual error
+//       if (error.response.status !== 401) {
+//         return Promise.reject(error);
+//       }
 
-      /* 
-       * When response code is 401, try to refresh the token.
-       * Eject the interceptor so it doesn't loop in case
-       * token refresh causes the 401 response
-       */
-      axiosClient.interceptors.response.eject(interceptor);
-      const tokens = loadTokens();
-      return axiosClient.post('/api/auth/refresh', tokens)
-      .then(response => {
-        saveToken(response.data as string);
-        error.response.config.headers['authorization'] = 'Bearer ' + response.data.accessToken;
-        return axiosClient(error.response.config);
-      }).catch(error => {
-        localStorage.clear();
-        //this.router.push('/login');
-        //TODO: Redirect to login page
-        return Promise.reject(error);
-      }).finally(createAxiosResponseInterceptor);
-    }
-  );
-}
+//       /* 
+//        * When response code is 401, try to refresh the token.
+//        * Eject the interceptor so it doesn't loop in case
+//        * token refresh causes the 401 response
+//        */
+//       axiosClient.interceptors.response.eject(interceptor);
+//       const tokens = loadTokens();
+//       return axiosClient.post('/api/auth/refresh', tokens)
+//       .then(response => {
+//         saveToken(response.data as string);
+//         error.response.config.headers['authorization'] = 'Bearer ' + response.data.accessToken;
+//         return axiosClient(error.response.config);
+//       }).catch(error => {
+//         localStorage.clear();
+//         //this.router.push('/login');
+//         //TODO: Redirect to login page
+//         return Promise.reject(error);
+//       }).finally(createAxiosResponseInterceptor);
+//     }
+//   );
+// }
 
 // let isRefreshing = false
 // let refreshQueue: any[] = []

@@ -57,8 +57,8 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
                       />
                     )))
                   : (
-                    <Col className='align-items-center'>
-                      <img className='my-5' src='./asset/img/empty.png' />
+                    <Col className='d-flex flex-column mb-5 align-items-center'>
+                      <img className='my-5' src='./asset/img/empty.png' style={{ maxWidth: '40%' }} />
                     </Col>
                   )
                 }
