@@ -125,7 +125,7 @@ export const Register: React.FC = () => {
           address: account.address
         })
         .then((res) => {
-          history.push('/');
+          history.push('/login');
           NotificationManager.success(res.status, 'Register success', 3000);
         })
         .catch((err) => {
