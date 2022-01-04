@@ -1,118 +1,62 @@
 import { Logo } from 'components';
+import SearchBar from 'components/search-box';
 import { PageURL } from 'enum/PageURL';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { MdAccountCircle } from "react-icons/md";
+import { FaHeart } from "react-icons/fa";
+import { Container, Row } from 'react-bootstrap';
+import { isLoggedIn } from 'utils/utils';
+
+function LoginComponent() {
+  return isLoggedIn()
+    ? (
+      <ul>
+        <li>
+          <Link to={PageURL.WatchList} className='mx-2'>
+            <FaHeart size={'2rem'} />
+          </Link>
+
+          <Link to={PageURL.Profile}>
+            <MdAccountCircle size={'2rem'} />
+          </Link>
+        </li>
+      </ul>
+    )
+    : (
+      <ul>
+        <li>
+          <Link to={PageURL.Login}>Login</Link>
+        </li>
+        <li>
+          <Link to={PageURL.Register}>Register</Link>
+        </li>
+      </ul>
+    )
+}
 
 export const Header: React.FC = () => {
-  useEffect(() => {
-    localStorage.getItem('auction-user-token');
-  }, []);
-  function loginState() {
-    console.log(localStorage.getItem('auction-user-token'));
-    if (localStorage.getItem('auction-user-token') != null) {
-      return (
-        <ul>
-          <li>
-            <Link to={PageURL.Profile}>
-              <i className="fa fa-user" />
-              {/* <span>1</span> */}
-            </Link>
-          </li>
-        </ul>
-      );
-    } else {
-      return (
-        <ul>
-          <li>
-            <Link to={PageURL.Login}>
-              Login
-              {/* <span>1</span> */}
-            </Link>
-          </li>
-          <li>
-            <Link to={PageURL.Register}>
-              Register
-              {/* <span>1</span> */}
-            </Link>
-          </li>
-        </ul>
-      );
-    }
-  }
   return (
     <header className="header">
-      <div className="container">
-        <div className="row">
+      <Container>
+        <Row className='align-items-center'>
           <div className="col-lg-3 d-flex flex-column justify-content-center">
             <div className="header__logo">
               <Logo />
             </div>
           </div>
 
-          <div className="col-lg-4">
-            <nav className="header__menu">
-              <ul>
-                <li className="active">
-                  <Link to={PageURL.Home}>Home</Link>
-                </li>
-                <li>
-                  <a href="./shop-grid.html">Shop</a>
-                </li>
-                {/* <li>
-                  <a href="#">Pages</a>
-                  <ul className="header__menu__dropdown">
-                    <li>
-                      <a href="./shop-details.html">Shop Details</a>
-                    </li>
-                    <li>
-                      <a href="./shoping-cart.html">Shoping Cart</a>
-                    </li>
-                    <li>
-                      <a href="./checkout.html">Check Out</a>
-                    </li>
-                    <li>
-                      <a href="./blog-details.html">Blog Details</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="./blog.html">Blog</a>
-                </li> */}
-                <li>
-                  <a href="./contact.html">Contact</a>
-                </li>
-              </ul>
-            </nav>
+          <div className="col-lg-6">
+            <SearchBar />
           </div>
 
-          <div className="col-lg-4">
+          <div className="col-lg-3">
             <div className="header__cart">
-              <ul>
-                {loginState()}
-                <li>
-                  <Link to={PageURL.WatchList}>
-                    <i className="fa fa-heart" />
-                    {/* <span>1</span> */}
-                  </Link>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-shopping-bag" />
-                    {/* <span>3</span> */}
-                  </a>
-                </li>
-              </ul>
-              <div className="header__cart__price">
-                item: <span>$150.00</span>
-              </div>
+              <LoginComponent />
             </div>
           </div>
-        </div>
-
-        <div className="humberger__open">
-          <i className="fa fa-bars" />
-        </div>
-      </div>
+        </Row>
+      </Container>
     </header>
   );
 };
