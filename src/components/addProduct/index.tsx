@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment, ComponentState } from 'react';
-import { instance } from 'utils/utils';
+import  instance  from 'utils/axiosClient';
 import '../../styles/addproduct.scss';
-import { readFileSync } from 'fs';
 import axios from 'axios';
 import FileBase64 from 'react-file-base64';
 export const AddProduct: React.FC = () => {
@@ -15,10 +14,21 @@ export const AddProduct: React.FC = () => {
     instantPrice: '',
     isRenewal: '1',
     coverImageUrl: '',
+    productImage:[]
   });
 
   async function submitForm() {
-    console.log(image);
+    console.log(product)
+      instance.post('/api/product',{
+
+        product
+      }).then((res)=>{
+          console.log(res)
+
+      })
+    .catch((err)=>{
+        console.log(err.response)
+    })
   }
 
   function handleChange(evt) {
@@ -44,8 +54,20 @@ export const AddProduct: React.FC = () => {
       });
     }
   }
-  function getFiles(files) {
-    set({ files: files });
+  function getFile(files) {
+    setProduct({ 
+      ...product,
+      coverImageUrl: files.base64 });
+  }
+  function getFiles(files:any) {
+    const temp=[];
+    files.forEach(element => {
+      temp.push(element.base64)
+    });
+    setProduct({ 
+      ...product,
+      productImage: temp });
+    
   }
   return (
     <div className="outer1">
@@ -114,16 +136,12 @@ export const AddProduct: React.FC = () => {
 
           <div className="form-7">
             <label>Cover image</label>
-            {/* <input
-              type="file"
-              className="form-control"
-              placeholder="Enter cover image"
-              name="coverImageUrl"
-              onChange={handleChange}
-            /> */}
+            <FileBase64 multiple={false} onDone={getFile} />
+          </div>
+          <div className="form-8">
+            <label>Cover image</label>
             <FileBase64 multiple={true} onDone={getFiles} />
           </div>
-
           <p className="forgot-password text-right"></p>
         </form>
         <button
