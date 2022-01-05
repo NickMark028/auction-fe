@@ -97,21 +97,23 @@ export const Register: React.FC = () => {
     email: '',
     dateOfBirth: '',
     address: '',
-    otp:''
+    otp: '',
   });
- 
+
   const [errors, set] = useState<any>({ status: 'not ok' });
   const history = useHistory();
- 
-  function sendotp(){
-  // console.log(account.email)
-  instance.post('/api/user/mail',{
-      email:account.email
-  }).then((res)=>{
-    console.log(res)
-  })
+
+  function sendotp() {
+    // console.log(account.email)
+    instance
+      .post('/api/user/mail', {
+        email: account.email,
+      })
+      .then((res) => {
+        console.log(res);
+      });
   }
-  
+
   useEffect(() => {
     if (errors.status === 'ok') {
       instance
@@ -122,33 +124,32 @@ export const Register: React.FC = () => {
           lastName: account.lastName,
           email: account.email,
           dateOfBirth: account.dateOfBirth,
-          address: account.address
+          address: account.address,
         })
         .then((res) => {
           instance
-          .post('/api/auth', {
-            username: account.username,
-            password: account.password,
-          })
-          .then((res) => {
-  
-            localStorage.setItem('auction-user-token', res.data.accessToken);
-            var decoded: any = jwt_decode(res.data.accessToken);
-            localStorage.setItem(
-              'auction-user-data',
-              JSON.stringify(res.data.user_info)
-            );
-            localStorage.setItem('auction-user-id', decoded.userId);
-            localStorage.setItem(
-              'auction-first-name',
-              res.data.user_info.firstName
-            );
-            localStorage.setItem(
-              'auction-last-name',
-              res.data.user_info.lastName
-            );})
-            history.push('/')
-
+            .post('/api/auth', {
+              username: account.username,
+              password: account.password,
+            })
+            .then((res) => {
+              localStorage.setItem('auction-user-token', res.data.accessToken);
+              var decoded: any = jwt_decode(res.data.accessToken);
+              localStorage.setItem(
+                'auction-user-data',
+                JSON.stringify(res.data.user_info)
+              );
+              localStorage.setItem('auction-user-id', decoded.userId);
+              localStorage.setItem(
+                'auction-first-name',
+                res.data.user_info.firstName
+              );
+              localStorage.setItem(
+                'auction-last-name',
+                res.data.user_info.lastName
+              );
+            });
+          history.push('/');
         })
         .catch((err) => {
           // console.log(err.response);
@@ -162,25 +163,20 @@ export const Register: React.FC = () => {
   }, [errors]);
   function submitForm() {
     if (Object.keys(validate.validate(account)).length === 0) {
-      instance.post('/api/user/verify-otp',{
-        email:account.email,
-        otp:account.otp
-  
-    }).then((res)=>{
-       set({ status: 'ok' });
-     
-    }).catch((err)=>{
-      NotificationManager.error(
-        err.response.status,
-        'Wrong otp',
-        3000
-      );
-    })
-    
+      instance
+        .post('/api/user/verify-otp', {
+          email: account.email,
+          otp: account.otp,
+        })
+        .then((res) => {
+          set({ status: 'ok' });
+        })
+        .catch((err) => {
+          NotificationManager.error(err.response.status, 'Wrong otp', 3000);
+        });
     } else {
       set(validate.validate(account));
     }
-    
   }
   function handleChange(evt) {
     const value = evt.target.value;
@@ -337,22 +333,18 @@ export const Register: React.FC = () => {
               name="otp"
               onChange={handleChange}
             />
-             <button
-            type="button"
-            className="btn btn-dark"
-            onClick={sendotp}
-          >
-            send otp
-          </button>
+            <button type="button" className="btn btn-dark" onClick={sendotp}>
+              send otp
+            </button>
           </div>
-          <div className='btn-control'>
-          <button
-            type="button"
-            className="btn btn-dark btn-lg btn-block"
-            onClick={submitForm}
-          >
-            Register
-          </button>
+          <div className="btn-control">
+            <button
+              type="button"
+              className="btn btn-dark btn-lg btn-block"
+              onClick={submitForm}
+            >
+              Register
+            </button>
           </div>
           <NotificationContainer />
           <p className="forgot-password text-right">

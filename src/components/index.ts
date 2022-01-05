@@ -16,4 +16,4 @@ export { UserInfo } from './profile-form';
 export { ChangePass } from './updatepass';
 export { SellerProduct } from './seller-product/index';
 export { BidderProduct } from './bidder-product-bidded/index';
-export {CategoryList} from './categorylist'
+export { CategoryList } from './categorylist';

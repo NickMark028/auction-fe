@@ -2,7 +2,7 @@ import jwt_decode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import '../../styles/profile.scss';
 
-import  instance  from 'utils/axiosClient';
+import instance from 'utils/axiosClient';
 export const ChangePass: React.FC = () => {
   const [credential, setCre] = useState({
     id: '',
@@ -19,12 +19,11 @@ export const ChangePass: React.FC = () => {
     });
   }, []);
   function submitform() {
-    instance
-      .patch('/api/user/reset-password', {
-        id: credential.id,
-        current_pass: credential.current_pass,
-        new_pass: credential.new_pass,
-      })
+    instance.patch('/api/user/reset-password', {
+      id: credential.id,
+      current_pass: credential.current_pass,
+      new_pass: credential.new_pass,
+    });
   }
   function handleChange(evt) {
     const value = evt.target.value;

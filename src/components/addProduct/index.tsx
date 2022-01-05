@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment, ComponentState } from 'react';
-import  instance  from 'utils/axiosClient';
+import instance from 'utils/axiosClient';
 import '../../styles/addproduct.scss';
 import axios from 'axios';
 import FileBase64 from 'react-file-base64';
@@ -14,33 +14,32 @@ export const AddProduct: React.FC = () => {
     instantPrice: '',
     isRenewal: '1',
     coverImageUrl: '',
-    productImage:[]
+    productImage: [],
   });
   function hasNull(target) {
     for (var member in target) {
-        if (target[member] == '')
-            return true;
+      if (target[member] == '') return true;
     }
     return false;
-}
+  }
   async function submitForm() {
-    console.log(product)
-    if(hasNull(product)){
-      window.alert("field must not emty")
-     
-    }else{
-      instance.post('/api/product',{
-
-        product
-      }).then((res)=>{
-        window.alert("add success")
-          console.log(res)
-
-      })
-    .catch((err)=>{
-      window.alert(err.response.data.status)
-        console.log(err.response)
-    })}
+    console.log(product);
+    if (hasNull(product)) {
+      window.alert('field must not emty');
+    } else {
+      instance
+        .post('/api/product', {
+          product,
+        })
+        .then((res) => {
+          window.alert('add success');
+          console.log(res);
+        })
+        .catch((err) => {
+          window.alert(err.response.data.status);
+          console.log(err.response);
+        });
+    }
   }
 
   function handleChange(evt) {
@@ -67,25 +66,25 @@ export const AddProduct: React.FC = () => {
     }
   }
   function getFile(files) {
-    setProduct({ 
+    setProduct({
       ...product,
-      coverImageUrl: files.base64 });
-  }
-  function getFiles(files:any) {
-    const temp=[];
-    files.forEach(element => {
-      temp.push(element.base64)
+      coverImageUrl: files.base64,
     });
-    setProduct({ 
+  }
+  function getFiles(files: any) {
+    const temp = [];
+    files.forEach((element) => {
+      temp.push(element.base64);
+    });
+    setProduct({
       ...product,
-      productImage: temp });
-    
+      productImage: temp,
+    });
   }
   return (
     <div className="outer1">
       <div className="inner1">
         <form>
-
           <div className="form-1">
             <label>Name</label>
             <input

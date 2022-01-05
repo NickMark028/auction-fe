@@ -5,7 +5,7 @@ import { Productlist } from '../productlist';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { RequestToSellerAdmin } from 'components/request-seller-admin';
 import { CategoryList } from 'components';
-import { BrowserRouter as Router, Switch, Route,Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 export const Admin: React.FC = () => {
   return (
@@ -25,8 +25,9 @@ export const Admin: React.FC = () => {
               Request to be Seller
               <Link to="/admin/requestSeller" />
             </MenuItem>
-            <MenuItem>Category list
-            <Link to="/admin/category" />
+            <MenuItem>
+              Category list
+              <Link to="/admin/category" />
             </MenuItem>
           </Menu>
         </ProSidebar>

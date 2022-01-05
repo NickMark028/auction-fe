@@ -15,7 +15,15 @@ interface Props {
 }
 
 const ProductRow: FC<Props> = (props: Props) => {
-  const { productId, imageUrl, name, description, pricing, timeExpired, onProductRemoved } = props;
+  const {
+    productId,
+    imageUrl,
+    name,
+    description,
+    pricing,
+    timeExpired,
+    onProductRemoved,
+  } = props;
   const history = useHistory();
 
   function visitProduct() {
@@ -24,12 +32,11 @@ const ProductRow: FC<Props> = (props: Props) => {
 
   function removeFavorite() {
     toggleWatchList(productId);
-    if (onProductRemoved)
-      onProductRemoved(productId);
+    if (onProductRemoved) onProductRemoved(productId);
   }
 
   return (
-    <Row className='my-5'>
+    <Row className="my-5">
       {/* Image */}
       <div className="col-md-3">
         <img src={imageUrl} alt={name} />

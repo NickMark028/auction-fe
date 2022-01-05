@@ -2,7 +2,10 @@ import React, { useEffect, useState, Fragment } from 'react';
 import instance from '../../utils/axiosClient';
 import '../../styles/global.scss';
 import 'react-notifications/lib/notifications.css';
-import { NotificationContainer, NotificationManager,} from 'react-notifications';
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
 import jwt_decode from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
@@ -60,7 +63,6 @@ export const Login: React.FC = () => {
           password: credential.password,
         })
         .then((res) => {
-
           localStorage.setItem('auction-user-token', res.data.accessToken);
           var decoded: any = jwt_decode(res.data.accessToken);
           localStorage.setItem(
@@ -78,20 +80,19 @@ export const Login: React.FC = () => {
           );
           set({ status: 'not ok' });
 
-          instance.post('/api/admin/check-role',{
-            id:decoded.userId
-        }).then((res)=>{
-          history.push('/admin');
-        }).catch((error)=>{
-          history.push('/');
-        })
-         
+          instance
+            .post('/api/admin/check-role', {
+              id: decoded.userId,
+            })
+            .then((res) => {
+              history.push('/admin');
+            })
+            .catch((error) => {
+              history.push('/');
+            });
         })
         .catch((error) => {
-          NotificationManager.error(
-            error.response.status,
-            'Login Failed'
-          );
+          NotificationManager.error(error.response.status, 'Login Failed');
         });
     }
   }, [errors, history]);

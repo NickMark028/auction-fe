@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import jwtDecode from 'jwt-decode'
+import jwtDecode from 'jwt-decode';
 
 const defaultAxiosConfig: AxiosRequestConfig = {
   timeout: 10000,
@@ -7,7 +7,7 @@ const defaultAxiosConfig: AxiosRequestConfig = {
   headers: {
     'Content-Type': 'application/json',
   },
-}
+};
 
 const axiosClient = axios.create(defaultAxiosConfig);
 
@@ -15,24 +15,30 @@ async function refreshAccessToken(): Promise<string | null> {
   try {
     const dataSend = {
       accessToken: localStorage.getItem('auction-user-token') as string | null,
-      refreshToken: JSON.parse(localStorage.getItem('auction-user-data')).rfToken as string | null,
-    }
+      refreshToken: JSON.parse(localStorage.getItem('auction-user-data'))
+        .rfToken as string | null,
+    };
 
     if (dataSend.accessToken === null || dataSend.refreshToken === null)
       throw new Error('Access token or refresh token is empty');
 
-    const res = await axios.post('/api/auth/refresh', dataSend, defaultAxiosConfig);
-    if (res.status !== 201)
-      throw new Error(`Can't get access token`);
+    const res = await axios.post(
+      '/api/auth/refresh',
+      dataSend,
+      defaultAxiosConfig
+    );
+    if (res.status !== 201) throw new Error(`Can't get access token`);
 
     const accessToken = res.data.accessToken;
 
     localStorage.setItem('auction-user-token', accessToken);
-    localStorage.setItem('auction-user-data', (jwtDecode(accessToken) as any).user_data);
+    localStorage.setItem(
+      'auction-user-data',
+      (jwtDecode(accessToken) as any).user_data
+    );
 
     return accessToken;
-  }
-  catch (error) {
+  } catch (error) {
     localStorage.clear();
     throw error;
   }
@@ -41,7 +47,9 @@ async function refreshAccessToken(): Promise<string | null> {
 axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    const accessToken = localStorage.getItem('auction-user-token') as string | null;
+    const accessToken = localStorage.getItem('auction-user-token') as
+      | string
+      | null;
 
     if (accessToken) {
       config.headers = {
@@ -58,23 +66,22 @@ axiosClient.interceptors.request.use(
 );
 
 axiosClient.interceptors.response.use(
-  response => response,
+  (response) => response,
   async (error) => {
     const { response } = error;
 
     if (response.status === 401) {
       try {
         const accessToken: string | null = await refreshAccessToken();
-        
+
         response.config.headers['authorization'] = `Bearer ${accessToken}`;
         return axios(response.config);
-      }
-      catch (err) {
+      } catch (err) {
         return Promise.reject(err);
       }
     }
 
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 );
 

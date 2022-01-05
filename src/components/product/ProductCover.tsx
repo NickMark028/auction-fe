@@ -5,13 +5,16 @@ import { Link, useHistory } from 'react-router-dom';
 import axiosClient from 'utils/axiosClient';
 import { toggleWatchList } from './api';
 
-interface Props extends TProduct { }
+interface Props extends TProduct {}
 
 const ProductCover = (props: Props) => {
-  const { id, coverImageUrl, currentPrice, topBidder, name, auctionLogCount } = props;
+  const { id, coverImageUrl, currentPrice, topBidder, name, auctionLogCount } =
+    props;
   const history = useHistory();
 
-  function toggleFavorite(e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) {
+  function toggleFavorite(
+    e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>
+  ) {
     e.preventDefault();
     toggleWatchList(id);
   }

@@ -8,7 +8,7 @@ import { searchProductTC } from 'redux/slices/product-search-list/searchProduct'
 import { useAppDispatch, useAppSelector } from 'redux/store';
 import { parseQuery } from 'utils/parser';
 
-interface Props extends RouteProps { }
+interface Props extends RouteProps {}
 
 const SearchPage: FC<Props> = (props: Props) => {
   const { location, path } = props;

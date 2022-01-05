@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { Route, RouteProps, useHistory } from 'react-router-dom';
 
-interface Props extends RouteProps { }
+interface Props extends RouteProps {}
 
 const PublicRoute: FC<Props> = (props: Props) => {
   const { path, exact, strict, component } = props;

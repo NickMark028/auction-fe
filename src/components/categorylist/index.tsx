@@ -1,59 +1,65 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { isTemplateSpan, setConstantValue } from 'typescript';
 import { Link } from 'react-router-dom';
-import  instance  from 'utils/axiosClient';
-import { NotificationContainer, NotificationManager,} from 'react-notifications';
+import instance from 'utils/axiosClient';
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
 
 export const CategoryList: React.FC = () => {
-  const [category, set] = useState([{
-      section:'',
-      categories:[]
-  }]);
+  const [category, set] = useState([
+    {
+      section: '',
+      categories: [],
+    },
+  ]);
   useEffect(() => {
     instance.get('/api/category').then((res) => set(res.data));
 
     // console.log(category);
   }, []);
-  async function submitForm(path: any,id:any) {
+  async function submitForm(path: any, id: any) {
     // console.log(path);
     instance
       .delete('/api/category', {
         data: {
           path: path,
-          id:id
+          id: id,
         },
       })
       .then((res) => {
         update(id);
         NotificationManager.success(res.status, 'Delete success');
       })
-      .catch((error)=>{
-        NotificationManager.error(error.response.status, error.response.data.status);
-      })
+      .catch((error) => {
+        NotificationManager.error(
+          error.response.status,
+          error.response.data.status
+        );
+      });
   }
 
   function update(id: any) {
-  //  console.log(category);
+    //  console.log(category);
 
-const temp1=[];
- category.forEach(item=>{
-  const temp2=({
-    section:item.section,
-    categories:item.categories=item.categories.filter(item1=>item1.id!=id
-        )}
-    )
-   temp1.push(temp2)
+    const temp1 = [];
+    category.forEach((item) => {
+      const temp2 = {
+        section: item.section,
+        categories: (item.categories = item.categories.filter(
+          (item1) => item1.id != id
+        )),
+      };
+      temp1.push(temp2);
+    });
+    //   set({
+    //       ...category,
+    //       section:temp1,
+    //       category:temp
+    //   })
+    console.log(temp1);
 
-}
- )
-//   set({
-//       ...category,
-//       section:temp1,
-//       category:temp
-//   })
-  console.log(temp1)
-        
-      
     set(temp1);
   }
   return (
@@ -71,43 +77,43 @@ const temp1=[];
             </thead>
             <tbody>
               {category.map((category1) => (
-                    < >
-                    {category1.categories.map((category2) => (
-                       <tr>
-                        <td>{category1.section}</td>
-                         <td>{category2.id}</td>
-                         <td>{category2.name}</td>
-                         <td>{category2.path}</td>
-                        <td>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div
-                        className="btn-group"
-                        style={{ marginBottom: '20px' }}
-                      >
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.location.href = `edit/${category2.id}`;
-                          }}
-                        >
-                          {' '}
-                          Edit category
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            submitForm(category2.path,category2.id);
-                          }}
-                        >
-                          Delete category
-                        </button>
-                        <NotificationContainer />
-                      </div>
-                    </div>
-                         </td>
-                         </tr>
-                    ))}
+                <>
+                  {category1.categories.map((category2) => (
+                    <tr>
+                      <td>{category1.section}</td>
+                      <td>{category2.id}</td>
+                      <td>{category2.name}</td>
+                      <td>{category2.path}</td>
+                      <td>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <div
+                            className="btn-group"
+                            style={{ marginBottom: '20px' }}
+                          >
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                window.location.href = `edit/${category2.id}`;
+                              }}
+                            >
+                              {' '}
+                              Edit category
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                submitForm(category2.path, category2.id);
+                              }}
+                            >
+                              Delete category
+                            </button>
+                            <NotificationContainer />
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
                 </>
               ))}
             </tbody>

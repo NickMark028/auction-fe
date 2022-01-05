@@ -42,7 +42,7 @@ export const Main: React.FC = () => {
       {/* Category + Preview page */}
       <section className="hero">
         <div className="container">
-          <Row className='my-5'>
+          <Row className="my-5">
             {/* All category */}
             <div className="col-lg-3">
               <div className="hero__categories">

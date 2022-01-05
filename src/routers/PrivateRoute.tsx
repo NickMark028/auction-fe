@@ -2,7 +2,7 @@ import { PageURL } from 'enum/PageURL';
 import { FC, useEffect } from 'react';
 import { Redirect, Route, RouteProps, useHistory } from 'react-router-dom';
 
-interface Props extends RouteProps { }
+interface Props extends RouteProps {}
 
 const PrivateRoute: FC<Props> = (props: Props) => {
   const { path, exact, strict, component, location } = props;

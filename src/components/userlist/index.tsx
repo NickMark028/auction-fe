@@ -12,16 +12,15 @@ export const Userlist: React.FC = () => {
 
   async function submitForm(id: any) {
     // console.log(id);
-    instance
-      .delete('/api/user', {
-        data: {
-          id: id,
-        },
-      })
-      // .then((res) => console.log(res))
-      // .catch((err) => {
-      //   console.log(err.response);
-      // });
+    instance.delete('/api/user', {
+      data: {
+        id: id,
+      },
+    });
+    // .then((res) => console.log(res))
+    // .catch((err) => {
+    //   console.log(err.response);
+    // });
   }
 
   function update(id: any) {
