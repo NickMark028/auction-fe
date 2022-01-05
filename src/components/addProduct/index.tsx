@@ -1,10 +1,8 @@
 import React, { useEffect, useState, Fragment, ComponentState } from 'react';
 import instance from 'utils/axiosClient';
 import '../../styles/addproduct.scss';
-import axios from 'axios';
 import FileBase64 from 'react-file-base64';
 export const AddProduct: React.FC = () => {
-  const [image, set] = useState<any>({ files: [] });
   const [product, setProduct] = useState({
     sellerId: localStorage.getItem('auction-user-id'),
     name: '',
@@ -44,7 +42,7 @@ export const AddProduct: React.FC = () => {
 
   function handleChange(evt) {
     const value = evt.target.value;
-
+    
     setProduct({
       ...product,
       [evt.target.name]: value,
@@ -66,15 +64,24 @@ export const AddProduct: React.FC = () => {
     }
   }
   function getFile(files) {
+    if(files.size.replace(/[^0-9]/g, '')>5000){
+      files=null
+      window.alert('file must be smaller than 5mb');
+    }else{
     setProduct({
       ...product,
       coverImageUrl: files.base64,
-    });
+    });}
   }
   function getFiles(files: any) {
     const temp = [];
     files.forEach((element) => {
-      temp.push(element.base64);
+      if(element.size.replace(/[^0-9]/g, '')>5000){
+        files=null
+        window.alert('file must be smaller than 5mb');
+        
+      }else{
+      temp.push(element.base64);}
     });
     setProduct({
       ...product,

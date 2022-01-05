@@ -15,9 +15,11 @@ import { AddProduct } from 'components';
 export const Profile: React.FC = () => {
   const history = useHistory();
   function logout() {
-    // console.log('logged out');
+    console.log('logged out');
 
-    localStorage.clear();
+    localStorage.removeItem('auction-user-token')
+    localStorage.removeItem('auction-user-data')
+ 
     history.push('/');
   }
   return (
