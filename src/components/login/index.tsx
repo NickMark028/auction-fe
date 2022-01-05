@@ -76,7 +76,6 @@ export const Login: React.FC = () => {
             'auction-last-name',
             res.data.user_info.lastName
           );
-          NotificationManager.success(res.status, 'Login success');
           set({ status: 'not ok' });
 
           instance.post('/api/admin/check-role',{
