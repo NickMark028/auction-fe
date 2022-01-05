@@ -67,7 +67,7 @@ export const Productlist: React.FC = () => {
                           }}
                         >
                           {' '}
-                          Edit customer
+                          Edit product
                         </button>
                         <button
                           type="button"
@@ -76,7 +76,7 @@ export const Productlist: React.FC = () => {
                             submitForm(customer.id);
                           }}
                         >
-                          Delete Customer
+                          Delete product
                         </button>
                       </div>
                     </div>

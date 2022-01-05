@@ -8,7 +8,7 @@ import {
 } from 'react-notifications';
 import Validator from '../../utils/validator';
 import { useHistory } from 'react-router-dom';
-
+import jwt_decode from 'jwt-decode';
 const rules = [
   {
     field: 'username',
@@ -125,8 +125,30 @@ export const Register: React.FC = () => {
           address: account.address
         })
         .then((res) => {
-          history.push('/login');
-          NotificationManager.success(res.status, 'Register success', 3000);
+          instance
+          .post('/api/auth', {
+            username: account.username,
+            password: account.password,
+          })
+          .then((res) => {
+  
+            localStorage.setItem('auction-user-token', res.data.accessToken);
+            var decoded: any = jwt_decode(res.data.accessToken);
+            localStorage.setItem(
+              'auction-user-data',
+              JSON.stringify(res.data.user_info)
+            );
+            localStorage.setItem('auction-user-id', decoded.userId);
+            localStorage.setItem(
+              'auction-first-name',
+              res.data.user_info.firstName
+            );
+            localStorage.setItem(
+              'auction-last-name',
+              res.data.user_info.lastName
+            );})
+            history.push('/')
+
         })
         .catch((err) => {
           // console.log(err.response);

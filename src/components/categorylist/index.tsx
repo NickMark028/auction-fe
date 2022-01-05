@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { isTemplateSpan, setConstantValue } from 'typescript';
 import { Link } from 'react-router-dom';
 import  instance  from 'utils/axiosClient';
-
+import { NotificationContainer, NotificationManager,} from 'react-notifications';
 
 export const CategoryList: React.FC = () => {
   const [category, set] = useState([{
@@ -14,17 +14,22 @@ export const CategoryList: React.FC = () => {
 
     // console.log(category);
   }, []);
-
   async function submitForm(path: any,id:any) {
     // console.log(path);
     instance
-      .delete('/api/product', {
+      .delete('/api/category', {
         data: {
           path: path,
           id:id
         },
       })
-      .then((res) => console.log(res));
+      .then((res) => {
+        update(id);
+        NotificationManager.success(res.status, 'Delete success');
+      })
+      .catch((error)=>{
+        NotificationManager.error(error.response.status, error.response.data.status);
+      })
   }
 
   function update(id: any) {
@@ -92,12 +97,12 @@ const temp1=[];
                         <button
                           type="button"
                           onClick={() => {
-                            update(category2.id);
                             submitForm(category2.path,category2.id);
                           }}
                         >
                           Delete category
                         </button>
+                        <NotificationContainer />
                       </div>
                     </div>
                          </td>

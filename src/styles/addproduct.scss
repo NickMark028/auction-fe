@@ -6,17 +6,17 @@
   flex-direction: column;
   text-align: left;
   padding-bottom: 150px;
-  padding-top: 100px;
-  padding-right: 500px;
-  padding-left: 50px;
+  width: 100%;
+
+
 }
 
 .inner1 {
-  width: 1800px;
+  width: 100%;
   margin: auto;
   background: #ffffff;
-  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-  padding: 50px 50px 50px 50px;
+
+  padding: 10px 10px 10px 10px;
   border-radius: 15px;
   transition: all 0.3s;
 }
@@ -37,7 +37,21 @@
   text-align: left;
 }
 .form-6 {
-  height: 100px;
+  margin-top: 0.3rem;
+  margin-bottom: 0.1rem;
   text-align: left;
   display: flex;
+}
+.form-6 input{
+  margin-top: 0.4rem;
+}
+
+.form-7{
+  margin-bottom: 0.5rem;
+}
+.form-7 label{
+  margin-right: 1rem;
+}
+.form-8 label{
+  margin-right: 1rem;
 }

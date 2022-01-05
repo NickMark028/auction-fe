@@ -11,7 +11,7 @@ import {
 import { UserInfo } from 'components';
 import { ChangePass, BidderProduct, SellerProduct } from 'components';
 import { RequestToSeller } from 'components/request-seller';
-
+import { AddProduct } from 'components';
 export const Profile: React.FC = () => {
   const history = useHistory();
   function logout() {
@@ -42,6 +42,10 @@ export const Profile: React.FC = () => {
               <Link to="/profile/to-seller" />
             </MenuItem>
             <MenuItem>
+              Add product
+              <Link to="/profile/add" />
+            </MenuItem>
+            <MenuItem>
               Reset password
               <Link to="/profile/reset" />
             </MenuItem>
@@ -56,6 +60,7 @@ export const Profile: React.FC = () => {
           <Route path="/profile/product-bidded" component={BidderProduct} />
           <Route path="/profile/product-to-bid" component={SellerProduct} />
           <Route path="/profile/to-seller" component={RequestToSeller} />
+          <Route path="/profile/add" component={AddProduct} />
         </Switch>
       </div>
     </div>
