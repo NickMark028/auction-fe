@@ -12,11 +12,11 @@ export const CategoryList: React.FC = () => {
   useEffect(() => {
     instance.get('/api/category').then((res) => set(res.data));
 
-    console.log(category);
+    // console.log(category);
   }, []);
 
   async function submitForm(path: any,id:any) {
-    console.log(path);
+    // console.log(path);
     instance
       .delete('/api/product', {
         data: {

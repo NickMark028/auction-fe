@@ -1,6 +1,6 @@
 import { PageURL } from 'enum/PageURL';
 import { TProduct } from 'models';
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axiosClient from 'utils/axiosClient';
 import { toggleWatchList } from './api';
@@ -9,18 +9,17 @@ interface Props extends TProduct { }
 
 const ProductCover = (props: Props) => {
   const { id, coverImageUrl, currentPrice, topBidder, name, auctionLogCount } = props;
+  const history = useHistory();
 
-  function toggleFavorite() {
+  function toggleFavorite(e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) {
+    e.preventDefault();
     toggleWatchList(id);
   }
 
   return (
     <div className="col-lg-3 col-md-6 col-sm-12">
       <div className="product__item">
-        <Link
-          to={PageURL.Detail.replace(':id', id.toString())}
-          onClick={() => window.scrollTo(0, 0)}
-        >
+        <Link to={PageURL.Detail.replace(':id', id.toString())}>
           <div
             className="product__item__pic set-bg"
             style={{

@@ -1,6 +1,8 @@
 import { PageURL } from 'enum/PageURL';
 import React, { FC } from 'react';
+import { Row } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
+import { toggleWatchList } from './api';
 
 interface Props {
   productId: number;
@@ -9,21 +11,25 @@ interface Props {
   pricing: number;
   imageUrl: string;
   timeExpired: string; //!
+  onProductRemoved: (productId: number) => void;
 }
 
 const ProductRow: FC<Props> = (props: Props) => {
-  const { productId, imageUrl, name, description, pricing, timeExpired } =
-    props;
+  const { productId, imageUrl, name, description, pricing, timeExpired, onProductRemoved } = props;
   const history = useHistory();
 
   function visitProduct() {
     history.push(PageURL.Detail.replace(/:id/, productId.toString()));
   }
 
-  function removeFavorite() {}
+  function removeFavorite() {
+    toggleWatchList(productId);
+    if (onProductRemoved)
+      onProductRemoved(productId);
+  }
 
   return (
-    <div className="row my-5">
+    <Row className='my-5'>
       {/* Image */}
       <div className="col-md-3">
         <img src={imageUrl} alt={name} />
@@ -36,7 +42,7 @@ const ProductRow: FC<Props> = (props: Props) => {
 
       <div className="col-md-2 d-flex flex-column">
         <h3 className="align-items-center">
-          <span className="text-danger">{pricing}$</span>
+          <span className="text-danger">${pricing}</span>
         </h3>
         <p>{timeExpired}</p>
         <button
@@ -44,7 +50,7 @@ const ProductRow: FC<Props> = (props: Props) => {
           className="site-btn d-block"
           onClick={visitProduct}
         >
-          VISIT PRODUCT
+          VISIT
         </button>
         <button
           type="button"
@@ -54,7 +60,7 @@ const ProductRow: FC<Props> = (props: Props) => {
           REMOVE
         </button>
       </div>
-    </div>
+    </Row>
   );
 };
 

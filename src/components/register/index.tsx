@@ -104,7 +104,7 @@ export const Register: React.FC = () => {
   const history = useHistory();
  
   function sendotp(){
-  console.log(account.email)
+  // console.log(account.email)
   instance.post('/api/user/mail',{
       email:account.email
   }).then((res)=>{
@@ -129,7 +129,7 @@ export const Register: React.FC = () => {
           NotificationManager.success(res.status, 'Register success', 3000);
         })
         .catch((err) => {
-          console.log(err.response);
+          // console.log(err.response);
           NotificationManager.error(
             err.response.status,
             'Register failed',

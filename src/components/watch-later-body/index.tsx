@@ -19,8 +19,6 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
         setStatus('pending');
         const data = await getWatchList();
 
-        console.log(data);
-
         setWatchList(data);
         setStatus('success');
       }
@@ -40,31 +38,32 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
         </section>
 
         <section className="">
-          <Row>
-            {status === 'success' && watchList &&
-              <>
-                {watchList.length !== 0
-                  ? (
-                    watchList.map((product, index) => (
-                      <ProductRow
-                        key={product.id}
-                        productId={product.id}
-                        imageUrl={product.coverImageUrl}
-                        name={product.name}
-                        description={product.description}
-                        pricing={product.currentPrice}
-                        timeExpired={product.timeExpired}
-                      />
-                    )))
-                  : (
+          {status === 'success' && watchList &&
+            <>
+              {watchList.length !== 0
+                ? (
+                  watchList.map((product, index) => (
+                    <ProductRow
+                      key={product.id}
+                      productId={product.id}
+                      imageUrl={product.coverImageUrl}
+                      name={product.name}
+                      description={product.description}
+                      pricing={product.currentPrice}
+                      timeExpired={product.timeExpired}
+                      onProductRemoved={(productId) => setWatchList(watchList.filter(product => product.id !== productId))}
+                    />
+                  )))
+                : (
+                  <Row>
                     <Col className='d-flex flex-column mb-5 align-items-center'>
                       <img className='my-5' src='./asset/img/empty.png' style={{ maxWidth: '40%' }} />
                     </Col>
-                  )
-                }
-              </>
-            }
-          </Row>
+                  </Row>
+                )
+              }
+            </>
+          }
         </section>
       </>
     ),

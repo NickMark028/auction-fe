@@ -11,21 +11,21 @@ export const Userlist: React.FC = () => {
   }, []);
 
   async function submitForm(id: any) {
-    console.log(id);
+    // console.log(id);
     instance
       .delete('/api/user', {
         data: {
           id: id,
         },
       })
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err.response);
-      });
+      // .then((res) => console.log(res))
+      // .catch((err) => {
+      //   console.log(err.response);
+      // });
   }
 
   function update(id: any) {
-    console.log(id);
+    // console.log(id);
     let filteredArray = customers.filter((item) => item.id !== id);
     set(filteredArray);
   }

@@ -23,11 +23,11 @@ export const UserInfo: React.FC = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setaccount(res.data);
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response);
       });
   }, []);
   function submitform() {

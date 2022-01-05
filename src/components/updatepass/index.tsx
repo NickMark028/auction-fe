@@ -25,12 +25,6 @@ export const ChangePass: React.FC = () => {
         current_pass: credential.current_pass,
         new_pass: credential.new_pass,
       })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {});
-
-    console.log(credential);
   }
   function handleChange(evt) {
     const value = evt.target.value;

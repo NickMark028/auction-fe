@@ -8,11 +8,11 @@ export const Productlist: React.FC = () => {
   useEffect(() => {
     instance.get('/api/product').then((res) => set(res.data));
 
-    console.log(customers);
+    // console.log(customers);
   }, []);
 
   async function submitForm(id: any) {
-    console.log(id);
+    // console.log(id);
     instance
       .delete('/api/product', {
         data: {
@@ -23,7 +23,7 @@ export const Productlist: React.FC = () => {
   }
 
   function update(id: any) {
-    console.log(id);
+    // console.log(id);
     let filteredArray = customers.filter((item) => item.id !== id);
     set(filteredArray);
   }

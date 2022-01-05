@@ -15,7 +15,7 @@ import { RequestToSeller } from 'components/request-seller';
 export const Profile: React.FC = () => {
   const history = useHistory();
   function logout() {
-    console.log('logged out');
+    // console.log('logged out');
 
     localStorage.clear();
     history.push('/');

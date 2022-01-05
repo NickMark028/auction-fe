@@ -10,7 +10,7 @@ interface Props {
 
 const RelatedProductsSection = (props: Props) => {
   const { section } = props;
-  console.log(section);
+  // console.log(section);
 
   const [productsStatus, setProductsStatus] = useState<TStatus>('idle');
   const [products, setProducts] = useState<TProduct[]>(undefined);

@@ -51,11 +51,11 @@ export const Login: React.FC = () => {
       set(validate.validate(credential));
     }
 
-    console.log(credential);
+    // console.log(credential);
   }
 
   useEffect(() => {
-    console.log(errors);
+    // console.log(errors);
     if (errors.status === 'ok') {
       instance
         .post('/api/auth', {
@@ -80,7 +80,7 @@ export const Login: React.FC = () => {
           );
           NotificationManager.success(res.status, 'Login success', 3000);
           set({ status: 'not ok' });
-          console.log(credential.username.includes('admin'));
+          // console.log(credential.username.includes('admin'));
           if (credential.username.includes('admin')) {
             history.push('/admin');
           } else {

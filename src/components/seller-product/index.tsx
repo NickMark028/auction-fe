@@ -25,7 +25,7 @@ export const SellerProduct: React.FC = () => {
       });
     });
   }, []);
-  console.log(checkrole);
+  // console.log(checkrole);
   if (!checkrole) {
     return <h5>You are not a seller!! Please become a seller! </h5>;
   } else {
