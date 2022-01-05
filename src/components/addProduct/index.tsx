@@ -6,7 +6,7 @@ import FileBase64 from 'react-file-base64';
 export const AddProduct: React.FC = () => {
   const [image, set] = useState<any>({ files: [] });
   const [product, setProduct] = useState({
-    sellerId: '1000053',
+    sellerId: localStorage.getItem('auction-user-id'),
     name: '',
     description: '',
     reservedPrice: '',
@@ -16,19 +16,31 @@ export const AddProduct: React.FC = () => {
     coverImageUrl: '',
     productImage:[]
   });
-
+  function hasNull(target) {
+    for (var member in target) {
+        if (target[member] == '')
+            return true;
+    }
+    return false;
+}
   async function submitForm() {
     console.log(product)
+    if(hasNull(product)){
+      window.alert("field must not emty")
+     
+    }else{
       instance.post('/api/product',{
 
         product
       }).then((res)=>{
+        window.alert("add success")
           console.log(res)
 
       })
     .catch((err)=>{
+      window.alert(err.response.data.status)
         console.log(err.response)
-    })
+    })}
   }
 
   function handleChange(evt) {
@@ -73,7 +85,6 @@ export const AddProduct: React.FC = () => {
     <div className="outer1">
       <div className="inner1">
         <form>
-          <h3>Add product</h3>
 
           <div className="form-1">
             <label>Name</label>
