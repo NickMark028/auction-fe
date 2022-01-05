@@ -1,4 +1,5 @@
 import { PageURL } from 'enum/PageURL';
+import moment from 'moment';
 import React, { FC } from 'react';
 import { Row } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
@@ -10,7 +11,7 @@ interface Props {
   description: string;
   pricing: number;
   imageUrl: string;
-  timeExpired: string; //!
+  timeExpired: string;
   onProductRemoved: (productId: number) => void;
 }
 
@@ -51,7 +52,7 @@ const ProductRow: FC<Props> = (props: Props) => {
         <h3 className="align-items-center">
           <span className="text-danger">${pricing}</span>
         </h3>
-        <p>{timeExpired}</p>
+        <p>{moment(timeExpired).format('MMMM Do YYYY, h:mm:ss a')}</p>
         <button
           type="button"
           className="site-btn d-block"

@@ -48,7 +48,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "formatter": "yarn prettier --write ./src",
-    "lint": "yarn lint ",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
