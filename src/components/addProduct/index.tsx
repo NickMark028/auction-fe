@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment, ComponentState } from 'react';
 import instance from 'utils/axiosClient';
 import '../../styles/addproduct.scss';
 import FileBase64 from 'react-file-base64';
+import axiosClient from 'utils/axiosClient';
 export const AddProduct: React.FC = () => {
   const [product, setProduct] = useState({
     sellerId: localStorage.getItem('auction-user-id'),
@@ -42,7 +43,7 @@ export const AddProduct: React.FC = () => {
 
   function handleChange(evt) {
     const value = evt.target.value;
-    
+
     setProduct({
       ...product,
       [evt.target.name]: value,
@@ -64,111 +65,136 @@ export const AddProduct: React.FC = () => {
     }
   }
   function getFile(files) {
-    if(files.size.replace(/[^0-9]/g, '')>5000){
-      files=null
+    if (files.size.replace(/[^0-9]/g, '') > 5000) {
+      files = null;
       window.alert('file must be smaller than 5mb');
-    }else{
-    setProduct({
-      ...product,
-      coverImageUrl: files.base64,
-    });}
+    } else {
+      setProduct({
+        ...product,
+        coverImageUrl: files.base64,
+      });
+    }
   }
   function getFiles(files: any) {
     const temp = [];
     files.forEach((element) => {
-      if(element.size.replace(/[^0-9]/g, '')>5000){
-        files=null
+      if (element.size.replace(/[^0-9]/g, '') > 5000) {
+        files = null;
         window.alert('file must be smaller than 5mb');
-        
-      }else{
-      temp.push(element.base64);}
+      } else {
+        temp.push(element.base64);
+      }
     });
     setProduct({
       ...product,
       productImage: temp,
     });
   }
-  return (
-    <div className="outer1">
-      <div className="inner1">
-        <form>
-          <div className="form-1">
-            <label>Name</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter product name"
-              name="name"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div className="form-2">
-            <label>Description</label>
+  const [checkrole, setCheckRole] = useState([]);
+  useEffect(() => {
+    setTimeout(async () => {
+      async function role() {
+        return await axiosClient.get(
+          `/api/seller/checkrole/${localStorage.getItem('auction-user-id')}`
+        );
+      }
 
-            <textarea
-              className="form-control"
-              placeholder="Enter Description"
-              name="description"
-              onChange={handleChange}
-            />
-          </div>
+      role().then((res) => {
+        setCheckRole(res.data);
+      });
+    });
+  }, []);
+  // console.log(checkrole);
+  if (!checkrole) {
+    return (
+      <>
+        <img src="./asset/img/hand-1200.png" alt="" width={'50%'} />
+        <h2>You are not a seller!!Please become a seller! </h2>
+      </>
+    );
+  } else {
+    return (
+      <div className="outer1">
+        <div className="inner1">
+          <form>
+            <div className="form-1">
+              <label>Name</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter product name"
+                name="name"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className="form-2">
+              <label>Description</label>
 
-          <div className="form-3">
-            <label>Price</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Enter reserve price"
-              name="reservedPrice"
-              onChange={handleChange}
-            />
-          </div>
+              <textarea
+                className="form-control"
+                placeholder="Enter Description"
+                name="description"
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="form-4">
-            <label>Price step</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Enter price step"
-              name="priceStep"
-              onChange={handleChange}
-            />
-          </div>
+            <div className="form-3">
+              <label>Price</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter reserve price"
+                name="reservedPrice"
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="form-5">
-            <label>Instant price</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Enter instant price"
-              name="instantPrice"
-              onChange={handleChange}
-            />
-          </div>
+            <div className="form-4">
+              <label>Price step</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter price step"
+                name="priceStep"
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="form-6">
-            <input type="checkbox" name="isRenewal" onChange={handlecheck} />
-            <label>Renewal</label>
-          </div>
+            <div className="form-5">
+              <label>Instant price</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter instant price"
+                name="instantPrice"
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="form-7">
-            <label>Cover image</label>
-            <FileBase64 multiple={false} onDone={getFile} />
-          </div>
-          <div className="form-8">
-            <label>Cover image</label>
-            <FileBase64 multiple={true} onDone={getFiles} />
-          </div>
-          <p className="forgot-password text-right"></p>
-        </form>
-        <button
-          type="button"
-          className="btn btn-dark btn-lg btn-block"
-          onClick={submitForm}
-        >
-          Add
-        </button>
+            <div className="form-6">
+              <input type="checkbox" name="isRenewal" onChange={handlecheck} />
+              <label>Renewal</label>
+            </div>
+
+            <div className="form-7">
+              <label>Cover image</label>
+              <FileBase64 multiple={false} onDone={getFile} />
+            </div>
+            <div className="form-8">
+              <label>Cover image</label>
+              <FileBase64 multiple={true} onDone={getFiles} />
+            </div>
+            <p className="forgot-password text-right"></p>
+          </form>
+          <button
+            type="button"
+            className="btn btn-dark btn-lg btn-block"
+            onClick={submitForm}
+          >
+            Add
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };

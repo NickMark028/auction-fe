@@ -27,7 +27,8 @@ export const RequestToSeller: React.FC = () => {
   } else
     return (
       <>
-        <h5>Do you want to become seller? </h5>
+        <img src="./asset/img/seller-1200.png" alt="" width={'50%'} />
+        <h2 style={{ marginLeft: '1rem' }}>Do you want to become seller? </h2>
         <button
           onClick={() => {
             axiosClient.post(
