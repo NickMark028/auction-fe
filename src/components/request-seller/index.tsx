@@ -18,7 +18,12 @@ export const RequestToSeller: React.FC = () => {
   }, []);
 
   if (checkrole) {
-    return <h5>You are a seller </h5>;
+    return (
+      <>
+        <img src="./asset/img/seller-1200.png" alt="" width={'50%'} />
+        <h2 style={{ marginLeft: '6rem' }}>You are a seller </h2>
+      </>
+    );
   } else
     return (
       <>

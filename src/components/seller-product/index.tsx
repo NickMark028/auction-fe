@@ -27,7 +27,12 @@ export const SellerProduct: React.FC = () => {
   }, []);
   // console.log(checkrole);
   if (!checkrole) {
-    return <h5>You are not a seller!! Please become a seller! </h5>;
+    return (
+      <>
+        <img src="./asset/img/hand-1200.png" alt="" width={'50%'} />
+        <h2>You are not a seller!!Please become a seller! </h2>
+      </>
+    );
   } else {
     return (
       <>
