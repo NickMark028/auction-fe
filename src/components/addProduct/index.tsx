@@ -4,7 +4,6 @@ import '../../styles/addproduct.scss';
 import FileBase64 from 'react-file-base64';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import DateTimePicker from 'react-datetime-picker';
 import Multiselect from 'multiselect-react-dropdown';
 export const AddProduct: React.FC = () => {
   const [product, setProduct] = useState({
