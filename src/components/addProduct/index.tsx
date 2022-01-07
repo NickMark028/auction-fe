@@ -2,6 +2,10 @@ import React, { useEffect, useState, Fragment, ComponentState } from 'react';
 import instance from 'utils/axiosClient';
 import '../../styles/addproduct.scss';
 import FileBase64 from 'react-file-base64';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import DateTimePicker from 'react-datetime-picker';
+import Multiselect from 'multiselect-react-dropdown';
 export const AddProduct: React.FC = () => {
   const [product, setProduct] = useState({
     sellerId: localStorage.getItem('auction-user-id'),
@@ -10,10 +14,20 @@ export const AddProduct: React.FC = () => {
     reservedPrice: '',
     priceStep: '',
     instantPrice: '',
+    timeExpired:'',
+    category:[],
     isRenewal: '1',
     coverImageUrl: '',
     productImage: [],
   });
+  const [value, setValue] = useState('');
+  const [time, settime] = useState('');
+  const [category, set] = useState([
+    {
+      section: '',
+      categories: [],
+    },
+  ]);
   function hasNull(target) {
     for (var member in target) {
       if (target[member] == '') return true;
@@ -21,6 +35,9 @@ export const AddProduct: React.FC = () => {
     return false;
   }
   async function submitForm() {
+
+
+ 
     console.log(product);
     if (hasNull(product)) {
       window.alert('field must not emty');
@@ -39,7 +56,40 @@ export const AddProduct: React.FC = () => {
         });
     }
   }
+useEffect(()=>{
+setProduct({
+  ...product,
+  description:value
+})
+},[value])
+useEffect(()=>{
+  setProduct({
+    ...product,
+    timeExpired:time
+  })
+  },[time])
+useEffect(() => {
+    instance.get('/api/category').then((res) => set(res.data));
 
+     
+  }, []);
+
+  function tolist(){
+const list = []
+var temp;
+  category.forEach((element:any) => {
+      element.categories.forEach(element1 => {
+        temp={
+          name:element1.name,
+          id:element1.id
+        }
+        list.push(temp)
+      });
+  });
+
+  return list
+
+}
   function handleChange(evt) {
     const value = evt.target.value;
     
@@ -48,6 +98,7 @@ export const AddProduct: React.FC = () => {
       [evt.target.name]: value,
     });
   }
+
   function handlecheck(evt) {
     const value = evt.target.checked;
 
@@ -88,6 +139,14 @@ export const AddProduct: React.FC = () => {
       productImage: temp,
     });
   }
+  function onSelect(selectedList:any, selectedItem:any) {
+    console.log(selectedList)
+    setProduct({
+      ...product,
+      category:selectedList
+    })
+   
+}
   return (
     <div className="outer1">
       <div className="inner1">
@@ -105,18 +164,22 @@ export const AddProduct: React.FC = () => {
           <div className="form-2">
             <label>Description</label>
 
-            <textarea
-              className="form-control"
-              placeholder="Enter Description"
-              name="description"
-              onChange={handleChange}
-            />
+            <ReactQuill theme="snow"  onChange={setValue}/>
           </div>
-
+            <div className="multi-select"> 
+            <Multiselect
+            options={tolist()} // Options to display in the dropdown
+          //selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+           onSelect={onSelect} // Function will trigger on select event
+       //  onRemove={this.onRemove} // Function will trigger on remove event
+          displayValue="name" // Property name to display in the dropdown options
+              />
+            </div>
           <div className="form-3">
             <label>Price</label>
             <input
               type="number"
+              min="0"
               className="form-control"
               placeholder="Enter reserve price"
               name="reservedPrice"
@@ -128,6 +191,7 @@ export const AddProduct: React.FC = () => {
             <label>Price step</label>
             <input
               type="number"
+              min="0"
               className="form-control"
               placeholder="Enter price step"
               name="priceStep"
@@ -139,6 +203,7 @@ export const AddProduct: React.FC = () => {
             <label>Instant price</label>
             <input
               type="number"
+              min="0"
               className="form-control"
               placeholder="Enter instant price"
               name="instantPrice"
@@ -151,12 +216,21 @@ export const AddProduct: React.FC = () => {
             <label>Renewal</label>
           </div>
 
+          <div>
+          <input
+              type="date"
+              className="form-control"
+              placeholder="Enter your date"
+              name="timeExpired"
+              onChange={handleChange}
+            />
+    </div>
           <div className="form-7">
             <label>Cover image</label>
             <FileBase64 multiple={false} onDone={getFile} />
           </div>
           <div className="form-8">
-            <label>Cover image</label>
+            <label>Product image</label>
             <FileBase64 multiple={true} onDone={getFiles} />
           </div>
           <p className="forgot-password text-right"></p>
