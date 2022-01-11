@@ -10,7 +10,7 @@ import { getProductDetailsTC } from 'redux/slices/product-details/getProductDeta
 import { selectProductDetails } from 'redux/selectors';
 import { useAppDispatch, useAppSelector } from 'redux/store';
 import axiosClient from 'utils/axiosClient';
-
+import { Markup } from 'interweave';
 import moment from 'moment';
 import { TStatus } from 'models';
 import RelatedProductsSection from 'components/top-product-showcase/RelatedProductsSection';
@@ -282,7 +282,7 @@ export const Detail: React.FC = () => {
                   <div className="tab-pane" id="tabs-2" role="tabpanel">
                     <div className="product__details__tab__desc">
                       <h6>Products Infomation</h6>
-                      <p>{productDetails.data?.description}</p>
+                      <Markup content={productDetails.data?.description} />
                     </div>
                   </div>
                   <div className="tab-pane" id="tabs-3" role="tabpanel">

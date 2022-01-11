@@ -8,10 +8,9 @@ import {
   Link,
   useHistory,
 } from 'react-router-dom';
-import { UserInfo } from 'components';
-import { ChangePass, BidderProduct, SellerProduct } from 'components';
+import { ChangePass, BidderProduct, SellerProduct,AddProduct ,UserInfo,Description } from 'components';
 import { RequestToSeller } from 'components/request-seller';
-import { AddProduct } from 'components';
+import { Modal, Popover, PopoverContent } from 'react-bootstrap';
 export const Profile: React.FC = () => {
   const history = useHistory();
   function logout() {
@@ -54,6 +53,7 @@ export const Profile: React.FC = () => {
             <MenuItem onClick={logout}>Logout</MenuItem>
           </Menu>
         </ProSidebar>
+      
       </div>
       <div className="content">
         <Switch>
@@ -63,6 +63,7 @@ export const Profile: React.FC = () => {
           <Route path="/profile/product-to-bid" component={SellerProduct} />
           <Route path="/profile/to-seller" component={RequestToSeller} />
           <Route path="/profile/add" component={AddProduct} />
+          <Route path="/profile/update/:id" component={Description} />
         </Switch>
       </div>
     </div>

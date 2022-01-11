@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosClient from 'utils/axiosClient';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 export const SellerProduct: React.FC = () => {
   const [sellerProduct, setSellerProduct] = useState([]);
   const [checkrole, setCheckRole] = useState([]);
@@ -60,6 +61,24 @@ export const SellerProduct: React.FC = () => {
                       'MMMM Do YYYY, h:mm:ss a'
                     )}
                   </td>
+                  <td>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <div
+                            className="btn-group"
+                            style={{ marginBottom: '20px' }}
+                          >
+                            <Link to={`/profile/update/${auctionLog.id}`}>
+                            <button
+                              type="button"
+                        
+                            >
+                              Update description
+                            </button>
+                            </Link>
+                          </div>
+                        </div>
+                      </td>
+
                 </tr>
               ))}
             </tbody>
