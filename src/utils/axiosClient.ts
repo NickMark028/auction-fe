@@ -39,7 +39,9 @@ async function refreshAccessToken(): Promise<string | null> {
 
     return accessToken;
   } catch (error) {
-    localStorage.clear();
+    localStorage.removeItem('auction-user-token');
+    localStorage.removeItem('auction-user-data');
+
     throw error;
   }
 }
