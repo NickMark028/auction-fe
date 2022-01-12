@@ -9,6 +9,8 @@ import {
 import Validator from '../../utils/validator';
 import { useHistory } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import { register } from 'ts-node';
+import { FaWindows } from 'react-icons/fa';
 const rules = [
   {
     field: 'username',
@@ -105,13 +107,18 @@ export const Register: React.FC = () => {
 
   function sendotp() {
     // console.log(account.email)
+   if(Object.keys(validate.validate(account)).length === 0){ 
     instance
       .post('/api/user/mail', {
         email: account.email,
       })
       .then((res) => {
         console.log(res);
-      });
+      });}
+      else {
+
+        set(validate.validate(account));
+      }
   }
 
   useEffect(() => {
@@ -152,16 +159,17 @@ export const Register: React.FC = () => {
           history.push('/');
         })
         .catch((err) => {
-          // console.log(err.response);
-          NotificationManager.error(
-            err.response.status,
-            'Register failed',
-            3000
-          );
+         console.log(err);
+       window.alert('register failed')
         });
     }
   }, [errors]);
   function submitForm() {
+  instance.post('/api/user/check-exist',{
+username:account.username,
+email:account.email
+  }
+  ).then(()=>{
     if (Object.keys(validate.validate(account)).length === 0) {
       instance
         .post('/api/user/verify-otp', {
@@ -172,11 +180,15 @@ export const Register: React.FC = () => {
           set({ status: 'ok' });
         })
         .catch((err) => {
-          NotificationManager.error(err.response.status, 'Wrong otp', 3000);
+          console.log(err.response)
+          window.alert('wrong otp') 
         });
     } else {
       set(validate.validate(account));
-    }
+    }}).catch((err)=>{
+      console.log(err.response)
+      window.alert(err.response.data.status)
+    })
   }
   function handleChange(evt) {
     const value = evt.target.value;
@@ -200,6 +212,7 @@ export const Register: React.FC = () => {
               placeholder="First name"
               name="firstName"
               onChange={handleChange}
+            
             />
             {errors.firstName && (
               <div
