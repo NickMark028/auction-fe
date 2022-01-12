@@ -107,6 +107,10 @@ export const Register: React.FC = () => {
 
   function sendotp() {
     // console.log(account.email)
+    instance.post('/api/user/check-exist',{
+      username:account.username,
+      email:account.email
+        }).then(()=>{
    if(Object.keys(validate.validate(account)).length === 0){ 
     instance
       .post('/api/user/mail', {
@@ -118,7 +122,10 @@ export const Register: React.FC = () => {
       else {
 
         set(validate.validate(account));
-      }
+      }}).catch((err)=>{
+        console.log(err.response)
+      window.alert(err.response.data.status)
+      })
   }
 
   useEffect(() => {
