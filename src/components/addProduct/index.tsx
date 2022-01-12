@@ -13,8 +13,8 @@ export const AddProduct: React.FC = () => {
     reservedPrice: '',
     priceStep: '',
     instantPrice: '',
-    timeExpired:'',
-    category:[],
+    timeExpired: '',
+    category: [],
     isRenewal: '1',
     coverImageUrl: '',
     productImage: [],
@@ -34,9 +34,6 @@ export const AddProduct: React.FC = () => {
     return false;
   }
   async function submitForm() {
-
-
- 
     console.log(product);
     if (hasNull(product)) {
       window.alert('field must not emty');
@@ -55,43 +52,40 @@ export const AddProduct: React.FC = () => {
         });
     }
   }
-useEffect(()=>{
-setProduct({
-  ...product,
-  description:value
-})
-},[value])
-useEffect(()=>{
-  setProduct({
-    ...product,
-    timeExpired:time
-  })
-  },[time])
-useEffect(() => {
+  useEffect(() => {
+    setProduct({
+      ...product,
+      description: value,
+    });
+  }, [value]);
+  useEffect(() => {
+    setProduct({
+      ...product,
+      timeExpired: time,
+    });
+  }, [time]);
+  useEffect(() => {
     instance.get('/api/category').then((res) => set(res.data));
-
-     
   }, []);
 
-  function tolist(){
-const list = []
-var temp;
-  category.forEach((element:any) => {
-      element.categories.forEach(element1 => {
-        temp={
-          name:element1.name,
-          id:element1.id
-        }
-        list.push(temp)
+  function tolist() {
+    const list = [];
+    var temp;
+    category.forEach((element: any) => {
+      element.categories.forEach((element1) => {
+        temp = {
+          name: element1.name,
+          id: element1.id,
+        };
+        list.push(temp);
       });
-  });
+    });
 
-  return list
-
-}
+    return list;
+  }
   function handleChange(evt) {
     const value = evt.target.value;
-    
+
     setProduct({
       ...product,
       [evt.target.name]: value,
@@ -114,38 +108,38 @@ var temp;
     }
   }
   function getFile(files) {
-    if(files.size.replace(/[^0-9]/g, '')>5000){
-      files=null
+    if (files.size.replace(/[^0-9]/g, '') > 5000) {
+      files = null;
       window.alert('file must be smaller than 5mb');
-    }else{
-    setProduct({
-      ...product,
-      coverImageUrl: files.base64,
-    });}
+    } else {
+      setProduct({
+        ...product,
+        coverImageUrl: files.base64,
+      });
+    }
   }
   function getFiles(files: any) {
     const temp = [];
     files.forEach((element) => {
-      if(element.size.replace(/[^0-9]/g, '')>5000){
-        files=null
+      if (element.size.replace(/[^0-9]/g, '') > 5000) {
+        files = null;
         window.alert('file must be smaller than 5mb');
-        
-      }else{
-      temp.push(element.base64);}
+      } else {
+        temp.push(element.base64);
+      }
     });
     setProduct({
       ...product,
       productImage: temp,
     });
   }
-  function onSelect(selectedList:any, selectedItem:any) {
-    console.log(selectedList)
+  function onSelect(selectedList: any, selectedItem: any) {
+    console.log(selectedList);
     setProduct({
       ...product,
-      category:selectedList
-    })
-   
-}
+      category: selectedList,
+    });
+  }
   return (
     <div className="outer1">
       <div className="inner1">
@@ -163,17 +157,17 @@ var temp;
           <div className="form-2">
             <label>Description</label>
 
-            <ReactQuill theme="snow"  onChange={setValue}/>
+            <ReactQuill theme="snow" onChange={setValue} />
           </div>
-            <div className="multi-select"> 
+          <div className="multi-select">
             <Multiselect
-            options={tolist()} // Options to display in the dropdown
-          //selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-           onSelect={onSelect} // Function will trigger on select event
-       //  onRemove={this.onRemove} // Function will trigger on remove event
-          displayValue="name" // Property name to display in the dropdown options
-              />
-            </div>
+              options={tolist()} // Options to display in the dropdown
+              //selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+              onSelect={onSelect} // Function will trigger on select event
+              //  onRemove={this.onRemove} // Function will trigger on remove event
+              displayValue="name" // Property name to display in the dropdown options
+            />
+          </div>
           <div className="form-3">
             <label>Price</label>
             <input
@@ -216,14 +210,14 @@ var temp;
           </div>
 
           <div>
-          <input
+            <input
               type="date"
               className="form-control"
               placeholder="Enter your date"
               name="timeExpired"
               onChange={handleChange}
             />
-    </div>
+          </div>
           <div className="form-7">
             <label>Cover image</label>
             <FileBase64 multiple={false} onDone={getFile} />
