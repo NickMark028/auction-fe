@@ -20,7 +20,6 @@ export const AddProduct: React.FC = () => {
     productImage: [],
   });
   const [value, setValue] = useState('');
-  const [time, settime] = useState('');
   const [category, set] = useState([
     {
       section: '',
@@ -34,6 +33,9 @@ export const AddProduct: React.FC = () => {
     return false;
   }
   async function submitForm() {
+   
+
+ 
     console.log(product);
     if (hasNull(product)) {
       window.alert('field must not emty');
@@ -52,43 +54,38 @@ export const AddProduct: React.FC = () => {
         });
     }
   }
-  useEffect(() => {
-    setProduct({
-      ...product,
-      description: value,
-    });
-  }, [value]);
-  useEffect(() => {
-    setProduct({
-      ...product,
-      timeExpired: time,
-    });
-  }, [time]);
-  useEffect(() => {
+useEffect(()=>{
+setProduct({
+  ...product,
+  description:value
+})
+},[value])
+useEffect(() => {
     instance.get('/api/category').then((res) => set(res.data));
   }, []);
-
-  function tolist() {
-    const list = [];
-    var temp;
-    category.forEach((element: any) => {
-      element.categories.forEach((element1) => {
-        temp = {
-          name: element1.name,
-          id: element1.id,
-        };
-        list.push(temp);
+  function tolist(){
+const list = []
+var temp;
+  category.forEach((element:any) => {
+      element.categories.forEach(element1 => {
+        temp={
+          name:element1.name,
+          id:element1.id
+        }
+        list.push(temp)
       });
     });
 
     return list;
   }
   function handleChange(evt) {
-    const value = evt.target.value;
-
+    var value1 = evt.target.value;
+    if(evt.target.name=='reservedPrice'||evt.target.name=='priceStep'||evt.target.name=='instantPrice'){
+      value1=value1.replace('-','')
+    }
     setProduct({
       ...product,
-      [evt.target.name]: value,
+      [evt.target.name]: value1,
     });
   }
 
@@ -120,13 +117,18 @@ export const AddProduct: React.FC = () => {
   }
   function getFiles(files: any) {
     const temp = [];
+    if(files.length > 5){
+      files=null
+      window.alert('files must be less than 5');
+      return
+    }
     files.forEach((element) => {
       if (element.size.replace(/[^0-9]/g, '') > 5000) {
         files = null;
         window.alert('file must be smaller than 5mb');
-      } else {
-        temp.push(element.base64);
-      }
+        return
+      }else{
+      temp.push(element.base64);}
     });
     setProduct({
       ...product,
@@ -137,9 +139,11 @@ export const AddProduct: React.FC = () => {
     console.log(selectedList);
     setProduct({
       ...product,
-      category: selectedList,
-    });
-  }
+      category:selectedList
+    })
+   
+}
+  
   return (
     <div className="outer1">
       <div className="inner1">
@@ -176,6 +180,7 @@ export const AddProduct: React.FC = () => {
               className="form-control"
               placeholder="Enter reserve price"
               name="reservedPrice"
+              onKeyUp={(e:any)=>{if(e.target.value<0){e.target.value= e.target.value * -1}}}
               onChange={handleChange}
             />
           </div>
@@ -188,6 +193,7 @@ export const AddProduct: React.FC = () => {
               className="form-control"
               placeholder="Enter price step"
               name="priceStep"
+              onKeyUp={(e:any)=>{if(e.target.value<0){e.target.value= e.target.value * -1}}}
               onChange={handleChange}
             />
           </div>
@@ -200,6 +206,7 @@ export const AddProduct: React.FC = () => {
               className="form-control"
               placeholder="Enter instant price"
               name="instantPrice"
+              onKeyUp={(e:any)=>{if(e.target.value<0){e.target.value= e.target.value * -1}}}
               onChange={handleChange}
             />
           </div>
@@ -224,7 +231,7 @@ export const AddProduct: React.FC = () => {
           </div>
           <div className="form-8">
             <label>Product image</label>
-            <FileBase64 multiple={true} onDone={getFiles} />
+            <FileBase64 multiple={true} onDone={getFiles}  />
           </div>
           <p className="forgot-password text-right"></p>
         </form>

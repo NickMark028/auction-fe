@@ -70,6 +70,7 @@ export const Login: React.FC = () => {
             JSON.stringify(res.data.user_info)
           );
           localStorage.setItem('auction-user-id', decoded.userId);
+          localStorage.setItem('auction-user-role',res.data.user_role)
           localStorage.setItem(
             'auction-first-name',
             res.data.user_info.firstName
@@ -79,20 +80,14 @@ export const Login: React.FC = () => {
             res.data.user_info.lastName
           );
           set({ status: 'not ok' });
-
-          instance
-            .post('/api/admin/check-role', {
-              id: decoded.userId,
-            })
-            .then((res) => {
-              history.push('/admin');
-            })
-            .catch((error) => {
-              history.push('/');
-            });
+            if(  res.data.user_role=='admin'){
+              history.push('/admin');}
+              else{
+              history.push('/');}
+          
         })
         .catch((error) => {
-          NotificationManager.error(error.response.status, 'Login Failed');
+         window.alert('login failed')
         });
     }
   }, [errors, history]);

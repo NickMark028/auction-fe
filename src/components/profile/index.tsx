@@ -18,6 +18,10 @@ export const Profile: React.FC = () => {
 
     localStorage.removeItem('auction-user-token')
     localStorage.removeItem('auction-user-data')
+    localStorage.removeItem('auction-user-id')
+    localStorage.removeItem('auction-first-name')
+    localStorage.removeItem('auction-last-name')
+    localStorage.removeItem('auction-user-role')
  
     history.push('/');
   }
