@@ -14,6 +14,7 @@ import { Markup } from 'interweave';
 import moment from 'moment';
 import { TStatus } from 'models';
 import RelatedProductsSection from 'components/top-product-showcase/RelatedProductsSection';
+import { idText } from 'typescript';
 
 interface AuctionLog {
   firstName: string;
@@ -35,12 +36,13 @@ export const Detail: React.FC = () => {
   });
   const [price, setPrice] = useState<number>();
   const [topBidderStatus, setTopBidderStatus] = useState<TStatus>('idle');
-
+  const pathname = history.location.pathname;
+  const id = pathname.slice(9);
   useEffect(() => {
     setTimeout(async () => {
       // console.log(history.location.pathname);
-      const pathname = history.location.pathname;
-      const id = pathname.slice(9);
+
+      console.log(id);
 
       try {
         const data = await dispatch(getProductDetailsTC(id)).unwrap();
@@ -59,19 +61,28 @@ export const Detail: React.FC = () => {
           .then((res) => setTopBidder(res.data));
 
         // ----------------------------------------------------------------- //
-        socket.on('updatebid', async (c: AuctionLog) => {
-          // setUpdate(data);
-          // console.log(c);
-          setTopBidder({
-            firstName: c.firstName,
-            lastName: c.lastName,
-            price: c.price,
-          });
-        });
       } catch (error) {}
     });
   }, [history.location.pathname]);
+  socket.on(`updatebid_${id}`, async (c) => {
+    setTopBidder({
+      firstName: c.firstName,
+      lastName: c.lastName,
+      price: c.price,
+    });
+    //set auctionlog after listen form socket
+    // console.log(auctionLogs);
 
+    setAuctionLogs([
+      {
+        firstName: c.firstName,
+        lastName: c.lastName,
+        price: c.price,
+        createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
+      },
+      ...auctionLogs,
+    ]);
+  });
   // ${productDetails.data?.section}
 
   // (new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format())
@@ -84,9 +95,10 @@ export const Detail: React.FC = () => {
       price: price,
       createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
     };
-    setAuctionLogs([log, ...auctionLogs]);
+    // setAuctionLogs([log, ...auctionLogs]);
 
-    socket.emit('bid', {
+    socket.emit(`bid`, {
+      id_product: productDetails.data?.id,
       firstName: localStorage.getItem('auction-first-name'),
       lastName: localStorage.getItem('auction-last-name'),
       price: price,
