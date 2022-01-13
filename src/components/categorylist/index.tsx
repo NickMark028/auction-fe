@@ -70,9 +70,10 @@ export const CategoryList: React.FC = () => {
             <thead className="thead-light">
               <tr>
                 <th scope="col">Section</th>
-                <th scope="col">id</th>
-                <th scope="col">name</th>
-                <th scope="col">path</th>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Path</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -98,7 +99,7 @@ export const CategoryList: React.FC = () => {
                               }}
                             >
                               {' '}
-                              Edit category
+                              Edit
                             </button>
                             <button
                               type="button"
@@ -106,7 +107,7 @@ export const CategoryList: React.FC = () => {
                                 submitForm(category2.path, category2.id);
                               }}
                             >
-                              Delete category
+                              Delete
                             </button>
                             <NotificationContainer />
                           </div>

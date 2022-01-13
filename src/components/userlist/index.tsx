@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { setConstantValue } from 'typescript';
 import { Link } from 'react-router-dom';
 import { instance } from 'utils/utils';
+
 export const Userlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {
@@ -35,15 +36,18 @@ export const Userlist: React.FC = () => {
           <table className="table table-bordered">
             <thead className="thead-light">
               <tr>
-                <th scope="col">username</th>
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
                 <th scope="col">Email</th>
-                <th scope="col">first name</th>
-                <th scope="col">last name </th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name </th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               {customers.map((customer) => (
                 <tr key={customer.id}>
+                  <td>{customer.id}</td>
                   <td>{customer.username}</td>
                   <td>{customer.email}</td>
                   <td>{customer.firstName}</td>
@@ -62,7 +66,7 @@ export const Userlist: React.FC = () => {
                           }}
                         >
                           {' '}
-                          Edit customer
+                          Edit
                         </button>
                         <button
                           type="button"
@@ -71,7 +75,7 @@ export const Userlist: React.FC = () => {
                             submitForm(customer.id);
                           }}
                         >
-                          Delete Customer
+                          Delete
                         </button>
                       </div>
                     </div>

@@ -34,13 +34,14 @@ export const Productlist: React.FC = () => {
           <table className="table table-bordered">
             <thead className="thead-light">
               <tr>
-                <th scope="col">seller id</th>
-                <th scope="col">name</th>
-                <th scope="col">description</th>
-                <th scope="col">reserved price</th>
-                <th scope="col">price step</th>
-                <th scope="col">instant prince</th>
-                <th scope="col">is renewal </th>
+                <th scope="col">Seller id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Reserved price</th>
+                <th scope="col">Price step</th>
+                <th scope="col">Instant prince</th>
+                <th scope="col">Is renewal </th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -67,7 +68,7 @@ export const Productlist: React.FC = () => {
                           }}
                         >
                           {' '}
-                          Edit product
+                          Edit
                         </button>
                         <button
                           type="button"
@@ -76,7 +77,7 @@ export const Productlist: React.FC = () => {
                             submitForm(customer.id);
                           }}
                         >
-                          Delete product
+                          Delete
                         </button>
                       </div>
                     </div>

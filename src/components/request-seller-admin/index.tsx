@@ -34,6 +34,7 @@ export const RequestToSellerAdmin: React.FC = () => {
                 <th scope="col">Bidder Id</th>
                 <th scope="col">Create At</th>
                 <th scope="col">Message</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -61,7 +62,7 @@ export const RequestToSellerAdmin: React.FC = () => {
                           type="button"
                           onClick={() => deline(c.bidderId)}
                         >
-                          Deline
+                          Decline
                         </button>
                       </div>
                     </div>
