@@ -112,8 +112,7 @@ export const Register: React.FC = () => {
       email:account.email
         }).then(()=>{
    if(Object.keys(validate.validate(account)).length === 0){ 
-    instance
-      .post('/api/user/mail', {
+    instance.post('/api/user/mail', {
         email: account.email,
       })
       .then((res) => {

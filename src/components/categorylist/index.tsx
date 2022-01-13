@@ -30,13 +30,10 @@ export const CategoryList: React.FC = () => {
       })
       .then((res) => {
         update(id);
-        NotificationManager.success(res.status, 'Delete success');
+        window.alert('delete success')
       })
       .catch((error) => {
-        NotificationManager.error(
-          error.response.status,
-          error.response.data.status
-        );
+     window.alert('delete fail')
       });
   }
 
@@ -108,7 +105,6 @@ export const CategoryList: React.FC = () => {
                             >
                               Delete category
                             </button>
-                            <NotificationContainer />
                           </div>
                         </div>
                       </td>

@@ -35,6 +35,7 @@ export const Userlist: React.FC = () => {
           <table className="table table-bordered">
             <thead className="thead-light">
               <tr>
+              <th scope="col">id</th>
                 <th scope="col">username</th>
                 <th scope="col">Email</th>
                 <th scope="col">first name</th>
@@ -44,6 +45,7 @@ export const Userlist: React.FC = () => {
             <tbody>
               {customers.map((customer) => (
                 <tr key={customer.id}>
+                  <td>{customer.id}</td>
                   <td>{customer.username}</td>
                   <td>{customer.email}</td>
                   <td>{customer.firstName}</td>
@@ -54,16 +56,6 @@ export const Userlist: React.FC = () => {
                         className="btn-group"
                         style={{ marginBottom: '20px' }}
                       >
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.location.href = `edit/${customer.id}`;
-                          }}
-                        >
-                          {' '}
-                          Edit customer
-                        </button>
                         <button
                           type="button"
                           onClick={() => {

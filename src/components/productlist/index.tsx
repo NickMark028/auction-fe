@@ -19,7 +19,14 @@ export const Productlist: React.FC = () => {
           id: id,
         },
       })
-      .then((res) => console.log(res));
+      .then((res) => {
+      console.log(res)
+      window.alert('delete success')
+    }
+      ).catch((err)=>{
+        console.log(err.response)
+        window.alert('delete failed')
+      });
   }
 
   function update(id: any) {
@@ -34,6 +41,7 @@ export const Productlist: React.FC = () => {
           <table className="table table-bordered">
             <thead className="thead-light">
               <tr>
+                <th scope="col">product id</th>
                 <th scope="col">seller id</th>
                 <th scope="col">name</th>
                 <th scope="col">description</th>
@@ -46,6 +54,7 @@ export const Productlist: React.FC = () => {
             <tbody>
               {customers.map((customer) => (
                 <tr key={customer.id}>
+                  <td>{customer.id}</td>
                   <td>{customer.sellerId}</td>
                   <td>{customer.name}</td>
                   <td>{customer.description}</td>
@@ -59,16 +68,6 @@ export const Productlist: React.FC = () => {
                         className="btn-group"
                         style={{ marginBottom: '20px' }}
                       >
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.location.href = `edit/${customer.id}`;
-                          }}
-                        >
-                          {' '}
-                          Edit product
-                        </button>
                         <button
                           type="button"
                           onClick={() => {
