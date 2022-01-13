@@ -109,7 +109,7 @@ export const Login: React.FC = () => {
   return (
     <div className="outer">
       <div className="inner">
-        <form>
+        <form onSubmit={submitForm}>
           <h3>Log in</h3>
 
           <div className="form-group">
@@ -141,6 +141,11 @@ export const Login: React.FC = () => {
               id="password"
               name="password"
               onChange={handleChange}
+              onKeyPress={e=>{
+               if(e.key=='Enter'){
+                 submitForm()
+               }
+              }}
             />
             {errors.password && (
               <div
@@ -171,7 +176,6 @@ export const Login: React.FC = () => {
           >
             Sign in
           </button>
-          <NotificationContainer />
           <div className="login-redirect">
             <p className="create-account text-left">
               <a href="/register" className="link">
