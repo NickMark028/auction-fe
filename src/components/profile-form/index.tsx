@@ -43,8 +43,13 @@ export const UserInfo: React.FC = () => {
         dateOfBirth: account.dateOfBirth,
         id: id.userId,
       })
-      .then((res) => {})
-      .catch((err) => {});
+      .then((res) => {
+          window.alert('update success')
+      })
+      .catch((err) => {
+        window.alert('update success')
+        console.log(err.response)
+      });
   }
 
   function handleChange(evt) {

@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/profile.scss';
 
 import instance from 'utils/axiosClient';
+import { useHistory } from 'react-router-dom';
 export const ChangePass: React.FC = () => {
+  const history=useHistory()
   const [credential, setCre] = useState({
     id: '',
     current_pass: '',
@@ -23,7 +25,14 @@ export const ChangePass: React.FC = () => {
       id: credential.id,
       current_pass: credential.current_pass,
       new_pass: credential.new_pass,
-    });
+    }).then(()=>{
+      window.alert('update success')
+      history.push('/profile')
+    })
+    .catch((err)=>{
+      window.alert('update failed')
+      console.log(err.response)
+    })
   }
   function handleChange(evt) {
     const value = evt.target.value;

@@ -22,6 +22,7 @@ export const Profile: React.FC = () => {
     localStorage.removeItem('auction-first-name')
     localStorage.removeItem('auction-last-name')
     localStorage.removeItem('auction-user-role')
+    localStorage.removeItem('auction-bidder-score')
  
     history.push('/');
   }

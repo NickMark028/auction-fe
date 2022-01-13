@@ -80,11 +80,17 @@ export const Login: React.FC = () => {
             res.data.user_info.lastName
           );
           set({ status: 'not ok' });
-            if(  res.data.user_role=='admin'){
+            if( res.data.user_role=='admin'){
               history.push('/admin');}
               else{
               history.push('/');}
-          
+              if( res.data.user_role=='bidder'){
+                instance.get(`/api/bidder/score/${decoded.userId}`).then((res1)=>{
+                  localStorage.setItem('auction-bidder-score',res1.data.score)
+                }).catch((err)=>{
+                  console.log(err.response)
+                })
+              }
         })
         .catch((error) => {
          window.alert('login failed')
