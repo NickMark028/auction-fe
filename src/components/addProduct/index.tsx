@@ -5,7 +5,9 @@ import FileBase64 from 'react-file-base64';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Multiselect from 'multiselect-react-dropdown';
+import { useHistory } from 'react-router';
 export const AddProduct: React.FC = () => {
+  const history = useHistory();
   const [product, setProduct] = useState({
     sellerId: localStorage.getItem('auction-user-id'),
     name: '',
@@ -42,11 +44,22 @@ export const AddProduct: React.FC = () => {
     } else {
       instance
         .post('/api/product', {
-          product,
+          sellerId: product.sellerId,
+    name: product.name,
+    description: product.description,
+    reservedPrice: product.reservedPrice,
+    priceStep: product.priceStep,
+    instantPrice: product.instantPrice,
+    timeExpired: product.timeExpired,
+    category: product.category,
+    isRenewal: product.isRenewal,
+    coverImageUrl: product.coverImageUrl,
+    productImage: product.productImage,
         })
         .then((res) => {
           window.alert('add success');
           console.log(res);
+          history.push('/profile')
         })
         .catch((err) => {
           window.alert(err.response.data.status);

@@ -19,7 +19,14 @@ export const Productlist: React.FC = () => {
           id: id,
         },
       })
-      .then((res) => console.log(res));
+      .then((res) => {
+      console.log(res)
+      window.alert('delete success')
+    }
+      ).catch((err)=>{
+        console.log(err.response)
+        window.alert('delete failed')
+      });
   }
 
   function update(id: any) {
@@ -35,6 +42,7 @@ export const Productlist: React.FC = () => {
             <thead className="thead-light">
               <tr>
                 <th scope="col">Seller id</th>
+                <th scope="col">Product id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Reserved price</th>
@@ -47,6 +55,7 @@ export const Productlist: React.FC = () => {
             <tbody>
               {customers.map((customer) => (
                 <tr key={customer.id}>
+                  <td>{customer.id}</td>
                   <td>{customer.sellerId}</td>
                   <td>{customer.name}</td>
                   <td>{customer.description}</td>

@@ -32,6 +32,8 @@ export const RequestToSellerAdmin: React.FC = () => {
             <thead className="thead-light">
               <tr>
                 <th scope="col">Bidder Id</th>
+                <th scope="col">Bidder Name</th>
+                <th scope="col">Bidder Email</th>
                 <th scope="col">Create At</th>
                 <th scope="col">Message</th>
                 <th scope="col">Action</th>
@@ -41,6 +43,10 @@ export const RequestToSellerAdmin: React.FC = () => {
               {listReq?.map((c, item) => (
                 <tr key={item}>
                   <td>{c.bidderId}</td>
+                  <td>
+                    {c.firstName} {c.lastName}
+                  </td>
+                  <td>{c.email}</td>
                   <td>
                     {moment(c.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                   </td>
