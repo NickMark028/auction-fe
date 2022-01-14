@@ -38,6 +38,7 @@ export const Detail: React.FC = () => {
   const [buttonBid, setButtonBid] = useState('BID');
   const pathname = history.location.pathname;
   const id = pathname.slice(9);
+  const [checkbid, setCheckBid] = useState('false');
   useEffect(() => {
     setTimeout(async () => {
       // console.log(history.location.pathname);
@@ -64,9 +65,16 @@ export const Detail: React.FC = () => {
         if (Number(localStorage.getItem('auction-user-score')) === 0) {
           setButtonBid('request to bid');
         }
+
+        // const check = await axiosClient.get(`api/bidder/accept-bid`, {
+        //   productId: {data.id},
+        //   bidderId: localStorage.getItem('auction-user-id'),
+        // });
+        // console.log(check);
       } catch (error) {}
     });
   }, [history.location.pathname]);
+
   socket.on(`updatebid_${id}`, async (c) => {
     setTopBidder({
       firstName: c.firstName,
@@ -94,13 +102,16 @@ export const Detail: React.FC = () => {
 
   function send() {
     // khi bidder đã có điểm đánh giá
-    if (Number(localStorage.getItem('auction-user-score')) !== 0) {
+    if (
+      Number(localStorage.getItem('auction-user-score')) !== 0 ||
+      checkbid === 'true'
+    ) {
       socket.emit(`bid`, {
         id_product: productDetails.data?.id,
         firstName: localStorage.getItem('auction-first-name'),
         lastName: localStorage.getItem('auction-last-name'),
         price: price,
-        bidAt: Date.now(),
+        bidAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
       });
       //call api luu auctionLog
       axiosClient.post('/api/auction', {
@@ -114,15 +125,17 @@ export const Detail: React.FC = () => {
       socket.emit(`request-bid`, {
         id_product: productDetails.data?.id,
         product_name: productDetails.data?.name,
+
         firstName: localStorage.getItem('auction-first-name'),
         lastName: localStorage.getItem('auction-last-name'),
         id: localStorage.getItem('auction-user-id'),
-        bidAt: Date.now(),
+        bidAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
       });
       axiosClient.post('/api/bidder/request-bid', {
         bidderId: localStorage.getItem('auction-user-id'), //localStorage.getItem('Id');
         productId: productDetails.data?.id, //productDetails.data?.id;
       });
+      setButtonBid('Waiting');
     }
   }
 

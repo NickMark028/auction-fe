@@ -4,6 +4,7 @@ import socket from 'utils/socket';
 import moment from 'moment';
 export const RequestBid: React.FC = () => {
   interface list {
+    bidderId: string;
     firstName: string;
     lastName: string;
     id: number;
@@ -33,6 +34,7 @@ export const RequestBid: React.FC = () => {
     setListRequest([
       ...listRequest,
       {
+        bidderId: data.id,
         firstName: data.firstName,
         lastName: data.lastName,
         id: data.id_product,
@@ -41,6 +43,20 @@ export const RequestBid: React.FC = () => {
       },
     ]);
   });
+
+  async function approve(bidderId: any, id: any) {
+    await axiosClient.patch(`/api/seller/accept-bid`, {
+      productId: id,
+      bidderId: bidderId,
+    });
+    const del = [...listRequest].filter((req) => req.bidderId !== bidderId);
+    setListRequest(del);
+  }
+  // async function deline(id: any) {
+  //   await axiosClient.patch(`/api/seller/accept-bid`);
+  //   const del = [...listReq].filter((req) => req.bidderId !== id);
+  //   setListReq(del);
+  // }
   return (
     <>
       <div className="tab-content">
@@ -52,6 +68,7 @@ export const RequestBid: React.FC = () => {
             <table id="bidinfo" className="table table-hover">
               <thead>
                 <tr>
+                  <th>Bidder Id</th>
                   <th>Bidder Name</th>
                   <th>product Id</th>
                   <th>product Name</th>
@@ -61,6 +78,7 @@ export const RequestBid: React.FC = () => {
               <tbody id="category-container">
                 {listRequest?.map((listRequest, index) => (
                   <tr key={index}>
+                    <td>{listRequest.bidderId}</td>
                     <td>
                       {listRequest.firstName} {listRequest.lastName}
                     </td>
@@ -73,8 +91,15 @@ export const RequestBid: React.FC = () => {
                           className="btn-group"
                           style={{ marginBottom: '20px' }}
                         >
-                          <button type="button">Approve</button>
-                          <button type="button">Decline</button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              approve(listRequest.bidderId, listRequest.id)
+                            }
+                          >
+                            Approve
+                          </button>
+                          {/* <button type="button" onClick={() =>  deline(c.bidderId)}>Decline</button> */}
                         </div>
                       </div>
                     </td>
