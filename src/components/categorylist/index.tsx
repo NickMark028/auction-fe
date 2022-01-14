@@ -33,7 +33,7 @@ export const CategoryList: React.FC = () => {
         window.alert('delete success')
       })
       .catch((error) => {
-     window.alert('delete fail')
+     window.alert(error.response.data.status)
       });
   }
 

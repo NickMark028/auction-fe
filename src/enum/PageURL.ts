@@ -10,6 +10,5 @@ export enum PageURL {
   Register = '/register',
   WatchList = '/watch-list',
   Admin = '/admin',
-  AddProduct = '/add',
   Profile = '/profile',
 }

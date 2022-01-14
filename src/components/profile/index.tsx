@@ -7,6 +7,7 @@ import {
   Route,
   Link,
   useHistory,
+  Redirect,
 } from 'react-router-dom';
 import { ChangePass, BidderProduct, SellerProduct,AddProduct ,UserInfo,Description } from 'components';
 import { RequestToSeller } from 'components/request-seller';
@@ -26,6 +27,15 @@ export const Profile: React.FC = () => {
  
     history.push('/');
   }
+  const role = localStorage.getItem('auction-user-role')
+  var hasAccess=false
+  var isUser=false
+  if(role=='seller'){
+    hasAccess=true
+  }
+  if(role!='admin'){
+    isUser=true
+  }
   return (
     <div className="app-container">
       <div className="sidebar">
@@ -35,22 +45,32 @@ export const Profile: React.FC = () => {
               My profile
               <Link to="/profile" />
             </MenuItem>
+    {isUser ? (<>
             <MenuItem>
               Product Bidded
               <Link to="/profile/product-bidded" />
             </MenuItem>
             <MenuItem>
-              Product to Bid(Seller)
-              <Link to="/profile/product-to-bid" />
-            </MenuItem>
-            <MenuItem>
               Become Seller
               <Link to="/profile/to-seller" />
             </MenuItem>
-            <MenuItem>
-              Add product
-              <Link to="/profile/add" />
-            </MenuItem>
+            </>)
+            :(null)
+          }
+  {hasAccess ? (
+              <>
+                <MenuItem>
+                Product to Bid(Seller)
+                <Link to="/profile/product-to-bid" />
+              </MenuItem>
+                 <MenuItem>
+                 Add product
+                 <Link to="/profile/add" />
+               </MenuItem>
+               </>
+  ) : (
+   null
+  )}
             <MenuItem>
               Reset password
               <Link to="/profile/reset" />
