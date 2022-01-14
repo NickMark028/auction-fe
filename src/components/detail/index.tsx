@@ -38,13 +38,9 @@ export const Detail: React.FC = () => {
   const [buttonBid, setButtonBid] = useState('BID');
   const pathname = history.location.pathname;
   const id = pathname.slice(9);
-  const [checkbid, setCheckBid] = useState('false');
+  const [checkbid, setCheckBid] = useState(1);
   useEffect(() => {
     setTimeout(async () => {
-      // console.log(history.location.pathname);
-
-      console.log(id);
-
       try {
         const data = await dispatch(getProductDetailsTC(id)).unwrap();
 
@@ -62,18 +58,28 @@ export const Detail: React.FC = () => {
           .then((res) => setTopBidder(res.data));
 
         // ----------------------------------------------------------------- //
-        if (Number(localStorage.getItem('auction-user-score')) === 0) {
-          setButtonBid('request to bid');
-        }
 
-        // const check = await axiosClient.get(`api/bidder/accept-bid`, {
-        //   productId: {data.id},
-        //   bidderId: localStorage.getItem('auction-user-id'),
-        // });
-        // console.log(check);
+        const check = await axiosClient.get(
+          `api/bidder/accept-bid/${data.id}/${localStorage.getItem(
+            'auction-user-id'
+          )}`
+        );
+        console.log(check);
+        setCheckBid(check.data?.status);
+        if (
+          Number(localStorage.getItem('auction-user-score')) !== 0 ||
+          checkbid === 0
+        ) {
+          setButtonBid('BID');
+        } else if (checkbid === 1) {
+          setButtonBid('WAIT');
+        } else {
+          setButtonBid('Request to bid');
+        }
+        console.log(checkbid);
       } catch (error) {}
     });
-  }, [history.location.pathname]);
+  }, [history.location.pathname, checkbid]);
 
   socket.on(`updatebid_${id}`, async (c) => {
     setTopBidder({
@@ -104,7 +110,7 @@ export const Detail: React.FC = () => {
     // khi bidder đã có điểm đánh giá
     if (
       Number(localStorage.getItem('auction-user-score')) !== 0 ||
-      checkbid === 'true'
+      checkbid === 0
     ) {
       socket.emit(`bid`, {
         id_product: productDetails.data?.id,
@@ -138,7 +144,10 @@ export const Detail: React.FC = () => {
       setButtonBid('Waiting');
     }
   }
-
+  socket.on(`updatebtn_${localStorage.getItem('auction-user-id')}`, (data) => {
+    setCheckBid(data.status);
+    setButtonBid('BID');
+  });
   return (
     <div>
       <section className="product-details spad">

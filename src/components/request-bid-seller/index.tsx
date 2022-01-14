@@ -45,6 +45,10 @@ export const RequestBid: React.FC = () => {
   });
 
   async function approve(bidderId: any, id: any) {
+    socket.emit(`accepted`, {
+      Id: bidderId ?? 0,
+      status: 0,
+    });
     await axiosClient.patch(`/api/seller/accept-bid`, {
       productId: id,
       bidderId: bidderId,
