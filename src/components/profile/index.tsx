@@ -8,22 +8,30 @@ import {
   Link,
   useHistory,
 } from 'react-router-dom';
-import { ChangePass, BidderProduct, SellerProduct,AddProduct ,UserInfo,Description } from 'components';
+import {
+  ChangePass,
+  BidderProduct,
+  SellerProduct,
+  AddProduct,
+  UserInfo,
+  Description,
+} from 'components';
 import { RequestToSeller } from 'components/request-seller';
 import { Modal, Popover, PopoverContent } from 'react-bootstrap';
+import { RequestBid } from 'components/request-bid-seller';
 export const Profile: React.FC = () => {
   const history = useHistory();
   function logout() {
     console.log('logged out');
 
-    localStorage.removeItem('auction-user-token')
-    localStorage.removeItem('auction-user-data')
-    localStorage.removeItem('auction-user-id')
-    localStorage.removeItem('auction-first-name')
-    localStorage.removeItem('auction-last-name')
-    localStorage.removeItem('auction-user-role')
-    localStorage.removeItem('auction-user-score')
- 
+    localStorage.removeItem('auction-user-token');
+    localStorage.removeItem('auction-user-data');
+    localStorage.removeItem('auction-user-id');
+    localStorage.removeItem('auction-first-name');
+    localStorage.removeItem('auction-last-name');
+    localStorage.removeItem('auction-user-role');
+    localStorage.removeItem('auction-user-score');
+
     history.push('/');
   }
   return (
@@ -44,6 +52,11 @@ export const Profile: React.FC = () => {
               <Link to="/profile/product-to-bid" />
             </MenuItem>
             <MenuItem>
+              Request Bid form bidder
+              <Link to="/profile/request-bid" />
+            </MenuItem>
+
+            <MenuItem>
               Become Seller
               <Link to="/profile/to-seller" />
             </MenuItem>
@@ -58,7 +71,6 @@ export const Profile: React.FC = () => {
             <MenuItem onClick={logout}>Logout</MenuItem>
           </Menu>
         </ProSidebar>
-      
       </div>
       <div className="content">
         <Switch>
@@ -69,6 +81,7 @@ export const Profile: React.FC = () => {
           <Route path="/profile/to-seller" component={RequestToSeller} />
           <Route path="/profile/add" component={AddProduct} />
           <Route path="/profile/update/:id" component={Description} />
+          <Route path="/profile/request-bid" component={RequestBid} />
         </Switch>
       </div>
     </div>
