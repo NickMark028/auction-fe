@@ -5,6 +5,7 @@ import { Productlist } from '../productlist';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { RequestToSellerAdmin } from 'components/request-seller-admin';
 import { CategoryList } from 'components';
+import { Sellerlist } from 'components/sellerlist';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
@@ -18,6 +19,10 @@ export const Admin: React.FC = () => {
               <MenuItem>
                 User list
                 <Link to="/admin" />
+              </MenuItem>
+              <MenuItem>
+                Seller list
+                <Link to="/admin/seller" />
               </MenuItem>
               <MenuItem>
                 Product list
@@ -39,6 +44,7 @@ export const Admin: React.FC = () => {
             <Route path="/admin" exact component={Userlist} />
             <Route path="/admin/product" exact component={Productlist} />
             <Route path="/admin/category" exact component={CategoryList} />
+            <Route path="/admin/seller" exact component={Sellerlist} />
             <Route
               path="/admin/requestSeller"
               exact
