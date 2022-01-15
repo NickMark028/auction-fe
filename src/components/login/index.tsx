@@ -42,7 +42,6 @@ export const Login: React.FC = () => {
     password: '',
   });
   const history = useHistory();
-  const cookies = new Cookies();
 
   async function submitForm() {
     if (Object.keys(validate.validate(credential)).length === 0) {
@@ -79,7 +78,6 @@ export const Login: React.FC = () => {
             'auction-last-name',
             res.data.user_info.lastName
           );
-          set({ status: 'not ok' });
             if( res.data.user_role=='admin'){
               history.push('/admin');}
               else{
@@ -93,6 +91,7 @@ export const Login: React.FC = () => {
               }
         })
         .catch((error) => {
+        console.log(error.response)
          window.alert('login failed')
         });
     }

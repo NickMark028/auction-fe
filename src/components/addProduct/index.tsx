@@ -35,16 +35,14 @@ export const AddProduct: React.FC = () => {
     return false;
   }
   async function submitForm() {
-   
 
- 
     console.log(product);
     if (hasNull(product)) {
       window.alert('field must not emty');
     } else {
       instance
         .post('/api/product', {
-          sellerId: product.sellerId,
+    sellerId: product.sellerId,
     name: product.name,
     description: product.description,
     reservedPrice: product.reservedPrice,
