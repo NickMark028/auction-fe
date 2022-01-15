@@ -9,32 +9,40 @@ import {
   useHistory,
   Redirect,
 } from 'react-router-dom';
-import { ChangePass, BidderProduct, SellerProduct,AddProduct ,UserInfo,Description } from 'components';
+import {
+  ChangePass,
+  BidderProduct,
+  SellerProduct,
+  AddProduct,
+  UserInfo,
+  Description,
+} from 'components';
 import { RequestToSeller } from 'components/request-seller';
 import { Modal, Popover, PopoverContent } from 'react-bootstrap';
+import { RequestBid } from 'components/request-bid-seller';
 export const Profile: React.FC = () => {
   const history = useHistory();
   function logout() {
     console.log('logged out');
 
-    localStorage.removeItem('auction-user-token')
-    localStorage.removeItem('auction-user-data')
-    localStorage.removeItem('auction-user-id')
-    localStorage.removeItem('auction-first-name')
-    localStorage.removeItem('auction-last-name')
-    localStorage.removeItem('auction-user-role')
-    localStorage.removeItem('auction-user-score')
- 
+    localStorage.removeItem('auction-user-token');
+    localStorage.removeItem('auction-user-data');
+    localStorage.removeItem('auction-user-id');
+    localStorage.removeItem('auction-first-name');
+    localStorage.removeItem('auction-last-name');
+    localStorage.removeItem('auction-user-role');
+    localStorage.removeItem('auction-user-score');
+
     history.push('/');
   }
-  const role = localStorage.getItem('auction-user-role')
-  var hasAccess=false
-  var isUser=false
-  if(role=='seller'){
-    hasAccess=true
+  const role = localStorage.getItem('auction-user-role');
+  var hasAccess = false;
+  var isUser = false;
+  if (role == 'seller') {
+    hasAccess = true;
   }
-  if(role!='admin'){
-    isUser=true
+  if (role != 'admin') {
+    isUser = true;
   }
   return (
     <div className="app-container">
@@ -45,32 +53,39 @@ export const Profile: React.FC = () => {
               My profile
               <Link to="/profile" />
             </MenuItem>
-    {isUser ? (<>
-            <MenuItem>
-              Product Bidded
-              <Link to="/profile/product-bidded" />
-            </MenuItem>
-            <MenuItem>
-              Become Seller
-              <Link to="/profile/to-seller" />
-            </MenuItem>
-            </>)
-            :(null)
-          }
-  {hasAccess ? (
+            {isUser ? (
               <>
                 <MenuItem>
-                Product to Bid(Seller)
-                <Link to="/profile/product-to-bid" />
-              </MenuItem>
-                 <MenuItem>
-                 Add product
-                 <Link to="/profile/add" />
-               </MenuItem>
-               </>
-  ) : (
-   null
-  )}
+                  Product Bidded
+                  <Link to="/profile/product-bidded" />
+                </MenuItem>
+                <MenuItem>
+                  Product to Bid(Seller)
+                  <Link to="/profile/product-to-bid" />
+                </MenuItem>
+                <MenuItem>
+                  Request Bid form bidder
+                  <Link to="/profile/request-bid" />
+                </MenuItem>
+
+                <MenuItem>
+                  Become Seller
+                  <Link to="/profile/to-seller" />
+                </MenuItem>
+              </>
+            ) : null}
+            {hasAccess ? (
+              <>
+                <MenuItem>
+                  Product to Bid(Seller)
+                  <Link to="/profile/product-to-bid" />
+                </MenuItem>
+                <MenuItem>
+                  Add product
+                  <Link to="/profile/add" />
+                </MenuItem>
+              </>
+            ) : null}
             <MenuItem>
               Reset password
               <Link to="/profile/reset" />
@@ -78,7 +93,6 @@ export const Profile: React.FC = () => {
             <MenuItem onClick={logout}>Logout</MenuItem>
           </Menu>
         </ProSidebar>
-      
       </div>
       <div className="content">
         <Switch>
@@ -89,6 +103,7 @@ export const Profile: React.FC = () => {
           <Route path="/profile/to-seller" component={RequestToSeller} />
           <Route path="/profile/add" component={AddProduct} />
           <Route path="/profile/update/:id" component={Description} />
+          <Route path="/profile/request-bid" component={RequestBid} />
         </Switch>
       </div>
     </div>

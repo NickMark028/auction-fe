@@ -35,15 +35,12 @@ export const Detail: React.FC = () => {
     price: 0,
   });
   const [price, setPrice] = useState<number>();
-  const [topBidderStatus, setTopBidderStatus] = useState<TStatus>('idle');
+  const [buttonBid, setButtonBid] = useState('BID');
   const pathname = history.location.pathname;
   const id = pathname.slice(9);
+  const [checkbid, setCheckBid] = useState(1);
   useEffect(() => {
     setTimeout(async () => {
-      // console.log(history.location.pathname);
-
-      console.log(id);
-
       try {
         const data = await dispatch(getProductDetailsTC(id)).unwrap();
 
@@ -61,9 +58,29 @@ export const Detail: React.FC = () => {
           .then((res) => setTopBidder(res.data));
 
         // ----------------------------------------------------------------- //
+
+        const check = await axiosClient.get(
+          `api/bidder/accept-bid/${data.id}/${localStorage.getItem(
+            'auction-user-id'
+          )}`
+        );
+        console.log(check);
+        setCheckBid(check.data?.status);
+        if (
+          Number(localStorage.getItem('auction-user-score')) !== 0 ||
+          checkbid === 0
+        ) {
+          setButtonBid('BID');
+        } else if (checkbid === 1) {
+          setButtonBid('WAIT');
+        } else {
+          setButtonBid('Request to bid');
+        }
+        console.log(checkbid);
       } catch (error) {}
     });
-  }, [history.location.pathname]);
+  }, [history.location.pathname, checkbid]);
+
   socket.on(`updatebid_${id}`, async (c) => {
     setTopBidder({
       firstName: c.firstName,
@@ -83,35 +100,54 @@ export const Detail: React.FC = () => {
       ...auctionLogs,
     ]);
   });
+
   // ${productDetails.data?.section}
 
   // (new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format())
   //gửi một bid mới
 
   function send() {
-    const log: AuctionLog = {
-      firstName: localStorage.getItem('auction-first-name'),
-      lastName: localStorage.getItem('auction-last-name'),
-      price: price,
-      createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
-    };
-    // setAuctionLogs([log, ...auctionLogs]);
+    // khi bidder đã có điểm đánh giá
+    if (
+      Number(localStorage.getItem('auction-user-score')) !== 0 ||
+      checkbid === 0
+    ) {
+      socket.emit(`bid`, {
+        id_product: productDetails.data?.id,
+        firstName: localStorage.getItem('auction-first-name'),
+        lastName: localStorage.getItem('auction-last-name'),
+        price: price,
+        bidAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
+      });
+      //call api luu auctionLog
+      axiosClient.post('/api/auction', {
+        bidderId: localStorage.getItem('auction-user-id'), //localStorage.getItem('Id');
+        productId: productDetails.data?.id, //productDetails.data?.id;
+        price: price,
+      });
+    }
+    //hoặc chưa
+    else {
+      socket.emit(`request-bid`, {
+        id_product: productDetails.data?.id,
+        product_name: productDetails.data?.name,
 
-    socket.emit(`bid`, {
-      id_product: productDetails.data?.id,
-      firstName: localStorage.getItem('auction-first-name'),
-      lastName: localStorage.getItem('auction-last-name'),
-      price: price,
-      bidAt: Date.now(),
-    });
-    //call api luu auctionLog
-    axiosClient.post('/api/auction', {
-      bidderId: localStorage.getItem('auction-user-id'), //localStorage.getItem('Id');
-      productId: productDetails.data?.id, //productDetails.data?.id;
-      price: price,
-    });
+        firstName: localStorage.getItem('auction-first-name'),
+        lastName: localStorage.getItem('auction-last-name'),
+        id: localStorage.getItem('auction-user-id'),
+        bidAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
+      });
+      axiosClient.post('/api/bidder/request-bid', {
+        bidderId: localStorage.getItem('auction-user-id'), //localStorage.getItem('Id');
+        productId: productDetails.data?.id, //productDetails.data?.id;
+      });
+      setButtonBid('Waiting');
+    }
   }
-
+  socket.on(`updatebtn_${localStorage.getItem('auction-user-id')}`, (data) => {
+    setCheckBid(data.status);
+    setButtonBid('BID');
+  });
   return (
     <div>
       <section className="product-details spad">
@@ -124,6 +160,7 @@ export const Detail: React.FC = () => {
                     <img
                       className="product__details__pic__item--large"
                       src={productDetails.data?.coverImageUrl}
+                      alt=""
                     />
                   )}
                 </div>
@@ -199,7 +236,7 @@ export const Detail: React.FC = () => {
                   </div>
                 </div>
                 <button type="button" className="primary-btn" onClick={send}>
-                  BID
+                  {buttonBid}
                 </button>
                 <a href="#" className="heart-icon">
                   <span className="icon_heart_alt=" />
