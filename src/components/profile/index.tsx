@@ -36,10 +36,10 @@ export const Profile: React.FC = () => {
     history.push('/');
   }
   const role = localStorage.getItem('auction-user-role');
-  var hasAccess = false;
+  var sellerAccess = false;
   var isUser = false;
   if (role == 'seller') {
-    hasAccess = true;
+    sellerAccess = true;
   }
   if (role != 'admin') {
     isUser = true;
@@ -60,22 +60,17 @@ export const Profile: React.FC = () => {
                   <Link to="/profile/product-bidded" />
                 </MenuItem>
                 <MenuItem>
-                  Product to Bid(Seller)
-                  <Link to="/profile/product-to-bid" />
-                </MenuItem>
-                <MenuItem>
-                  Request Bid form bidder
-                  <Link to="/profile/request-bid" />
-                </MenuItem>
-
-                <MenuItem>
                   Become Seller
                   <Link to="/profile/to-seller" />
                 </MenuItem>
               </>
             ) : null}
-            {hasAccess ? (
+            {sellerAccess ? (
               <>
+                   <MenuItem>
+                  Request Bid form bidder
+                  <Link to="/profile/request-bid" />
+                </MenuItem>
                 <MenuItem>
                   Product to Bid(Seller)
                   <Link to="/profile/product-to-bid" />
