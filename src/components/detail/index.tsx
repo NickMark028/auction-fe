@@ -38,6 +38,7 @@ export const Detail: React.FC = () => {
   const [topBidderStatus, setTopBidderStatus] = useState<TStatus>('idle');
   const pathname = history.location.pathname;
   const id = pathname.slice(9);
+
   useEffect(() => {
     setTimeout(async () => {
       // console.log(history.location.pathname);
@@ -61,7 +62,7 @@ export const Detail: React.FC = () => {
           .then((res) => setTopBidder(res.data));
 
         // ----------------------------------------------------------------- //
-      } catch (error) {}
+      } catch (error) { }
     });
   }, [history.location.pathname]);
   socket.on(`updatebid_${id}`, async (c) => {
@@ -183,7 +184,7 @@ export const Detail: React.FC = () => {
                 <div className="product__details__quantity">
                   <label>BID Price:</label>
                   <div className="pro-qty">
-                    {productDetails.data !== undefined && (
+                    {productDetails.status == 'success' && (
                       <input
                         id="price"
                         type="number"
@@ -191,6 +192,7 @@ export const Detail: React.FC = () => {
                           topBidder.price || productDetails.data?.currentPrice
                         }
                         step={Number(productDetails.data!.priceStep)}
+                        min={(topBidder?.price ?? productDetails.data?.currentPrice ?? 0) + productDetails.data?.priceStep ?? 0}
                         onChange={(e) => {
                           setPrice(Number(e.target.value));
                         }}

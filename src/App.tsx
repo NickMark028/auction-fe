@@ -28,9 +28,9 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.List} component={userList} />
           <PublicRoute path={PageURL.Register} component={regItem} />
           <PrivateRoute path={PageURL.WatchList} component={WatchListPage} />
-          <PublicRoute path={PageURL.Admin} component={Admin} />
-          <PublicRoute path={PageURL.Profile} component={profileItem} />
-          <PublicRoute path={PageURL.AddProduct} component={AddProduct} />
+          <PrivateRoute path={PageURL.Admin} component={Admin} />
+          <PrivateRoute path={PageURL.Profile} component={profileItem} />
+          <PrivateRoute path={PageURL.AddProduct} component={AddProduct} />
 
           {/* id */}
         </Switch>
