@@ -62,7 +62,7 @@ export const AddProduct: React.FC = () => {
           history.push('/profile')
         })
         .catch((err) => {
-          window.alert(err.response.data.status);
+          // window.alert(err.response.data.status);
           console.log(err.response);
         });
     }
