@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/profile.scss';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import {
@@ -20,8 +20,12 @@ import {
 import { RequestToSeller } from 'components/request-seller';
 import { Modal, Popover, PopoverContent } from 'react-bootstrap';
 import { RequestBid } from 'components/request-bid-seller';
+import  instance  from 'utils/axiosClient';
 export const Profile: React.FC = () => {
   const history = useHistory();
+  
+  const [sellerAccess,setSeller] = useState(false);
+  var [isUser,setUser] = useState(false);
   function logout() {
     console.log('logged out');
 
@@ -35,15 +39,25 @@ export const Profile: React.FC = () => {
 
     history.push('/');
   }
-  const role = localStorage.getItem('auction-user-role');
-  var sellerAccess = false;
-  var isUser = false;
-  if (role == 'seller') {
-    sellerAccess = true;
+
+useEffect(()=>{
+instance.post('/api/user/role',{
+id: localStorage.getItem('auction-user-id')
+}).then((res)=>{
+
+  if (res.data.role == 'seller') {
+    setSeller(true)
   }
-  if (role != 'admin') {
-    isUser = true;
+  if (res.data.role != 'admin') {
+    setUser(true)
   }
+  console.log(isUser)
+}).catch((err)=>{
+  console.log(err.response)
+})
+},[])
+
+
   return (
     <div className="app-container">
       <div className="sidebar">
