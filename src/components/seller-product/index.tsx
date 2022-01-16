@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosClient from 'utils/axiosClient';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { PageURL } from 'enum/PageURL';
 export const SellerProduct: React.FC = () => {
   const [sellerProduct, setSellerProduct] = useState([]);
   const [checkrole, setCheckRole] = useState([]);
@@ -50,12 +51,13 @@ export const SellerProduct: React.FC = () => {
                 <th>Auction Log Count</th>
                 <th>Bidder count</th>
                 <th>Bid At</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="category-container">
               {sellerProduct?.map((auctionLog, index) => (
                 <tr key={index}>
-                  <td>{auctionLog.name}</td>
+                  <td><Link to={PageURL.Detail.replace(':id', auctionLog.id)}>{auctionLog.name}</Link></td>
                   <td> {auctionLog.reservedPrice} </td>
                   <td> {auctionLog.currentPrice} </td>
                   <td>{auctionLog.auctionLogCount}</td>
