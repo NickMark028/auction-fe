@@ -1,4 +1,4 @@
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-
-export { PublicRoute, PrivateRoute };
+import AdminRoute from './AdminRoute';
+export { PublicRoute, PrivateRoute,AdminRoute };

@@ -35,16 +35,14 @@ export const AddProduct: React.FC = () => {
     return false;
   }
   async function submitForm() {
-   
 
- 
     console.log(product);
     if (hasNull(product)) {
       window.alert('field must not emty');
     } else {
       instance
         .post('/api/product', {
-          sellerId: product.sellerId,
+    sellerId: product.sellerId,
     name: product.name,
     description: product.description,
     reservedPrice: product.reservedPrice,
@@ -177,6 +175,7 @@ var temp;
             <ReactQuill theme="snow" onChange={setValue} />
           </div>
           <div className="multi-select">
+          <label>Category</label>
             <Multiselect
               options={tolist()} // Options to display in the dropdown
               //selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
@@ -230,6 +229,7 @@ var temp;
           </div>
 
           <div>
+          <label>Date Expired</label>
             <input
               type="date"
               className="form-control"

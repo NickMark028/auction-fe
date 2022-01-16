@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { PublicRoute } from 'routers';
 import { PageURL } from 'enum/PageURL';
 import PrivateRoute from 'routers/PrivateRoute';
+import {AdminRoute} from 'routers';
 import { DetailItem } from 'pages';
 import loginItem from 'pages/login';
 import userList from 'pages/userlist';
@@ -28,10 +29,8 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.List} component={userList} />
           <PublicRoute path={PageURL.Register} component={regItem} />
           <PrivateRoute path={PageURL.WatchList} component={WatchListPage} />
-          <PrivateRoute path={PageURL.Admin} component={Admin} />
+          <AdminRoute path={PageURL.Admin} component={Admin} />
           <PrivateRoute path={PageURL.Profile} component={profileItem} />
-          <PrivateRoute path={PageURL.AddProduct} component={AddProduct} />
-
           {/* id */}
         </Switch>
       </Router>
