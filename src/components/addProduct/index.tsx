@@ -231,7 +231,7 @@ var temp;
           <div>
           <label>Date Expired</label>
             <input
-              type="date"
+              type="datetime-local"
               className="form-control"
               placeholder="Enter your date"
               name="timeExpired"
