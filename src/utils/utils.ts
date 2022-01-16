@@ -16,6 +16,20 @@ export function isLoggedIn() {
   return localStorage.getItem('auction-user-token') != null;
 }
 
+function isRole(role: string) {
+  if (!isLoggedIn()) return false;
+  return localStorage.getItem('auction-user-role') == role;
+}
+export function isBidder() {
+  return isRole('bidder');
+}
+export function isSeller() {
+  return isRole('seller');
+}
+export function isAdmin() {
+  return isRole('admin');
+}
+
 export function parseJwt(token) {
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

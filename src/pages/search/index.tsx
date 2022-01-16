@@ -1,5 +1,6 @@
 import { Footer, Header, Logo } from 'components';
 import ProductPreview from 'components/product-preview';
+import ProductCover from 'components/product/ProductCover';
 import SearchBar from 'components/search-box';
 import { FC, useEffect } from 'react';
 import { RouteProps } from 'react-router-dom';
@@ -8,7 +9,7 @@ import { searchProductTC } from 'redux/slices/product-search-list/searchProduct'
 import { useAppDispatch, useAppSelector } from 'redux/store';
 import { parseQuery } from 'utils/parser';
 
-interface Props extends RouteProps {}
+interface Props extends RouteProps { }
 
 const SearchPage: FC<Props> = (props: Props) => {
   const { location, path } = props;
@@ -32,30 +33,7 @@ const SearchPage: FC<Props> = (props: Props) => {
 
   return (
     <div>
-      {/* Page Preloder */}
-      {/* <div id="preloder">
-                <div className="loader"></div>
-            </div> */}
-
       <Header />
-
-      {/* Breadcrumb Section Begin */}
-      {/* <section className="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12 text-center">
-                            <div className="breadcrumb__text">
-                                <h2>Organi Shop</h2>
-                                <div className="breadcrumb__option">
-                                    <a href="./index.html">Home</a>
-                                    <span>Shop</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
-      {/* Breadcrumb Section End */}
 
       {/* Product Section Begin */}
       <section className="product spad">
@@ -520,18 +498,9 @@ const SearchPage: FC<Props> = (props: Props) => {
               </div>
 
               <div className="row">
-                {productSearchList.data?.map((product) => {
-                  const { id, currentPrice, name, coverImageUrl } = product;
-
-                  return (
-                    <ProductPreview
-                      key={id}
-                      name={name}
-                      pricing={currentPrice}
-                      imageUrl={coverImageUrl}
-                    />
-                  );
-                })}
+                {productSearchList.data?.map((product) => (
+                  <ProductCover {...product} />
+                ))}
               </div>
 
               <div className="product__pagination">
