@@ -17,7 +17,10 @@ function LoginComponent() {
         </Link>
 
         <Link to={PageURL.Profile}>
-          <MdAccountCircle size={'2rem'} />
+          <MdAccountCircle className='mr-2' size={'2rem'} />
+          {localStorage.getItem('auction-first-name')}
+          ' '
+          {localStorage.getItem('auction-last-name')}
         </Link>
       </li>
     </ul>
