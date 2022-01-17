@@ -1,6 +1,6 @@
 import { PageURL } from 'enum/PageURL';
-import { FC, useEffect } from 'react';
-import { Redirect, Route, RouteProps, useHistory } from 'react-router-dom';
+import { FC } from 'react';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 
 interface Props extends RouteProps {}
 

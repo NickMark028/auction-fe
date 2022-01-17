@@ -13,13 +13,12 @@ function LoginComponent() {
     <ul>
       <li>
         <Link to={PageURL.WatchList} className="mx-2">
-          <FaHeart size={'2rem'} />
+          <FaHeart size={'1.8rem'} />
         </Link>
 
         <Link to={PageURL.Profile}>
-          <MdAccountCircle className="mr-2" size={'2rem'} />
-          {localStorage.getItem('auction-first-name')}{' '}
-          {localStorage.getItem('auction-last-name')}
+          <MdAccountCircle className='mr-2' size={'1.8rem'} />
+          {`${localStorage.getItem('auction-first-name')} ${localStorage.getItem('auction-last-name')}`}
         </Link>
       </li>
     </ul>

@@ -1,4 +1,3 @@
-import { resolve4 } from 'dns';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import axiosClient from 'utils/axiosClient';
@@ -10,7 +9,7 @@ export const RequestToSellerAdmin: React.FC = () => {
         await axiosClient
           .get('/api/admin/change-role-view')
           .then((res) => setListReq(res.data));
-      } catch (error) {}
+      } catch (error) { }
     });
   }, []);
   async function approve(id: any) {

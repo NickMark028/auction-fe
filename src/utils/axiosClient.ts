@@ -77,6 +77,7 @@ axiosClient.interceptors.response.use(
         const accessToken: string | null = await refreshAccessToken();
 
         response.config.headers['authorization'] = `Bearer ${accessToken}`;
+        localStorage.setItem('access-user-token', accessToken);
         return axios(response.config);
       } catch (err) {
         return Promise.reject(err);

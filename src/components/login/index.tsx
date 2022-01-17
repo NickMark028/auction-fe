@@ -78,10 +78,10 @@ export const Login: React.FC = () => {
             'auction-last-name',
             res.data.user_info.lastName
           );
-            if( res.data.user_role=='admin'){
-              history.push('/admin');}
+            if( res.data.user_role==='admin'){
+              history.replace('/admin');}
               else{
-              history.push('/');}
+              history.replace('/');}
               if( res.data.user_role!='admin'){
                 instance.get(`/api/bidder/score/${decoded.userId}`).then((res1)=>{
                   localStorage.setItem('auction-user-score',res1.data.score)
@@ -141,7 +141,7 @@ export const Login: React.FC = () => {
               name="password"
               onChange={handleChange}
               onKeyPress={e=>{
-               if(e.key=='Enter'){
+               if(e.key==='Enter'){
                  submitForm()
                }
               }}

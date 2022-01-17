@@ -52,7 +52,7 @@ const ProductRow: FC<Props> = (props: Props) => {
         <h3 className="align-items-center">
           <span className="text-danger">${pricing}</span>
         </h3>
-        <p>{moment(timeExpired).format('MMMM Do YYYY, h:mm:ss a')}</p>
+        <p>{moment(timeExpired).format('MMMM Do YYYY, h:mm a')}</p>
         <button
           type="button"
           className="site-btn d-block"
