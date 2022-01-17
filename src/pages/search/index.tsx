@@ -1,7 +1,5 @@
-import { Footer, Header, Logo } from 'components';
-import ProductPreview from 'components/product-preview';
+import { Footer, Header } from 'components';
 import ProductCover from 'components/product/ProductCover';
-import SearchBar from 'components/search-box';
 import { FC, useEffect } from 'react';
 import { RouteProps } from 'react-router-dom';
 import { selectProductSearchList } from 'redux/selectors';
@@ -12,7 +10,7 @@ import { parseQuery } from 'utils/parser';
 interface Props extends RouteProps { }
 
 const SearchPage: FC<Props> = (props: Props) => {
-  const { location, path } = props;
+  const { location,  } = props;
 
   const dispatch = useAppDispatch();
   const productSearchList = useAppSelector(selectProductSearchList);

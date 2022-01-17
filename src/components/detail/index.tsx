@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 //import { render } from "react-dom";
 
 import OwlCarousel from 'react-owl-carousel';
-import Countdown from 'react-countdown';
 import socket from 'utils/socket';
 
 import { useHistory } from 'react-router-dom';
@@ -12,9 +11,8 @@ import { useAppDispatch, useAppSelector } from 'redux/store';
 import axiosClient from 'utils/axiosClient';
 import { Markup } from 'interweave';
 import moment from 'moment';
-import { TStatus } from 'models';
 import RelatedProductsSection from 'components/top-product-showcase/RelatedProductsSection';
-import { idText } from 'typescript';
+import CurrentBidderList from 'components/current-bidder-list/CurrentBidderList';
 
 interface AuctionLog {
   firstName: string;
@@ -77,9 +75,9 @@ export const Detail: React.FC = () => {
           setButtonBid('Request to bid');
         }
         console.log(checkbid);
-      } catch (error) {}
+      } catch (error) { }
     });
-  }, [history.location.pathname, checkbid]);
+  }, [history.location.pathname, checkbid, id, dispatch]);
 
   socket.on(`updatebid_${id}`, async (c) => {
     setTopBidder({
@@ -109,7 +107,7 @@ export const Detail: React.FC = () => {
   function send() {
     // khi bidder đã có điểm đánh giá
     if (
-      Number(localStorage.getItem('auction-user-score')) !== 0 ||
+      Number(localStorage.getItem('auction-user-score')) > 8 ||
       checkbid === 0
     ) {
       socket.emit(`bid`, {
@@ -189,8 +187,8 @@ export const Detail: React.FC = () => {
                       {productDetails.data?.name}
                     </div>
                     <div className="product__details__price">
-                      Curent Price:{' '}
-                      ${topBidder.price || productDetails.data?.currentPrice}
+                      Curent Price: $
+                      {topBidder.price || productDetails.data?.currentPrice}
                     </div>
                     <div className="product__details__price">
                       Price Step: ${productDetails.data.priceStep}
@@ -220,15 +218,19 @@ export const Detail: React.FC = () => {
                 <div className="product__details__quantity">
                   <label>BID Price:</label>
                   <div className="pro-qty">
-                    {productDetails.status == 'success' && (
+                    {productDetails.status === 'success' && (
                       <input
                         id="price"
                         type="number"
                         defaultValue={
-                          topBidder.price || productDetails.data?.currentPrice
+                          topBidder.price ?? productDetails.data?.currentPrice
                         }
                         step={Number(productDetails.data!.priceStep)}
-                        min={(topBidder?.price ?? productDetails.data?.currentPrice ?? 0) + productDetails.data?.priceStep ?? 0}
+                        min={
+                          (topBidder?.price ??
+                            productDetails.data?.currentPrice ??
+                            0) + productDetails.data?.priceStep ?? 0
+                        }
                         onChange={(e) => {
                           setPrice(Number(e.target.value));
                         }}
@@ -297,7 +299,7 @@ export const Detail: React.FC = () => {
                       role="tab"
                       aria-selected="false"
                     >
-                      Reviews{' '}
+                      Bidders{' '}
                     </a>
                   </li>
                 </ul>
@@ -337,7 +339,9 @@ export const Detail: React.FC = () => {
                   </div>
                   <div className="tab-pane" id="tabs-3" role="tabpanel">
                     <div className="product__details__tab__desc">
-                      <p>
+                      <CurrentBidderList productId={productDetails.data?.id}/>
+
+                      {/* <p>
                         Vestibulum ac diam sit amet quam vehicula elementum sed
                         sit amet dui. Pellentesque in ipsum id orci porta
                         dapibus. Proin eget tortor risus. Vivamus suscipit
@@ -353,7 +357,7 @@ export const Detail: React.FC = () => {
                         cubilia Curae; Donec velit neque, auctor sit amet
                         aliquam vel, ullamcorper sit amet ligula. Proin eget
                         tortor risus.
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </div>

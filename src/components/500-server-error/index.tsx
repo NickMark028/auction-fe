@@ -2,11 +2,15 @@ import { PageURL } from 'enum/PageURL';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface Props {}
+interface Props {
+  style?: React.CSSProperties;
+}
 
 const ServerError = (props: Props) => {
+  const { style } = props;
+
   return (
-    <div className="main-error-page server-error py-5 mb-5">
+    <div style={style} className="main-error-page server-error py-5 mb-5">
       <svg
         className="my-5"
         xmlns="http://www.w3.org/2000/svg"

@@ -1,11 +1,5 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import { isTemplateSpan, setConstantValue } from 'typescript';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import instance from 'utils/axiosClient';
-import {
-  NotificationContainer,
-  NotificationManager,
-} from 'react-notifications';
 
 export const CategoryList: React.FC = () => {
   const [category, set] = useState([
@@ -45,7 +39,7 @@ export const CategoryList: React.FC = () => {
       const temp2 = {
         section: item.section,
         categories: (item.categories = item.categories.filter(
-          (item1) => item1.id != id
+          (item1) => item1.id !== id
         )),
       };
       temp1.push(temp2);

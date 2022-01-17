@@ -2,8 +2,8 @@ import ServerError from 'components/500-server-error';
 import Loading from 'components/loading';
 import ProductRow from 'components/product/ProductRow';
 import { TProduct, TStatus } from 'models';
-import React, { FC, useEffect, useState } from 'react';
-import { Col, Container, Row, Spinner } from 'react-bootstrap';
+import { FC, useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { getWatchList } from './api';
 
 interface Props { }
@@ -30,7 +30,7 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
 
   const uiMap = {
     idle: undefined,
-    pending: <Loading />,
+    pending: <Loading style={{height: '100vh'}}/>,
     success: (
       <section className="">
         {status === 'success' && watchList && (

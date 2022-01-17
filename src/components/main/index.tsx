@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import SearchBar from 'components/search-box';
 import React, { useEffect, useState } from 'react';
 
 import 'react-toggle/style.css';
@@ -12,7 +11,7 @@ import {
   TopClosingProductsShowcase,
 } from 'components/top-product-showcase';
 import DropDown from 'react-multilevel-dropdown';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { PageURL } from 'enum/PageURL';
 import { Row } from 'react-bootstrap';
 
@@ -32,7 +31,7 @@ export const Main: React.FC = () => {
   }, []);
 
   function handleChange() {
-    if (categoryList.status != 'success') return;
+    if (categoryList.status !== 'success') return;
 
     setDisplay(display === 'none' ? 'block' : 'none');
   }
@@ -90,12 +89,11 @@ export const Main: React.FC = () => {
               }}
             >
               <div className="hero__text">
-                <span>FRUIT FRESH</span>
+                {/* <span>FRUIT FRESH</span> */}
                 <h2>
-                  Vegetable <br />
-                  100% Organic
+                  Auction Only
                 </h2>
-                <p>Free Pickup and Delivery Available</p>
+                <p>Do you have any item to sell or want to bid an item?</p>
                 {/* <a href="#" className="primary-btn">
                     SHOP NOW
                   </a> */}

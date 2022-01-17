@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/profile.scss';
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link,
   useHistory,
-  Redirect,
 } from 'react-router-dom';
 import {
   ChangePass,
