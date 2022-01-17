@@ -35,7 +35,8 @@ export const Detail: React.FC = () => {
     price: 0,
   });
   const [price, setPrice] = useState<number>();
-  const [buttonBid, setButtonBid] = useState('BID');
+  const [buttonBid, setButtonBid] = useState('');
+  const [disable, setDisable] = useState(false);
   const pathname = history.location.pathname;
   const id = pathname.slice(9);
   const [checkbid, setCheckBid] = useState(1);
@@ -64,9 +65,12 @@ export const Detail: React.FC = () => {
             'auction-user-id'
           )}`
         );
-        console.log(check);
+
         setCheckBid(check.data?.status);
-        if (
+        if (localStorage.getItem('auction-user-role') === 'seller') {
+          setButtonBid('NO BID');
+          setDisable(true);
+        } else if (
           Number(localStorage.getItem('auction-user-score')) !== 0 ||
           checkbid === 0
         ) {
@@ -76,7 +80,6 @@ export const Detail: React.FC = () => {
         } else {
           setButtonBid('Request to bid');
         }
-        console.log(checkbid);
       } catch (error) {}
     });
   }, [history.location.pathname, checkbid]);
@@ -240,7 +243,12 @@ export const Detail: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <button type="button" className="primary-btn" onClick={send}>
+                <button
+                  type="button"
+                  className="primary-btn"
+                  onClick={send}
+                  disabled={disable}
+                >
                   {buttonBid}
                 </button>
                 <a href="#" className="heart-icon">
