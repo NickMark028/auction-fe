@@ -2,8 +2,13 @@ import React, { useEffect, useState, Fragment } from 'react';
 import jwt_decode from 'jwt-decode';
 import '../../styles/profile.scss';
 import instance from 'utils/axiosClient';
-import moment from 'moment';
+import { getprofile } from './api';
+import { TStatus } from 'models';
+import ServerError from 'components/500-server-error';
+import Loading from 'components/loading';
+import { Container } from 'react-bootstrap';
 export const UserInfo: React.FC = () => {
+  const [status, setStatus] = useState<TStatus>('idle');
   const [account, setaccount] = useState({
     username: '',
     firstName: '',
@@ -11,25 +16,41 @@ export const UserInfo: React.FC = () => {
     email: '',
     dateOfBirth: '',
   });
+
   useEffect(() => {
-    const token = localStorage.getItem('auction-user-token');
+    if (status !== 'idle') return;
 
-    const id: any = jwt_decode(token);
+    setTimeout(async () => {
+      try {
+        setStatus('pending');
+        const data =await getprofile()
+        setaccount(data)
+     
+        setStatus('success');
+      } catch (error) {
+        setStatus('reject');
+      }
+    });
+  }, [status]);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('auction-user-token');
 
-    instance
-      .get('/api/user/profile', {
-        params: {
-          id: id.userId,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data);
-        setaccount(res.data);
-      })
-      .catch((err) => {
-        // console.log(err.response);
-      });
-  }, []);
+  //   const id: any = jwt_decode(token);
+
+  //   instance
+  //     .get('/api/user/profile', {
+  //       params: {
+  //         id: id.userId,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       // console.log(res.data);
+  //       setaccount(res.data);
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err.response);
+  //     });
+  // }, []);
   function submitform() {
     const token = localStorage.getItem('auction-user-token');
 
@@ -61,8 +82,12 @@ export const UserInfo: React.FC = () => {
     });
   }
 
-  return (
-    <div className="App">
+  const uiMap = {
+    idle: undefined,
+    pending: <Loading />,
+    success: (
+      <section className="">
+            <div className="App">
       <link
         href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
         rel="stylesheet"
@@ -140,5 +165,13 @@ export const UserInfo: React.FC = () => {
         Save
       </button>
     </div>
+      </section>
+    ),
+    reject: <ServerError />,
+  };
+  return (
+  <Container>
+    {uiMap[status]}
+  </Container>
   );
 };

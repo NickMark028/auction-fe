@@ -3,42 +3,59 @@ import axiosClient from 'utils/axiosClient';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { PageURL } from 'enum/PageURL';
+import { getlist,getrole } from './api';
+import { TStatus } from 'models';
+import ServerError from 'components/500-server-error';
+import Loading from 'components/loading';
+import { Container } from 'react-bootstrap';
 export const SellerProduct: React.FC = () => {
   const [sellerProduct, setSellerProduct] = useState([]);
   const [checkrole, setCheckRole] = useState([]);
+  const [status, setStatus] = useState<TStatus>('idle');
+  // useEffect(() => {
+  //   setTimeout(async () => {
+  //     axiosClient
+  //       .get(
+  //         `/api/seller/product-selling/${localStorage.getItem(
+  //           'auction-user-id'
+  //         )}`
+  //       )
+  //       .then((res) => setSellerProduct(res.data));
+
+  //     async function role() {
+  //       return await axiosClient.get(
+  //         `/api/seller/checkrole/${localStorage.getItem('auction-user-id')}`
+  //       );
+  //     }
+
+  //     role().then((res) => {
+  //       setCheckRole(res.data);
+  //     });
+  //   });
+  // }, []);
+
   useEffect(() => {
+    if (status !== 'idle') return;
+
     setTimeout(async () => {
-      axiosClient
-        .get(
-          `/api/seller/product-selling/${localStorage.getItem(
-            'auction-user-id'
-          )}`
-        )
-        .then((res) => setSellerProduct(res.data));
-
-      async function role() {
-        return await axiosClient.get(
-          `/api/seller/checkrole/${localStorage.getItem('auction-user-id')}`
-        );
+      try {
+        setStatus('pending');
+        const data= await getlist()
+        setSellerProduct(data)
+     
+        setStatus('success');
+      } catch (error) {
+        setStatus('reject');
       }
-
-      role().then((res) => {
-        setCheckRole(res.data);
-      });
     });
-  }, []);
-  // console.log(checkrole);
-  if (!checkrole) {
-    return (
-      <>
-        <img src="./asset/img/hand-1200.png" alt="" width={'50%'} />
-        <h2>You are not a seller!!Please become a seller! </h2>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <div
+  }, [status]);
+
+  const uiMap = {
+    idle: undefined,
+    pending: <Loading />,
+    success: (
+      <section className="">
+     <div
           className="product__details__tab__desc"
           style={{ overflow: 'auto' }}
         >
@@ -91,7 +108,25 @@ export const SellerProduct: React.FC = () => {
             </tbody>
           </table>
         </div>
+      </section>
+    ),
+    reject: <ServerError />,
+  };
+  
+
+  // console.log(checkrole);
+  if (!checkrole) {
+    return (
+      <>
+        <img src="./asset/img/hand-1200.png" alt="" width={'50%'} />
+        <h2>You are not a seller!!Please become a seller! </h2>
       </>
+    );
+  } else {
+    return (
+      <Container>
+        {uiMap[status]}
+      </Container>
     );
   }
 };

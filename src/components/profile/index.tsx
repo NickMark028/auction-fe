@@ -18,12 +18,16 @@ import {
   Description,
 } from 'components';
 import { RequestToSeller } from 'components/request-seller';
-import { Modal, Popover, PopoverContent } from 'react-bootstrap';
+import { Container, Modal, Popover, PopoverContent } from 'react-bootstrap';
 import { RequestBid } from 'components/request-bid-seller';
 import  instance  from 'utils/axiosClient';
+import { TStatus } from 'models';
+import ServerError from 'components/500-server-error';
+import Loading from 'components/loading';
+import { getrole } from './api';
 export const Profile: React.FC = () => {
   const history = useHistory();
-  
+  const [status, setStatus] = useState<TStatus>('idle');
   const [sellerAccess,setSeller] = useState(false);
   var [isUser,setUser] = useState(false);
   function logout() {
@@ -39,28 +43,53 @@ export const Profile: React.FC = () => {
 
     history.push('/');
   }
+async function check(){
+  // instance.post('/api/user/role',{
+  //   id: localStorage.getItem('auction-user-id')
+  //   }).then((res)=>{
+      
+  //     if (res.data.role == 'seller') {
+  //       setSeller(true)
+  //     }
+  //     if (res.data.role != 'admin') {
+  //       setUser(true)
+  //     }
+  //     console.log(isUser)
+  //   }).catch((err)=>{
+  //     console.log(err.response)
+  //   })
+  
+}
+  useEffect(() => {
+    if (status !== 'idle') return;
 
-useEffect(()=>{
-instance.post('/api/user/role',{
-id: localStorage.getItem('auction-user-id')
-}).then((res)=>{
+    setTimeout(async () => {
+      try {
+        setStatus('pending');
+        const data= await getrole()
+        if (data == 'seller') {
+                setSeller(true)
+              }
+       if (data!= 'admin') {
+               setUser(true)
+             }
+     
+        setStatus('success');
+      } catch (error) {
+        setStatus('reject');
+      }
+    });
+  }, [status]);
 
-  if (res.data.role == 'seller') {
-    setSeller(true)
-  }
-  if (res.data.role != 'admin') {
-    setUser(true)
-  }
-  console.log(isUser)
-}).catch((err)=>{
-  console.log(err.response)
-})
-},[])
 
 
-  return (
-    <div className="app-container">
-      <div className="sidebar">
+const uiMap = {
+  idle: undefined,
+  pending: <Loading />,
+  success: (
+    <section className="">
+       <div className="app-container">
+        <div className="sidebar">
         <ProSidebar className="pro">
           <Menu iconShape="square">
             <MenuItem>
@@ -115,6 +144,15 @@ id: localStorage.getItem('auction-user-id')
           <Route path="/profile/request-bid" component={RequestBid} />
         </Switch>
       </div>
-    </div>
+      </div>
+    </section>
+  ),
+  reject: <ServerError />,
+};
+
+  return (
+   <Container> {uiMap[status]}</Container>
+   
+ 
   );
 };

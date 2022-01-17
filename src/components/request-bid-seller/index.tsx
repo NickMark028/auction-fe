@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axiosClient from 'utils/axiosClient';
 import socket from 'utils/socket';
 import moment from 'moment';
+import { TStatus } from 'models';
+import { getlist } from './api';
+import ServerError from 'components/500-server-error';
+import Loading from 'components/loading';
 export const RequestBid: React.FC = () => {
   interface list {
     bidderId: string;
@@ -11,6 +15,7 @@ export const RequestBid: React.FC = () => {
     name: string;
     createdAt: string;
   }
+  const [status, setStatus] = useState<TStatus>('idle');
   const [listRequest, setListRequest] = useState<list[]>([]);
   useEffect(() => {
     setTimeout(async () => {
@@ -30,40 +35,34 @@ export const RequestBid: React.FC = () => {
       setListRequest(formattedData);
     });
   }, []);
-  socket.on(`request-from-bidder`, (data) => {
-    setListRequest([
-      ...listRequest,
-      {
-        bidderId: data.id,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        id: data.id_product,
-        name: data.product_name,
-        createdAt: data.bidAt,
-      },
-    ]);
-  });
 
-  async function approve(bidderId: any, id: any) {
-    socket.emit(`accepted`, {
-      Id: bidderId ?? 0,
-      status: 0,
+  useEffect(() => {
+    if (status !== 'idle') return;
+
+    setTimeout(async () => {
+      try {
+        setStatus('pending');
+        const data =await getlist()
+        const formattedData = (data as list[]).map((log) => {
+          return {
+            ...log,
+            createdAt: moment(log.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+          };
+        });
+        setListRequest(formattedData);
+        setStatus('success');
+      } catch (error) {
+        setStatus('reject');
+      }
     });
-    await axiosClient.patch(`/api/seller/accept-bid`, {
-      productId: id,
-      bidderId: bidderId,
-    });
-    const del = [...listRequest].filter((req) => req.bidderId !== bidderId);
-    setListRequest(del);
-  }
-  // async function deline(id: any) {
-  //   await axiosClient.patch(`/api/seller/accept-bid`);
-  //   const del = [...listReq].filter((req) => req.bidderId !== id);
-  //   setListReq(del);
-  // }
-  return (
-    <>
-      <div className="tab-content">
+  }, [status]);
+
+  const uiMap = {
+    idle: undefined,
+    pending: <Loading />,
+    success: (
+      <section className="">
+     <div className="tab-content">
         <div className="tab-pane active" id="tabs-1" role="tabpanel">
           <div
             className="product__details__tab__desc"
@@ -114,6 +113,45 @@ export const RequestBid: React.FC = () => {
           </div>
         </div>
       </div>
+      </section>
+    ),
+    reject: <ServerError />,
+  };
+
+  socket.on(`request-from-bidder`, (data) => {
+    setListRequest([
+      ...listRequest,
+      {
+        bidderId: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        id: data.id_product,
+        name: data.product_name,
+        createdAt: data.bidAt,
+      },
+    ]);
+  });
+
+  async function approve(bidderId: any, id: any) {
+    socket.emit(`accepted`, {
+      Id: bidderId ?? 0,
+      status: 0,
+    });
+    await axiosClient.patch(`/api/seller/accept-bid`, {
+      productId: id,
+      bidderId: bidderId,
+    });
+    const del = [...listRequest].filter((req) => req.bidderId !== bidderId);
+    setListRequest(del);
+  }
+  // async function deline(id: any) {
+  //   await axiosClient.patch(`/api/seller/accept-bid`);
+  //   const del = [...listReq].filter((req) => req.bidderId !== id);
+  //   setListReq(del);
+  // }
+  return (
+    <>
+    {uiMap[status]}
     </>
   );
 };
