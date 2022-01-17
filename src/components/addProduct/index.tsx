@@ -94,6 +94,11 @@ var temp;
     if(evt.target.name=='reservedPrice'||evt.target.name=='priceStep'||evt.target.name=='instantPrice'){
       value1=value1.replace('-','')
     }
+    if(evt.target.name=='priceStep'&&evt.target.value==0){
+      
+      value1=value1.replace(0,1)
+
+    }
     setProduct({
       ...product,
       [evt.target.name]: value1,
@@ -188,7 +193,7 @@ var temp;
             <label>Price</label>
             <input
               type="number"
-              min="0"
+              min="1"
               className="form-control"
               placeholder="Enter reserve price"
               name="reservedPrice"
@@ -201,11 +206,11 @@ var temp;
             <label>Price step</label>
             <input
               type="number"
-              min="0"
+              min="1"
               className="form-control"
               placeholder="Enter price step"
               name="priceStep"
-              onKeyUp={(e:any)=>{if(e.target.value<0){e.target.value= e.target.value * -1}}}
+              onKeyUp={(e:any)=>{if(e.target.value<0){e.target.value= e.target.value * -1};if(e.target.value==0){e.target.value=''}}}
               onChange={handleChange}
             />
           </div>
@@ -214,7 +219,7 @@ var temp;
             <label>Instant price</label>
             <input
               type="number"
-              min="0"
+              min="1"
               className="form-control"
               placeholder="Enter instant price"
               name="instantPrice"
