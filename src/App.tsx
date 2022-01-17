@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { PublicRoute } from 'routers';
 import { PageURL } from 'enum/PageURL';
 import PrivateRoute from 'routers/PrivateRoute';
-import {AdminRoute} from 'routers';
+import { AdminRoute } from 'routers';
 import { DetailItem } from 'pages';
 import loginItem from 'pages/login';
 import userList from 'pages/userlist';
