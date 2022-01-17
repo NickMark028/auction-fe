@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { Row } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { toggleWatchList } from './api';
-
+import { Markup } from 'interweave';
 interface Props {
   productId: number;
   name: string;
@@ -45,7 +45,7 @@ const ProductRow: FC<Props> = (props: Props) => {
 
       <div className="col-md-7">
         <h4>{name}</h4>
-        <p>{description}</p>
+        <Markup content={description}/>
       </div>
 
       <div className="col-md-2 d-flex flex-column">
