@@ -109,7 +109,7 @@ export const Detail: React.FC = () => {
   function send() {
     // khi bidder đã có điểm đánh giá
     if (
-      Number(localStorage.getItem('auction-user-score')) !== 0 ||
+      Number(localStorage.getItem('auction-user-score')) > 8 ||
       checkbid === 0
     ) {
       socket.emit(`bid`, {
@@ -189,8 +189,8 @@ export const Detail: React.FC = () => {
                       {productDetails.data?.name}
                     </div>
                     <div className="product__details__price">
-                      Curent Price:{' '}
-                      ${topBidder.price || productDetails.data?.currentPrice}
+                      Curent Price: $
+                      {topBidder.price || productDetails.data?.currentPrice}
                     </div>
                     <div className="product__details__price">
                       Price Step: ${productDetails.data.priceStep}
@@ -220,15 +220,19 @@ export const Detail: React.FC = () => {
                 <div className="product__details__quantity">
                   <label>BID Price:</label>
                   <div className="pro-qty">
-                    {productDetails.status == 'success' && (
+                    {productDetails.status === 'success' && (
                       <input
                         id="price"
                         type="number"
                         defaultValue={
-                          topBidder.price || productDetails.data?.currentPrice
+                          topBidder.price ?? productDetails.data?.currentPrice
                         }
                         step={Number(productDetails.data!.priceStep)}
-                        min={(topBidder?.price ?? productDetails.data?.currentPrice ?? 0) + productDetails.data?.priceStep ?? 0}
+                        min={
+                          (topBidder?.price ??
+                            productDetails.data?.currentPrice ??
+                            0) + productDetails.data?.priceStep ?? 0
+                        }
                         onChange={(e) => {
                           setPrice(Number(e.target.value));
                         }}
