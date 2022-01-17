@@ -177,7 +177,7 @@ var temp;
           <div className="form-2">
             <label>Description</label>
 
-            <ReactQuill theme="snow" onChange={setValue} />
+            <ReactQuill className='input-des' theme="snow" onChange={setValue} />
           </div>
           <div className="multi-select">
           <label>Category</label>

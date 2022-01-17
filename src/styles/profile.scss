@@ -11,7 +11,7 @@
   height: 700px;
   width: 800px;
   background: white;
-  overflow: scroll;
+  margin-bottom: 12rem;
 }
 
 p {
@@ -91,6 +91,10 @@ textarea {
   height: 40px;
   float: left;
   padding: 0px 15px;
+}
+.input-des{
+  height: 200px;
+  margin-bottom: 3rem;
 }
 .change-pass-container input {
   border-radius: 0px 5px 5px 0px;
