@@ -1,5 +1,4 @@
 import axios from 'axios';
-import moment from 'moment';
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_BE_HOST,
@@ -13,18 +12,22 @@ export const instance = axios.create({
 // console.log(process.env.REACT_APP_BE_HOST);
 
 export function isLoggedIn() {
-  return localStorage.getItem('auction-user-token') != null;
+  return localStorage.getItem('auction-user-token') !== null;
 }
 
 function isRole(role: string) {
   if (!isLoggedIn()) return false;
-  return localStorage.getItem('auction-user-role') == role;
+  return localStorage.getItem('auction-user-role') === role;
 }
 export function isBidder() {
   return isRole('bidder');
 }
 export function isSeller() {
   return isRole('seller');
+}
+// TODO Check if the seller owns the product
+export function isSellerForProduct(productId: number) {
+  return isSeller();
 }
 export function isAdmin() {
   return isRole('admin');

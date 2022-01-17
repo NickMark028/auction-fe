@@ -1,16 +1,13 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import instance from '../../utils/axiosClient';
 import '../../styles/global.scss';
 import 'react-notifications/lib/notifications.css';
 import {
   NotificationContainer,
-  NotificationManager,
 } from 'react-notifications';
 import Validator from '../../utils/validator';
 import { useHistory } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import { register } from 'ts-node';
-import { FaWindows } from 'react-icons/fa';
 const rules = [
   {
     field: 'username',

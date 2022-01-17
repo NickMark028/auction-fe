@@ -78,7 +78,7 @@ export const Login: React.FC = () => {
             'auction-last-name',
             res.data.user_info.lastName
           );
-            if( res.data.user_role=='admin'){
+            if( res.data.user_role==='admin'){
               history.push('/admin');}
               else{
               history.push('/');}
@@ -141,7 +141,7 @@ export const Login: React.FC = () => {
               name="password"
               onChange={handleChange}
               onKeyPress={e=>{
-               if(e.key=='Enter'){
+               if(e.key==='Enter'){
                  submitForm()
                }
               }}

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/profile.scss';
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link,
   useHistory,
-  Redirect,
 } from 'react-router-dom';
 import {
   ChangePass,
@@ -18,7 +16,6 @@ import {
   Description,
 } from 'components';
 import { RequestToSeller } from 'components/request-seller';
-import { Modal, Popover, PopoverContent } from 'react-bootstrap';
 import { RequestBid } from 'components/request-bid-seller';
 import  instance  from 'utils/axiosClient';
 export const Profile: React.FC = () => {
@@ -45,10 +42,10 @@ instance.post('/api/user/role',{
 id: localStorage.getItem('auction-user-id')
 }).then((res)=>{
 
-  if (res.data.role == 'seller') {
+  if (res.data.role === 'seller') {
     setSeller(true)
   }
-  if (res.data.role != 'admin') {
+  if (res.data.role !== 'admin') {
     setUser(true)
   }
   console.log(isUser)

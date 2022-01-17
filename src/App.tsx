@@ -10,8 +10,6 @@ import loginItem from 'pages/login';
 import userList from 'pages/userlist';
 import regItem from 'pages/register';
 import Admin from 'pages/admin';
-import AddProduct from 'pages/addProduct';
-import SellerProductView from 'pages/sellerProductView';
 import profileItem from 'pages/profile';
 import { HomePage, SearchPage } from 'pages';
 import store from 'redux/store';
@@ -31,7 +29,6 @@ function App(): JSX.Element {
           <PrivateRoute path={PageURL.WatchList} component={WatchListPage} />
           <AdminRoute path={PageURL.Admin} component={Admin} />
           <PrivateRoute path={PageURL.Profile} component={profileItem} />
-          {/* id */}
         </Switch>
       </Router>
     </Provider>

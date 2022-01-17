@@ -1,6 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import { setConstantValue } from 'typescript';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { instance } from 'utils/utils';
 
 export const Userlist: React.FC = () => {
