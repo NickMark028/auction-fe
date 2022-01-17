@@ -79,9 +79,9 @@ export const Login: React.FC = () => {
             res.data.user_info.lastName
           );
             if( res.data.user_role==='admin'){
-              history.push('/admin');}
+              history.replace('/admin');}
               else{
-              history.push('/');}
+              history.replace('/');}
               if( res.data.user_role!='admin'){
                 instance.get(`/api/bidder/score/${decoded.userId}`).then((res1)=>{
                   localStorage.setItem('auction-user-score',res1.data.score)
