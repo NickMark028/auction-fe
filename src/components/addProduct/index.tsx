@@ -187,6 +187,7 @@ export const AddProduct: React.FC = () => {
               //selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
               onSelect={onSelect} // Function will trigger on select event
               //  onRemove={this.onRemove} // Function will trigger on remove event
+              singleSelect={true}
               displayValue="name" // Property name to display in the dropdown options
             />
           </div>
