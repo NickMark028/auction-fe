@@ -2,7 +2,7 @@ import { TProduct, TStatus } from 'models';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { getRelatedProducts } from './api';
-import TopProductsShowcase from './ProductsSection';
+import ProductsSection from './ProductsSection';
 
 interface Props {
   section?: string;
@@ -35,7 +35,7 @@ const RelatedProductsSection = (props: Props) => {
   const actualStatus: TStatus =
     section === undefined ? 'pending' : productsStatus;
   return (
-    <TopProductsShowcase
+    <ProductsSection
       title="Related products"
       products={products}
       status={actualStatus}

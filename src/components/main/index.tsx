@@ -9,7 +9,7 @@ import {
   PriciestProductsShowcase,
   TopAutionLogProductsShowcase,
   TopClosingProductsShowcase,
-} from 'components/top-product-showcase';
+} from 'components/products-section';
 import DropDown from 'react-multilevel-dropdown';
 import { useHistory } from 'react-router-dom';
 import { PageURL } from 'enum/PageURL';
@@ -27,7 +27,8 @@ export const Main: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (categoryList.data === undefined) dispatch(getCategoryListTC());
+    if (categoryList.data === undefined)
+      dispatch(getCategoryListTC());
   }, []);
 
   function handleChange() {
@@ -52,12 +53,13 @@ export const Main: React.FC = () => {
 
                 {categoryList.status === 'success' && (
                   <ul className="drop" style={{ display }}>
-                    {categoryList.data?.map((category) => (
-                      <DropDown.Item>
+                    {categoryList.data?.map((category, index) => (
+                      <DropDown.Item key={index}>
                         {category.section}
                         <DropDown.Submenu position="right">
-                          {category.categories.map((detailCategory) => (
+                          {category.categories.map((detailCategory, index2) => (
                             <DropDown.Item
+                              key={index2}
                               onClick={() =>
                                 history.push(
                                   `${PageURL.Category}/${detailCategory.path}`
@@ -90,9 +92,7 @@ export const Main: React.FC = () => {
             >
               <div className="hero__text">
                 {/* <span>FRUIT FRESH</span> */}
-                <h2>
-                  Auction Only
-                </h2>
+                <h2>Auction Only</h2>
                 <p>Do you have any item to sell or want to bid an item?</p>
                 {/* <a href="#" className="primary-btn">
                     SHOP NOW

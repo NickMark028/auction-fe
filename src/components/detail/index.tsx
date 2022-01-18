@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from 'redux/store';
 import axiosClient from 'utils/axiosClient';
 import { Markup } from 'interweave';
 import moment from 'moment';
-import RelatedProductsSection from 'components/top-product-showcase/RelatedProductsSection';
+import RelatedProductsSection from 'components/products-section/RelatedProductsSection';
 import CurrentBidderList from 'components/current-bidder-list/CurrentBidderList';
 
 interface AuctionLog {

@@ -1,15 +1,12 @@
-import ServerError from 'components/500-server-error';
-import Loading from 'components/loading';
-import {} from 'components/watch-later-body/api';
 import { TProduct, TStatus } from 'models';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { getPriciestProducts } from './api';
-import TopProductsShowcase from './ProductsSection';
+import { getTopAutionLogProducts } from './api';
+import ProductsSection from './ProductsSection';
 
 interface Props {}
 
-const PriciestProductsShowcase = (props: Props) => {
+const TopAutionLogProductsShowcase = (props: Props) => {
   const [productsStatus, setProductsStatus] = useState<TStatus>('idle');
   const [products, setProducts] = useState<TProduct[]>(undefined);
 
@@ -19,7 +16,7 @@ const PriciestProductsShowcase = (props: Props) => {
     setTimeout(async () => {
       try {
         setProductsStatus('pending');
-        const response = await getPriciestProducts();
+        const response = await getTopAutionLogProducts();
 
         setProducts(response);
         setProductsStatus('success');
@@ -30,12 +27,12 @@ const PriciestProductsShowcase = (props: Props) => {
   }, [productsStatus]);
 
   return (
-    <TopProductsShowcase
-      title="Priciest products"
-      products={products}
+    <ProductsSection
+      title="Most bidding products"
       status={productsStatus}
+      products={products}
     />
   );
 };
 
-export default PriciestProductsShowcase;
+export default TopAutionLogProductsShowcase;

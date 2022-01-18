@@ -49,9 +49,10 @@ const ProductCover = (props: Props) => {
             <a href="#">{name}</a>
           </h6>
           <h6>Bid Price: {currentPrice}</h6>
-          <h6>
-            Top bidder: {topBidder?.firstName} {topBidder?.lastName}
-          </h6>
+          {/* {topBidder === undefined
+            ? <h6>Top bidder: {topBidder?.firstName} {topBidder?.lastName}</h6>
+            : <h6>' '</h6>
+          } */}
           <h6>Count: {auctionLogCount}</h6>
         </div>
       </div>
