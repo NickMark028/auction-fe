@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axiosClient from 'utils/axiosClient';
 import moment from 'moment';
+import { PageURL } from 'enum/PageURL';
+import { Link } from 'react-router-dom';
 export const BidderProduct: React.FC = () => {
   const [bidderProduct, setbidderProduct] = useState([]);
   useEffect(() => {
@@ -32,7 +34,13 @@ export const BidderProduct: React.FC = () => {
           <tbody id="category-container">
             {bidderProduct?.map((bidderP, index) => (
               <tr key={index}>
-                <td>{bidderP.name}</td>
+                <td>
+                  {' '}
+                  <Link to={PageURL.Detail.replace(':id', bidderP.productId)}>
+                    {' '}
+                    {bidderP.name}{' '}
+                  </Link>
+                </td>
                 <td> {bidderP.price} </td>
                 <td> {bidderP.currentPrice} </td>
                 <td>{moment(bidderP.timeExpired).fromNow()}</td>

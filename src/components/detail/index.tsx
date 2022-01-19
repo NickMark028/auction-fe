@@ -66,23 +66,45 @@ export const Detail: React.FC = () => {
           )}`
         );
 
+        const block = await axiosClient.get(
+          `api/bidder/check-block/${
+            productDetails.data?.id
+          }/${localStorage.getItem('auction-user-id')}`
+        );
+        console.log(block);
         setCheckBid(check.data?.status);
-        if (localStorage.getItem('auction-user-role') === 'seller') {
+        if (
+          productDetails.data?.sellerId ===
+          Number(localStorage.getItem('auction-user-id'))
+        ) {
           setButtonBid('NO BID');
+          setDisable(true);
+        } else if (block.data.isblocked === 1) {
+          setButtonBid('seller blocked you');
           setDisable(true);
         } else if (
           Number(localStorage.getItem('auction-user-score')) !== 0 ||
           checkbid === 0
         ) {
           setButtonBid('BID');
+          setDisable(false);
         } else if (checkbid === 1) {
           setButtonBid('WAIT');
         } else {
           setButtonBid('Request to bid');
+          setDisable(false);
         }
       } catch (error) {}
     });
-  }, [history.location.pathname, checkbid]);
+  }, [
+    history.location.pathname,
+    checkbid,
+    disable,
+    dispatch,
+    id,
+    productDetails.data?.sellerId,
+    productDetails.data?.id,
+  ]);
 
   socket.on(`updatebid_${id}`, async (c) => {
     setTopBidder({
