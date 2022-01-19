@@ -42,7 +42,6 @@ export const Productlist: React.FC = () => {
                 <th scope="col">Seller id</th>
                 <th scope="col">Product id</th>
                 <th scope="col">Name</th>
-                <th scope="col">Description</th>
                 <th scope="col">Reserved price</th>
                 <th scope="col">Price step</th>
                 <th scope="col">Instant prince</th>
@@ -56,7 +55,6 @@ export const Productlist: React.FC = () => {
                   <td>{customer.id}</td>
                   <td>{customer.sellerId}</td>
                   <td>{customer.name}</td>
-                  <td><Markup content={customer.description}/></td>
                   <td>{customer.reservedPrice}</td>
                   <td>{customer.priceStep}</td>
                   <td>{customer.instantPrice}</td>
