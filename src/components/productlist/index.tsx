@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { instance } from 'utils/utils';
-
+import { Markup } from 'interweave';
 export const Productlist: React.FC = () => {
   const [customers, set] = useState([]);
   useEffect(() => {
@@ -34,7 +34,7 @@ export const Productlist: React.FC = () => {
   }
   return (
     <div>
-      <div className="container">
+      <div className="list-container">
         <div className="row">
           <table className="table table-bordered">
             <thead className="thead-light">
@@ -56,7 +56,7 @@ export const Productlist: React.FC = () => {
                   <td>{customer.id}</td>
                   <td>{customer.sellerId}</td>
                   <td>{customer.name}</td>
-                  <td>{customer.description}</td>
+                  <td><Markup content={customer.description}/></td>
                   <td>{customer.reservedPrice}</td>
                   <td>{customer.priceStep}</td>
                   <td>{customer.instantPrice}</td>
