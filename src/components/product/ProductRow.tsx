@@ -8,7 +8,7 @@ import { Markup } from 'interweave';
 interface Props {
   productId: number;
   name: string;
-  description: string;
+  seller: string;
   pricing: number;
   imageUrl: string;
   timeExpired: string;
@@ -20,7 +20,7 @@ const ProductRow: FC<Props> = (props: Props) => {
     productId,
     imageUrl,
     name,
-    description,
+    seller,
     pricing,
     timeExpired,
     onProductRemoved,
@@ -45,14 +45,13 @@ const ProductRow: FC<Props> = (props: Props) => {
 
       <div className="col-md-7">
         <h4>{name}</h4>
-        <Markup content={description}/>
+        <h3 className="align-items-center">
+          <span className="text-danger mt-5">${pricing}</span>
+        </h3>
+        <p>Expired on {moment(timeExpired).format('MMMM Do YYYY, h:mm a')}</p>
       </div>
 
-      <div className="col-md-2 d-flex flex-column">
-        <h3 className="align-items-center">
-          <span className="text-danger">${pricing}</span>
-        </h3>
-        <p>{moment(timeExpired).format('MMMM Do YYYY, h:mm a')}</p>
+      <div className="col-md-2 d-flex flex-row">
         <button
           type="button"
           className="site-btn d-block"
@@ -62,7 +61,7 @@ const ProductRow: FC<Props> = (props: Props) => {
         </button>
         <button
           type="button"
-          className="site-btn mt-1 bg-danger d-block"
+          className="site-btn bg-danger d-block"
           onClick={removeFavorite}
         >
           REMOVE

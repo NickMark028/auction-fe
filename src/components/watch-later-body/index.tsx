@@ -42,7 +42,7 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
                   productId={product.id}
                   imageUrl={product.coverImageUrl}
                   name={product.name}
-                  description={product.description}
+                  seller={product.description}
                   pricing={product.currentPrice}
                   timeExpired={product.timeExpired}
                   onProductRemoved={(productId) =>
