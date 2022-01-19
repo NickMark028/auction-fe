@@ -33,7 +33,8 @@ export const Detail: React.FC = () => {
     price: 0,
   });
   const [price, setPrice] = useState<number>();
-  const [buttonBid, setButtonBid] = useState('BID');
+  const [buttonBid, setButtonBid] = useState('');
+  const [disable, setDisable] = useState(false);
   const pathname = history.location.pathname;
   const id = pathname.slice(9);
   const [checkbid, setCheckBid] = useState(1);
@@ -62,22 +63,46 @@ export const Detail: React.FC = () => {
             'auction-user-id'
           )}`
         );
-        console.log(check);
+
+        const block = await axiosClient.get(
+          `api/bidder/check-block/${
+            productDetails.data?.id
+          }/${localStorage.getItem('auction-user-id')}`
+        );
+        console.log(block);
         setCheckBid(check.data?.status);
         if (
+          productDetails.data?.sellerId ===
+          Number(localStorage.getItem('auction-user-id'))
+        ) {
+          setButtonBid('NO BID');
+          setDisable(true);
+        } else if (block.data.isblocked === 1) {
+          setButtonBid('seller blocked you');
+          setDisable(true);
+        } else if (
           Number(localStorage.getItem('auction-user-score')) !== 0 ||
           checkbid === 0
         ) {
           setButtonBid('BID');
+          setDisable(false);
         } else if (checkbid === 1) {
           setButtonBid('WAIT');
         } else {
           setButtonBid('Request to bid');
+          setDisable(false);
         }
-        console.log(checkbid);
-      } catch (error) { }
+      } catch (error) {}
     });
-  }, [history.location.pathname, checkbid, id, dispatch]);
+  }, [
+    history.location.pathname,
+    checkbid,
+    disable,
+    dispatch,
+    id,
+    productDetails.data?.sellerId,
+    productDetails.data?.id,
+  ]);
 
   socket.on(`updatebid_${id}`, async (c) => {
     setTopBidder({
@@ -238,7 +263,12 @@ export const Detail: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <button type="button" className="primary-btn" onClick={send}>
+                <button
+                  type="button"
+                  className="primary-btn"
+                  onClick={send}
+                  disabled={disable}
+                >
                   {buttonBid}
                 </button>
                 <a href="#" className="heart-icon">
@@ -339,7 +369,7 @@ export const Detail: React.FC = () => {
                   </div>
                   <div className="tab-pane" id="tabs-3" role="tabpanel">
                     <div className="product__details__tab__desc">
-                      <CurrentBidderList productId={productDetails.data?.id}/>
+                      <CurrentBidderList productId={productDetails.data?.id} />
 
                       {/* <p>
                         Vestibulum ac diam sit amet quam vehicula elementum sed
