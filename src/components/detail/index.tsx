@@ -69,9 +69,13 @@ export const Detail: React.FC = () => {
             productDetails.data?.id
           }/${localStorage.getItem('auction-user-id')}`
         );
-        console.log(block);
+
         setCheckBid(check.data?.status);
-        if (
+
+        if (Date.parse(productDetails.data?.timeExpired) < Date.now()) {
+          setButtonBid('Expired');
+          setDisable(true);
+        } else if (
           productDetails.data?.sellerId ===
           Number(localStorage.getItem('auction-user-id'))
         ) {
@@ -102,6 +106,7 @@ export const Detail: React.FC = () => {
     id,
     productDetails.data?.sellerId,
     productDetails.data?.id,
+    productDetails.data?.timeExpired,
   ]);
 
   socket.on(`updatebid_${id}`, async (c) => {
@@ -222,6 +227,7 @@ export const Detail: React.FC = () => {
                       Top bidder: {topBidder.firstName} {topBidder.lastName}
                     </div>
                     <div className="product__details__price">
+                      Expire:{' '}
                       {moment(productDetails.data.timeExpired).fromNow()}
                     </div>
                     <div className="product__details__price">
