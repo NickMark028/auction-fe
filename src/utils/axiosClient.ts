@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import jwtDecode from 'jwt-decode';
 
 const defaultAxiosConfig: AxiosRequestConfig = {
-  timeout: 10000,
+  timeout: 20000,
   baseURL: process.env.REACT_APP_BE_HOST,
   headers: {
     'Content-Type': 'application/json',
