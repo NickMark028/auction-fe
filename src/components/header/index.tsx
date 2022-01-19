@@ -9,7 +9,8 @@ import { Button, ButtonGroup, Col, Container, Form, Row } from 'react-bootstrap'
 import { isLoggedIn } from 'utils/utils';
 import { KeyPairValue } from 'types';
 import { selectCategoryList } from 'redux/selectors';
-import { useAppSelector } from 'redux/store';
+import { useAppDispatch, useAppSelector } from 'redux/store';
+import { getCategoryListTC } from 'redux/slices/category-list/getCategoryList';
 
 function LoginComponent() {
   return isLoggedIn() ? (
@@ -38,17 +39,20 @@ function LoginComponent() {
 }
 
 export const Header: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [additionalSearch, setAdditionalSearch] = useState<boolean>(false);
   const [categoryOptions, setCategoryOptions] = useState<KeyPairValue<string, string>[]>([{ key: '', value: 'Default' }]);
   const categoryList = useAppSelector(selectCategoryList);
 
   const history = useHistory();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (categoryList.data === undefined) return;
-
+    if (categoryList.data === undefined) {
+      dispatch(getCategoryListTC());
+      return;
+    }
     const categories = [...categoryOptions];
-    console.log('Category', categoryList.data);
 
     categoryList.data!.forEach(section => {
       categories.push(
@@ -60,10 +64,14 @@ export const Header: React.FC = () => {
         }))
       )
     })
-    setCategoryOptions(categories);
 
+    setCategoryOptions(categories);
   }, [categoryList.data]);
 
+
+  function onSearchTextChange(e: FormEvent<HTMLInputElement>) {
+    setSearchQuery(e.currentTarget.value);
+  }
 
   function onSearchSubmit(e: FormEvent<HTMLFormElement>) {
     // e.preventDefault();
@@ -106,6 +114,7 @@ export const Header: React.FC = () => {
                 type="text"
                 onFocus={onFocus}
                 placeholder="What do you need?"
+                onChange={onSearchTextChange}
               />
             </Row>
 
@@ -126,6 +135,7 @@ export const Header: React.FC = () => {
 
                     <Col className='col-md-4 col-12 mx-2 mx-md-0'>
                       <h3 className='h3'>Filter</h3>
+
                       <Form.Label>By category</Form.Label> <br />
                       <Form.Group>
                         <Form.Control as='select' name='category'>
@@ -134,6 +144,14 @@ export const Header: React.FC = () => {
                           ))}
                         </Form.Control>
                       </Form.Group>
+
+                      {/* <Form.Group>
+                        <Form.Control as='select' name='category'>
+                          {categoryOptions.map((categoryOption, index) => {
+                            <option key={index} value={categoryOption.key}>{categoryOption.value}</option>
+                          })}
+                        </Form.Control>
+                      </Form.Group> */}
                     </Col>
 
                     <Col className='col-md-8 col-12 mx-2 mx-md-0'>

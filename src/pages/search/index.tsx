@@ -2,7 +2,7 @@ import { Footer, Header } from 'components';
 import ProductCover from 'components/product/ProductCover';
 import { FC, useEffect } from 'react';
 import { RouteProps } from 'react-router-dom';
-import { selectProductSearchList } from 'redux/selectors';
+import { selectCategoryList, selectProductSearchList } from 'redux/selectors';
 import { searchProductTC } from 'redux/slices/product-search-list/searchProduct';
 import { useAppDispatch, useAppSelector } from 'redux/store';
 import { parseQuery } from 'utils/parser';
@@ -14,6 +14,7 @@ const SearchPage: FC<Props> = (props: Props) => {
 
   const dispatch = useAppDispatch();
   const productSearchList = useAppSelector(selectProductSearchList);
+const categoryList = useAppSelector(selectCategoryList);
 
   useEffect(() => {
     const query = parseQuery(location.search);
@@ -32,9 +33,9 @@ const SearchPage: FC<Props> = (props: Props) => {
       pricing: queryParamTemp.pricing === '' ? undefined : queryParamTemp.pricing,
       timeExpired: queryParamTemp.timeExpired === '' ? undefined : queryParamTemp.timeExpired,
     }
-    console.log(queryParam);
+    // console.log(queryParam);
 
-    dispatch(searchProductTC(queryParam));
+    dispatch(searchProductTC(queryParam))
   }, [dispatch, location.search]);
 
   return (

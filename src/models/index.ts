@@ -63,10 +63,7 @@ export type TProduct = {
   };
 };
 
-export type TProductSearchList = {
-  products: TProduct[];
-  resultCount: number;
-};
+export type TProductSearchList = TProduct[];
 
 /**********************************************************************************/
 

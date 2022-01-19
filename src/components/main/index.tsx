@@ -103,11 +103,11 @@ export const Main: React.FC = () => {
         </div>
       </section>
 
-      <TopClosingProductsShowcase />
+      {/* <TopClosingProductsShowcase />
 
       <TopAutionLogProductsShowcase />
 
-      <PriciestProductsShowcase />
+      <PriciestProductsShowcase /> */}
 
       {/* Carousel */}
       {/* <section className="categories">

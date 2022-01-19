@@ -8,7 +8,7 @@ export const searchProductTC = createAsyncThunk<
   TProductQuery,
   ThunkOption
 >(
-  'categoryList/getCategoryList',
+  'productSearchList/searchProduct',
   async function searchProduct(params, thunkAPI) {
     try {
       const { keyword, pricing, timeExpired } = params;
@@ -27,6 +27,7 @@ export const searchProductTC = createAsyncThunk<
         return thunkAPI.rejectWithValue('time must be asc or desc');
 
       const response = await axiosClient.get('/api/search', { params });
+
       return response.data as TProductSearchList;
     } catch (e) {
       return thunkAPI.rejectWithValue('Something wrong here');
