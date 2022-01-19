@@ -11,7 +11,7 @@ export const searchProductTC = createAsyncThunk<
   'categoryList/getCategoryList',
   async function searchProduct(params, thunkAPI) {
     try {
-      const { keyword, pricing, time } = params;
+      const { keyword, pricing, timeExpired } = params;
 
       if (!keyword) return thunkAPI.rejectWithValue('keyword can not be empty');
 
@@ -23,7 +23,7 @@ export const searchProductTC = createAsyncThunk<
       if (pricing && pricing !== 'asc' && pricing !== 'desc')
         return thunkAPI.rejectWithValue('pricing must be asc or desc');
 
-      if (time && time !== 'asc' && time !== 'desc')
+      if (timeExpired && timeExpired !== 'asc' && timeExpired !== 'desc')
         return thunkAPI.rejectWithValue('time must be asc or desc');
 
       const response = await axiosClient.get('/api/search', { params });

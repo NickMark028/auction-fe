@@ -1,12 +1,15 @@
 import { Logo } from 'components';
 import SearchBar from 'components/search-box';
 import { PageURL } from 'enum/PageURL';
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { MdAccountCircle } from 'react-icons/md';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { MdAccountCircle, MdSearch } from 'react-icons/md';
 import { FaHeart } from 'react-icons/fa';
-import { Container, Row } from 'react-bootstrap';
+import { Button, ButtonGroup, Col, Container, Form, Row } from 'react-bootstrap';
 import { isLoggedIn } from 'utils/utils';
+import { KeyPairValue } from 'types';
+import { selectCategoryList } from 'redux/selectors';
+import { useAppSelector } from 'redux/store';
 
 function LoginComponent() {
   return isLoggedIn() ? (
@@ -35,27 +38,138 @@ function LoginComponent() {
 }
 
 export const Header: React.FC = () => {
+  const [additionalSearch, setAdditionalSearch] = useState<boolean>(false);
+  const [categoryOptions, setCategoryOptions] = useState<KeyPairValue<string, string>[]>([{ key: '', value: 'Default' }]);
+  const categoryList = useAppSelector(selectCategoryList);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (categoryList.data === undefined) return;
+
+    const categories = [...categoryOptions];
+    console.log('Category', categoryList.data);
+
+    categoryList.data!.forEach(section => {
+      categories.push(
+        ...(section.categories.map(category => {
+          return {
+            key: category.path,
+            value: category.name
+          }
+        }))
+      )
+    })
+    setCategoryOptions(categories);
+
+  }, [categoryList.data]);
+
+
+  function onSearchSubmit(e: FormEvent<HTMLFormElement>) {
+    // e.preventDefault();
+    // //! check for min 4 character only
+    // history.push(PageURL.Search + `?keyword=${searchQuery}`);
+  }
+
+  function onBlur() {
+    setAdditionalSearch(false);
+  }
+
+  function onFocus() {
+    setAdditionalSearch(true)
+  }
+
   return (
     <header className="header">
-      <Container>
-        <Row className="align-items-center">
-          <div className="col-lg-3 d-flex flex-column justify-content-center">
-            <div className="header__logo">
-              <Logo />
+      <Form onSubmit={onSearchSubmit} action='/search'>
+        <Container>
+          <Form.Row className="align-items-center">
+            <div className="col-lg-3 d-flex flex-column justify-content-center">
+              <div className="header__logo">
+                <Logo />
+              </div>
             </div>
-          </div>
 
-          <div className="col-lg-6">
-            <SearchBar />
-          </div>
+            <Row className='col-lg-6'>
+              <MdSearch style={{ position: 'absolute', marginTop: 6, marginLeft: 6, zIndex: 1 }} size={24} />
 
-          <div className="col-lg-3">
-            <div className="header__cart">
-              <LoginComponent />
+              <input
+                name='keyword'
+                className='col-12'
+                style={{
+                  paddingTop: 4,
+                  paddingLeft: 36,
+                  paddingBottom: 4,
+                  borderRadius: 4,
+                  borderColor: '#7FAD39'
+                }}
+                type="text"
+                onFocus={onFocus}
+                placeholder="What do you need?"
+              />
+            </Row>
+
+            <div className="col-lg-3">
+              <div className="header__cart">
+                <LoginComponent />
+              </div>
             </div>
-          </div>
-        </Row>
-      </Container>
+          </Form.Row>
+        </Container>
+
+        {additionalSearch &&
+          <Form.Row className='mt-4 bg-light'>
+            <Container className='my-5'>
+              <Form.Row>
+                <Col className='col-12'>
+                  <Form.Row className='gx-5'>
+
+                    <Col className='col-md-4 col-12 mx-2 mx-md-0'>
+                      <h3 className='h3'>Filter</h3>
+                      <Form.Label>By category</Form.Label> <br />
+                      <Form.Group>
+                        <Form.Control as='select' name='category'>
+                          {categoryOptions.map(categoryOption => (
+                            <option value={categoryOption.key}>{categoryOption.value}</option>
+                          ))}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+
+                    <Col className='col-md-8 col-12 mx-2 mx-md-0'>
+                      <h3 className='h3'>Sorting</h3>
+                      <Form.Row>
+                        <Col className='col-md-6 col-12'>
+                          <Form.Label>By closing time</Form.Label> <br />
+                          <Form.Group>
+                            <Form.Control as='select' name='timeExpired'>
+                              <option value={''}>Default</option>
+                              <option value='asc'>Near closing</option>
+                              <option value='desc'>Far closing</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+
+                        <Col className='col-md-6 col-12'>
+                          <Form.Label>By pricing</Form.Label> <br />
+                          <Form.Group>
+                            <Form.Control as='select' name='pricing'>
+                              <option value={''}>Default</option>
+                              <option value='asc'>Cheapest</option>
+                              <option value='desc'>Most expensive</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+                      </Form.Row>
+                    </Col>
+
+                  </Form.Row>
+                </Col>
+              </Form.Row>
+            </Container>
+          </Form.Row>
+        }
+      </Form>
     </header>
   );
 };
