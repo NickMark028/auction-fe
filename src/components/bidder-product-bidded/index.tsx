@@ -6,6 +6,8 @@ import { TStatus } from 'models';
 import ServerError from 'components/500-server-error';
 import Loading from 'components/loading';
 import { Container } from 'react-bootstrap';
+import { PageURL } from 'enum/PageURL';
+import { Link } from 'react-router-dom';
 export const BidderProduct: React.FC = () => {
   const [bidderProduct, setbidderProduct] = useState([]);
   const [status, setStatus] = useState<TStatus>('idle');
@@ -51,11 +53,9 @@ export const BidderProduct: React.FC = () => {
                 {bidderProduct?.map((bidderP, index) => (
                   <tr key={index}>
                     <td>
-                      {' '}
                       <Link
                         to={PageURL.Detail.replace(':id', bidderP.productId)}
                       >
-                        {' '}
                         {bidderP.name}{' '}
                       </Link>
                     </td>
