@@ -191,6 +191,7 @@ export const Header: React.FC = () => {
               </Form.Row>
 
               <Form.Row>
+                <input hidden={true} name='page' value={'1'}/>
                 <DefaultButton className='mt-4' type='submit'>Search</DefaultButton>
               </Form.Row>
             </Container>
