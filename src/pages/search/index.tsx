@@ -70,7 +70,7 @@ const SearchPage: FC<Props> = (props: Props) => {
 
               <ProductsSection status={productSearchList.status} products={productSearchList.data?.products} />
 
-              <CPagination maxItemPerPage={PageLimit.SectionCount} totalItem={100} />
+              <CPagination maxItemPerPage={PageLimit.SectionCount} totalItem={productSearchList.data?.resultCount} />
             </Col>
           </Row>
         </Container>
