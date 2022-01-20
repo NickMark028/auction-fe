@@ -7,12 +7,12 @@ import { MdAccountCircle, MdClose, MdSearch } from 'react-icons/md';
 import { FaHeart } from 'react-icons/fa';
 import { Button, ButtonGroup, Col, Container, Form, Row } from 'react-bootstrap';
 import { isLoggedIn } from 'utils/utils';
-import { KeyPairValue } from 'types';
 import { selectCategoryList } from 'redux/selectors';
 import { useAppDispatch, useAppSelector } from 'redux/store';
 import { getCategoryListTC } from 'redux/slices/category-list/getCategoryList';
 import { ColorTheme } from 'enum/ColorTheme';
 import DefaultButton from 'components/button/DefaultButton';
+import { KeyPairValue } from 'types';
 
 function LoginComponent() {
   return isLoggedIn() ? (
@@ -191,7 +191,7 @@ export const Header: React.FC = () => {
               </Form.Row>
 
               <Form.Row>
-                <input hidden={true} name='page' value={'1'}/>
+                <input readOnly={true} hidden={true} name='page' value={'1'}/>
                 <DefaultButton className='mt-4' type='submit'>Search</DefaultButton>
               </Form.Row>
             </Container>

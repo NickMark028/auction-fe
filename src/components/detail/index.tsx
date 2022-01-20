@@ -13,6 +13,9 @@ import { Markup } from 'interweave';
 import moment from 'moment';
 import RelatedProductsSection from 'components/products-section/RelatedProductsSection';
 import CurrentBidderList from 'components/current-bidder-list/CurrentBidderList';
+import { toggleWatchList } from 'components/product/api';
+import { FaHeart } from 'react-icons/fa';
+import { ColorTheme } from 'enum/ColorTheme';
 
 interface AuctionLog {
   firstName: string;
@@ -65,8 +68,7 @@ export const Detail: React.FC = () => {
         );
 
         const block = await axiosClient.get(
-          `api/bidder/check-block/${
-            productDetails.data?.id
+          `api/bidder/check-block/${productDetails.data?.id
           }/${localStorage.getItem('auction-user-id')}`
         );
 
@@ -96,7 +98,7 @@ export const Detail: React.FC = () => {
           setButtonBid('Request to bid');
           setDisable(false);
         }
-      } catch (error) {}
+      } catch (error) { }
     });
   }, [
     history.location.pathname,
@@ -176,6 +178,15 @@ export const Detail: React.FC = () => {
     setCheckBid(data.status);
     setButtonBid('BID');
   });
+
+  function toggleFavorite(e) {
+    e.preventDefault();
+
+    if (productDetails.data === undefined) return;
+
+    toggleWatchList(productDetails.data!.id);
+  }
+
   return (
     <div>
       <section className="product-details spad">
@@ -232,9 +243,7 @@ export const Detail: React.FC = () => {
                     </div>
                     <div className="product__details__price">
                       Create:{' '}
-                      {moment(productDetails.data?.createdAt).format(
-                        'MMMM Do YYYY, h:mm:ss a'
-                      )}
+                      {moment(productDetails.data?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                       {/* {new Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
                         month: '2-digit',
@@ -277,9 +286,8 @@ export const Detail: React.FC = () => {
                 >
                   {buttonBid}
                 </button>
-                <a href="#" className="heart-icon">
-                  <span className="icon_heart_alt=" />
-                </a>
+                <FaHeart className='mx-3' color={ColorTheme.Primary} size={'1.8rem'} onClick={toggleFavorite}/>
+
                 <ul>
                   <li>
                     <b>Bidder Count</b>{' '}
