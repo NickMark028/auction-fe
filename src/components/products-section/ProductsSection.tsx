@@ -1,25 +1,27 @@
 import Loading from 'components/loading';
 import ProductCover from 'components/product/ProductCover';
 import { TProduct, TStatus } from 'models';
+import { FC } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 interface Props {
-  title: string;
+  title?: string;
   products?: TProduct[];
-  status?: TStatus;
+  status: TStatus;
 }
 
-const TopProductsShowcase = (props: Props) => {
+const ProductsSection: FC<Props> = (props: Props) => {
   const { title, products, status } = props;
 
   const componentMap = {
-    idle: undefined,
+    idle: <Loading />,
     pending: <Loading />,
     success: (
       <Row>
-        {products?.map((product) => (
-          <ProductCover key={product.id.toString()} {...product} />
-        ))}
+        {products &&
+          products.map(product => (
+            <ProductCover key={product.id} {...product} />
+          ))}
       </Row>
     ),
     reject: (
@@ -31,19 +33,21 @@ const TopProductsShowcase = (props: Props) => {
 
   return (
     <section className="featured spad">
-      <Container>
-        <Row>
-          <div className="col-lg-12">
-            <div className="section-title">
-              <h2>{title}</h2>
+      {title &&
+        <Container>
+          <Row>
+            <div className="col-lg-12">
+              <div className="section-title">
+                <h2>{title}</h2>
+              </div>
             </div>
-          </div>
-        </Row>
-      </Container>
+          </Row>
+        </Container>
+      }
 
       <Container>{componentMap[status]}</Container>
     </section>
   );
 };
 
-export default TopProductsShowcase;
+export default ProductsSection;

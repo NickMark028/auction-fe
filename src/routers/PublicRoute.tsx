@@ -1,16 +1,14 @@
-import { FC } from 'react';
-import { Route, RouteProps } from 'react-router-dom';
+import { FC, useEffect } from 'react';
+import { Route, RouteProps, useHistory } from 'react-router-dom';
+import DefaultRoute from './DefaultRoute';
 
 interface Props extends RouteProps { }
 
 const PublicRoute: FC<Props> = (props: Props) => {
   const { path, exact, strict, component } = props;
-  // const role = localStorage.getItem('auction-user-role')
-  // if (role === 'admin') {
-  //   return (<Redirect to={`/admin`} />)
-  // }
+
   return (
-    <Route path={path} exact={exact} strict={strict} component={component} />
+    <DefaultRoute path={path} exact={exact} strict={strict} component={component} />
   );
 };
 

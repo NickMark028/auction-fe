@@ -30,7 +30,7 @@ const WatchLaterBody: FC<Props> = (props: Props) => {
 
   const uiMap = {
     idle: undefined,
-    pending: <Loading style={{height: '100vh'}}/>,
+    pending: <Loading style={{minHeight: '100vh'}}/>,
     success: (
       <section className="">
         {status === 'success' && watchList && (

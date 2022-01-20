@@ -1,3 +1,3 @@
 export enum ColorTheme {
-  primary = '#7FAD39',
+  Primary = '#7FAD39',
 }
