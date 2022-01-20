@@ -235,29 +235,23 @@ export const Detail: React.FC = () => {
                       Price Step: ${productDetails.data.priceStep}
                     </div>
                     <div className="product__details__price">
-                      Top bidder: {topBidder.firstName} {topBidder.lastName}
+                      {topBidder &&
+                        <p>Top bidder: {topBidder.firstName} {topBidder.lastName}</p>
+                      }
                     </div>
                     <div className="product__details__price">
-                      Expire:{' '}
+                      Time expired:{' '}
                       {moment(productDetails.data.timeExpired).fromNow()}
                     </div>
                     <div className="product__details__price">
-                      Create:{' '}
+                      Publish:{' '}
                       {moment(productDetails.data?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
-                      {/* {new Intl.DateTimeFormat('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                      }).format(Date.parse(productDetails.data.createdAt))} */}
                     </div>
                   </>
                 )}
                 <div className="product__details__quantity">
-                  <label>BID Price:</label>
-                  <div className="pro-qty">
+                  <label>Bid price:</label>
+                  <div className="ml-2 pro-qty">
                     {productDetails.status === 'success' && (
                       <input
                         id="price"
@@ -294,7 +288,7 @@ export const Detail: React.FC = () => {
                     <span>{productDetails.data?.auctionLogCount}</span>
                   </li>
                   <li>
-                    <b>seller: </b>{' '}
+                    <b>Seller: </b>{' '}
                     <span>
                       {productDetails.data?.seller.firstName}{' '}
                       {productDetails.data?.seller.lastName}
