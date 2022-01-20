@@ -228,8 +228,8 @@ export const Detail: React.FC = () => {
                       {productDetails.data?.name}
                     </div>
                     <div className="product__details__price">
-                      Curent Price: $
-                      {topBidder.price || productDetails.data?.currentPrice}
+                      Current Price: $
+                      {productDetails.data?.currentPrice ?? productDetails.data?.reservedPrice}
                     </div>
                     <div className="product__details__price">
                       Price Step: ${productDetails.data.priceStep}
