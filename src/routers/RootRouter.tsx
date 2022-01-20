@@ -1,4 +1,4 @@
-import { Admin } from "components";
+import  Admin  from "pages/admin";
 import { PageURL } from "enum/PageURL";
 import { HomePage, SearchPage, DetailItem } from "pages";
 import loginItem from "pages/login";
