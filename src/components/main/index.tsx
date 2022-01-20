@@ -26,7 +26,7 @@ export const Main: React.FC = () => {
       dispatch(getCategoryListTC());
   }, []);
 
-  function handleChange() {
+  function toggleCategory() {
     if (categoryList.status !== 'success') return;
 
     setDisplay(display === 'none' ? 'block' : 'none');
@@ -41,7 +41,7 @@ export const Main: React.FC = () => {
             {/* All category */}
             <div className="col-lg-3">
               <div className="hero__categories">
-                <div className="hero__categories__all" onClick={handleChange}>
+                <div className="hero__categories__all" onClick={toggleCategory}>
                   <i className="fa fa-bars" />
                   <span>All Categories</span>
                 </div>
@@ -55,11 +55,7 @@ export const Main: React.FC = () => {
                           {category.categories.map((detailCategory, index2) => (
                             <DropDown.Item
                               key={index2}
-                              onClick={() =>
-                                history.push(
-                                  `${PageURL.Category}/${detailCategory.path}`
-                                )
-                              }
+                              onClick={() => history.push(`${PageURL.Search}?category=${detailCategory.path}`)}
                             >
                               {detailCategory.name}
                             </DropDown.Item>
