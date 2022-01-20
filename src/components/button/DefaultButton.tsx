@@ -2,15 +2,17 @@ import React, { ReactNode } from 'react'
 import { ButtonProps } from 'react-bootstrap'
 
 interface Props {
+    className?: string;
+    type?: "button" | "submit" | "reset";
     onClick?: () => void;
     children?: ReactNode;
 }
 
 const DefaultButton = (props: Props) => {
-    const { children, onClick } = props;
+    const { className, type = 'button', children, onClick } = props;
 
     return (
-        <button type="button" className="primary-btn" onClick={onClick}>
+        <button type={type} className={`primary-btn ${className}`} onClick={onClick}>
             {children}
         </button>
     )

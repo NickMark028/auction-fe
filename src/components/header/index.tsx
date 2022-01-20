@@ -3,7 +3,7 @@ import SearchBar from 'components/search-box';
 import { PageURL } from 'enum/PageURL';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { MdAccountCircle, MdSearch } from 'react-icons/md';
+import { MdAccountCircle, MdClose, MdSearch } from 'react-icons/md';
 import { FaHeart } from 'react-icons/fa';
 import { Button, ButtonGroup, Col, Container, Form, Row } from 'react-bootstrap';
 import { isLoggedIn } from 'utils/utils';
@@ -11,6 +11,8 @@ import { KeyPairValue } from 'types';
 import { selectCategoryList } from 'redux/selectors';
 import { useAppDispatch, useAppSelector } from 'redux/store';
 import { getCategoryListTC } from 'redux/slices/category-list/getCategoryList';
+import { ColorTheme } from 'enum/ColorTheme';
+import DefaultButton from 'components/button/DefaultButton';
 
 function LoginComponent() {
   return isLoggedIn() ? (
@@ -44,7 +46,6 @@ export const Header: React.FC = () => {
   const [categoryOptions, setCategoryOptions] = useState<KeyPairValue<string, string>[]>([{ key: '', value: 'Default' }]);
   const categoryList = useAppSelector(selectCategoryList);
 
-  const history = useHistory();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export const Header: React.FC = () => {
     // history.push(PageURL.Search + `?keyword=${searchQuery}`);
   }
 
-  function onBlur() {
+  function closeAdditionSearch() {
     setAdditionalSearch(false);
   }
 
@@ -129,6 +130,10 @@ export const Header: React.FC = () => {
         {additionalSearch &&
           <Form.Row className='mt-4 bg-light'>
             <Container className='my-5'>
+              <Form.Row className='d-flex mb-2 justify-content-end'>
+                <MdClose size={24} onClick={closeAdditionSearch} />
+              </Form.Row>
+
               <Form.Row>
                 <Col className='col-12'>
                   <Form.Row className='gx-5'>
@@ -183,6 +188,10 @@ export const Header: React.FC = () => {
 
                   </Form.Row>
                 </Col>
+              </Form.Row>
+
+              <Form.Row>
+                <DefaultButton className='mt-4' type='submit'>Search</DefaultButton>
               </Form.Row>
             </Container>
           </Form.Row>
