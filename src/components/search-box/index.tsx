@@ -4,10 +4,13 @@ import { useHistory } from 'react-router-dom';
 
 interface Props {
   // initialText?: string;
+  
+  onBlur?: () => void;
+  onFocus?: () => void;
 }
 
 const SearchBar = (props: Props) => {
-  // const { initialText = '' } = props;
+  const { onBlur, onFocus  } = props;
   const [searchQuery, setSearchQuery] = useState<string>('');
   const history = useHistory();
 
@@ -26,6 +29,8 @@ const SearchBar = (props: Props) => {
       <form onSubmit={onSearchSubmit}>
         <input
           type="text"
+          onBlur={onBlur}
+          onFocus={onFocus}
           placeholder="What do yo u need?"
           onChange={onSearchTextChange}
         />

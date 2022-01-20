@@ -83,7 +83,7 @@ async function check(){
 
 const uiMap = {
   idle: undefined,
-  pending: <Loading />,
+  pending: <Loading style={{ minHeight: '100vh' }} />,
   success: (
     <section className="">
        <div className="app-container">

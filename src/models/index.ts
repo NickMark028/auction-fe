@@ -25,13 +25,13 @@ export type TCategoryList = TSection[];
 
 export type TProductQuery = {
   // Filter
-  keyword: string;
-  page?: string;
-  category?: string;
+  keyword?: string | null;
+  page?: string | null;
+  category?: string | null;
 
   // Sorting
-  time?: 'asc' | 'desc';
-  pricing?: 'asc' | 'desc';
+  timeExpired?: 'asc' | 'desc' | null;
+  pricing?: 'asc' | 'desc' | null;
 };
 
 export type TProduct = {
@@ -63,7 +63,10 @@ export type TProduct = {
   };
 };
 
-export type TProductSearchList = TProduct[];
+export type TProductSearchList = {
+  products: TProduct[];
+  resultCount: number;
+};
 
 /**********************************************************************************/
 

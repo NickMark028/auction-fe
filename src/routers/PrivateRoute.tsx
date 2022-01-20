@@ -1,6 +1,7 @@
 import { PageURL } from 'enum/PageURL';
 import { FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
+import DefaultRoute from './DefaultRoute';
 
 interface Props extends RouteProps {}
 
@@ -11,7 +12,7 @@ const PrivateRoute: FC<Props> = (props: Props) => {
   const hasAccess = accessToken !== null;
 
   return hasAccess ? (
-    <Route path={path} exact={exact} strict={strict} component={component} />
+    <DefaultRoute path={path} exact={exact} strict={strict} component={component} />
   ) : (
     <Redirect to={`${PageURL.Login}?next=${location?.pathname}`} />
   );

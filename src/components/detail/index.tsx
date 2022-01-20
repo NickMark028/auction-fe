@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import OwlCarousel from 'react-owl-carousel';
 import socket from 'utils/socket';
-
+import '../../styles/details.scss';
 import { useHistory } from 'react-router-dom';
 import { getProductDetailsTC } from 'redux/slices/product-details/getProductDetails';
 import { selectProductDetails } from 'redux/selectors';
@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from 'redux/store';
 import axiosClient from 'utils/axiosClient';
 import { Markup } from 'interweave';
 import moment from 'moment';
-import RelatedProductsSection from 'components/top-product-showcase/RelatedProductsSection';
+import RelatedProductsSection from 'components/products-section/RelatedProductsSection';
 import CurrentBidderList from 'components/current-bidder-list/CurrentBidderList';
 
 interface AuctionLog {
@@ -213,7 +213,7 @@ export const Detail: React.FC = () => {
               <div className="product__details__text">
                 {productDetails.status === 'success' && (
                   <>
-                    <div className="product__details__price">
+                    <div className="product__details__name">
                       {productDetails.data?.name}
                     </div>
                     <div className="product__details__price">

@@ -1,12 +1,12 @@
 import { TProduct, TStatus } from 'models';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { getTopClosingProducts } from './api';
-import TopProductsShowcase from './ProductsSection';
+import { getPriciestProducts } from './api';
+import ProductsSection from './ProductsSection';
 
 interface Props {}
 
-const TopClosingProductsShowcase = (props: Props) => {
+const PriciestProductsShowcase = (props: Props) => {
   const [productsStatus, setProductsStatus] = useState<TStatus>('idle');
   const [products, setProducts] = useState<TProduct[]>(undefined);
 
@@ -16,7 +16,7 @@ const TopClosingProductsShowcase = (props: Props) => {
     setTimeout(async () => {
       try {
         setProductsStatus('pending');
-        const response = await getTopClosingProducts();
+        const response = await getPriciestProducts();
 
         setProducts(response);
         setProductsStatus('success');
@@ -27,12 +27,12 @@ const TopClosingProductsShowcase = (props: Props) => {
   }, [productsStatus]);
 
   return (
-    <TopProductsShowcase
-      title="Closing products"
+    <ProductsSection
+      title="Priciest products"
       products={products}
       status={productsStatus}
     />
   );
 };
 
-export default TopClosingProductsShowcase;
+export default PriciestProductsShowcase;

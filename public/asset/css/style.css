@@ -1668,17 +1668,23 @@ ol {
 }
 
 .product__details__text .product__details__rating span {
-	color: #dd2222;
+	color: #000000;
 	margin-left: 4px;
 }
 
 .product__details__text .product__details__price {
 	font-size: 30px;
-	color: #dd2222;
+	color: #000000;
 	font-weight: 600;
 	margin-bottom: 15px;
 }
-
+.product__details__text .product__details__name {
+	font-size: 30px;
+	
+	color: #4c9b42;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
 .product__details__text p {
 	margin-bottom: 45px;
 }

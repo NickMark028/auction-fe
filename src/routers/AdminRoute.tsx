@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
+import DefaultRoute from './DefaultRoute';
 
 interface Props extends RouteProps { }
 
@@ -11,7 +12,7 @@ const AdminRoute: FC<Props> = (props: Props) => {
   const hasAccess = role === 'admin' && accessToken;
 
   return hasAccess ? (
-    <Route path={path} exact={exact} strict={strict} component={component} />
+    <DefaultRoute path={path} exact={exact} strict={strict} component={component} />
   ) : (
     <Redirect to={`/`} />
   );
