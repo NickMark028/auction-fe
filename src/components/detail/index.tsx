@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import OwlCarousel from 'react-owl-carousel';
 import socket from 'utils/socket';
-
+import '../../styles/details.scss';
 import { useHistory } from 'react-router-dom';
 import { getProductDetailsTC } from 'redux/slices/product-details/getProductDetails';
 import { selectProductDetails } from 'redux/selectors';
