@@ -38,7 +38,7 @@ const SearchPage: FC<Props> = (props: Props) => {
       pricing: queryParamTemp.pricing === '' ? undefined : queryParamTemp.pricing,
       timeExpired: queryParamTemp.timeExpired === '' ? undefined : queryParamTemp.timeExpired,
     }
-    // console.log(queryParam);
+    console.log(queryParam);
 
     dispatch(searchProductTC(queryParam))
   }, [dispatch, location.search]);
