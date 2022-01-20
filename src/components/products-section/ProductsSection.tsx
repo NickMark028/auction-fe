@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 interface Props {
-  title: string;
+  title?: string;
   products?: TProduct[];
   status: TStatus;
 }
@@ -33,15 +33,17 @@ const ProductsSection: FC<Props> = (props: Props) => {
 
   return (
     <section className="featured spad">
-      <Container>
-        <Row>
-          <div className="col-lg-12">
-            <div className="section-title">
-              <h2>{title}</h2>
+      {title &&
+        <Container>
+          <Row>
+            <div className="col-lg-12">
+              <div className="section-title">
+                <h2>{title}</h2>
+              </div>
             </div>
-          </div>
-        </Row>
-      </Container>
+          </Row>
+        </Container>
+      }
 
       <Container>{componentMap[status]}</Container>
     </section>
