@@ -68,7 +68,8 @@ export const Detail: React.FC = () => {
         );
 
         const block = await axiosClient.get(
-          `api/bidder/check-block/${productDetails.data?.id
+          `api/bidder/check-block/${
+            productDetails.data?.id
           }/${localStorage.getItem('auction-user-id')}`
         );
 
@@ -98,7 +99,7 @@ export const Detail: React.FC = () => {
           setButtonBid('Request to bid');
           setDisable(false);
         }
-      } catch (error) { }
+      } catch (error) {}
     });
   }, [
     history.location.pathname,
@@ -229,15 +230,18 @@ export const Detail: React.FC = () => {
                     </div>
                     <div className="product__details__price">
                       Current Price: $
-                      {productDetails.data?.currentPrice ?? productDetails.data?.reservedPrice}
+                      {productDetails.data?.currentPrice ??
+                        productDetails.data?.reservedPrice}
                     </div>
                     <div className="product__details__price">
                       Price Step: ${productDetails.data.priceStep}
                     </div>
                     <div className="product__details__price">
-                      {topBidder &&
-                        <p>Top bidder: {topBidder.firstName} {topBidder.lastName}</p>
-                      }
+                      {topBidder && (
+                        <p>
+                          Top bidder: {topBidder.firstName} {topBidder.lastName}
+                        </p>
+                      )}
                     </div>
                     <div className="product__details__price">
                       Time expired:{' '}
@@ -245,7 +249,9 @@ export const Detail: React.FC = () => {
                     </div>
                     <div className="product__details__price">
                       Publish:{' '}
-                      {moment(productDetails.data?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
+                      {moment(productDetails.data?.createdAt).format(
+                        'MMMM Do YYYY, h:mm:ss a'
+                      )}
                     </div>
                   </>
                 )}
@@ -257,7 +263,8 @@ export const Detail: React.FC = () => {
                         id="price"
                         type="number"
                         defaultValue={
-                          topBidder.price ?? productDetails.data?.currentPrice
+                          productDetails.data?.currentPrice ??
+                          productDetails.data?.reservedPrice
                         }
                         step={Number(productDetails.data!.priceStep)}
                         min={
@@ -280,7 +287,12 @@ export const Detail: React.FC = () => {
                 >
                   {buttonBid}
                 </button>
-                <FaHeart className='mx-3' color={ColorTheme.Primary} size={'1.8rem'} onClick={toggleFavorite}/>
+                <FaHeart
+                  className="mx-3"
+                  color={ColorTheme.Primary}
+                  size={'1.8rem'}
+                  onClick={toggleFavorite}
+                />
 
                 <ul>
                   <li>
