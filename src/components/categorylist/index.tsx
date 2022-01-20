@@ -70,8 +70,8 @@ export const CategoryList: React.FC = () => {
             <tbody>
               {category.map((category1) => (
                 <>
-                  {category1.categories.map((category2) => (
-                    <tr>
+                  {category1.categories.map((category2, index) => (
+                    <tr key={index}>
                       <td>{category1.section}</td>
                       <td>{category2.id}</td>
                       <td>{category2.name}</td>
