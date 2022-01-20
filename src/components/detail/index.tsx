@@ -213,7 +213,7 @@ export const Detail: React.FC = () => {
               <div className="product__details__text">
                 {productDetails.status === 'success' && (
                   <>
-                    <div className="product__details__price">
+                    <div className="product__details__name">
                       {productDetails.data?.name}
                     </div>
                     <div className="product__details__price">
