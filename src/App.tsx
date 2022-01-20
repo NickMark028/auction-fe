@@ -7,7 +7,6 @@ import PrivateRoute from 'routers/PrivateRoute';
 import { AdminRoute } from 'routers';
 import { DetailItem } from 'pages';
 import loginItem from 'pages/login';
-import userList from 'pages/userlist';
 import regItem from 'pages/register';
 import Admin from 'pages/admin';
 import profileItem from 'pages/profile';
@@ -24,7 +23,6 @@ function App(): JSX.Element {
           <PublicRoute path={PageURL.Search} component={SearchPage} />
           <PublicRoute path={PageURL.Detail} component={DetailItem} />
           <PublicRoute path={PageURL.Login} component={loginItem} />
-          <PublicRoute path={PageURL.List} component={userList} />
           <PublicRoute path={PageURL.Register} component={regItem} />
           <PrivateRoute path={PageURL.WatchList} component={WatchListPage} />
           <AdminRoute path={PageURL.Admin} component={Admin} />
