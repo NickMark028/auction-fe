@@ -13,6 +13,9 @@ import { Markup } from 'interweave';
 import moment from 'moment';
 import RelatedProductsSection from 'components/products-section/RelatedProductsSection';
 import CurrentBidderList from 'components/current-bidder-list/CurrentBidderList';
+import { toggleWatchList } from 'components/product/api';
+import { FaHeart } from 'react-icons/fa';
+import { ColorTheme } from 'enum/ColorTheme';
 
 interface AuctionLog {
   firstName: string;
@@ -176,6 +179,15 @@ export const Detail: React.FC = () => {
     setCheckBid(data.status);
     setButtonBid('BID');
   });
+
+  function toggleFavorite(e) {
+    e.preventDefault();
+
+    if (productDetails.data === undefined) return;
+
+    toggleWatchList(productDetails.data!.id);
+  }
+
   return (
     <div>
       <section className="product-details spad">
@@ -217,44 +229,42 @@ export const Detail: React.FC = () => {
                       {productDetails.data?.name}
                     </div>
                     <div className="product__details__price">
-                      Curent Price: $
-                      {topBidder.price || productDetails.data?.currentPrice}
+                      Current Price: $
+                      {productDetails.data?.currentPrice ??
+                        productDetails.data?.reservedPrice}
                     </div>
                     <div className="product__details__price">
                       Price Step: ${productDetails.data.priceStep}
                     </div>
                     <div className="product__details__price">
-                      Top bidder: {topBidder.firstName} {topBidder.lastName}
+                      {topBidder && (
+                        <p>
+                          Top bidder: {topBidder.firstName} {topBidder.lastName}
+                        </p>
+                      )}
                     </div>
                     <div className="product__details__price">
-                      Expire:{' '}
+                      Time expired:{' '}
                       {moment(productDetails.data.timeExpired).fromNow()}
                     </div>
                     <div className="product__details__price">
-                      Create:{' '}
+                      Publish:{' '}
                       {moment(productDetails.data?.createdAt).format(
                         'MMMM Do YYYY, h:mm:ss a'
                       )}
-                      {/* {new Intl.DateTimeFormat('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                      }).format(Date.parse(productDetails.data.createdAt))} */}
                     </div>
                   </>
                 )}
                 <div className="product__details__quantity">
-                  <label>BID Price:</label>
-                  <div className="pro-qty">
+                  <label>Bid price:</label>
+                  <div className="ml-2 pro-qty">
                     {productDetails.status === 'success' && (
                       <input
                         id="price"
                         type="number"
                         defaultValue={
-                          topBidder.price ?? productDetails.data?.currentPrice
+                          productDetails.data?.currentPrice ??
+                          productDetails.data?.reservedPrice
                         }
                         step={Number(productDetails.data!.priceStep)}
                         min={
@@ -277,16 +287,20 @@ export const Detail: React.FC = () => {
                 >
                   {buttonBid}
                 </button>
-                <a href="#" className="heart-icon">
-                  <span className="icon_heart_alt=" />
-                </a>
+                <FaHeart
+                  className="mx-3"
+                  color={ColorTheme.Primary}
+                  size={'1.8rem'}
+                  onClick={toggleFavorite}
+                />
+
                 <ul>
                   <li>
                     <b>Bidder Count</b>{' '}
                     <span>{productDetails.data?.auctionLogCount}</span>
                   </li>
                   <li>
-                    <b>seller: </b>{' '}
+                    <b>Seller: </b>{' '}
                     <span>
                       {productDetails.data?.seller.firstName}{' '}
                       {productDetails.data?.seller.lastName}
