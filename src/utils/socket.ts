@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-const host = 'http://localhost:4000';
+const host = 'https://auction-b3.herokuapp.com';
 const socket = io(host);
 socket.connect();
 
