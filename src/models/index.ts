@@ -47,7 +47,7 @@ export type TProduct = {
   timeExpired: string;
   createdAt: string;
   topBidderId?: number;
-  currentPrice: number;
+  currentPrice?: number;
   auctionLogCount: number;
   bidderCount: number;
   seller: {
