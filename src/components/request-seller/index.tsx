@@ -37,7 +37,6 @@ export const RequestToSeller: React.FC = () => {
               )}`
             );
             window.alert('WAIT admin approve!!');
-            window.location.reload();
           }}
         >
           YES
