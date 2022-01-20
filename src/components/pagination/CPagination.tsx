@@ -45,8 +45,10 @@ const CPagination = (props: Props) => {
     );
   }
 
+  if (totalItem === undefined) return (<></>);
+
   // Component
-  return (totalItem &&
+  return (
     <div className='d-flex flex-column align-items-center'>
       <div className="product__pagination">
         <a onClick={onLeftArrowPressed}>
