@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-const host = 'https://auction-b3.herokuapp.com';
+const host = process.env.REACT_APP_SOCKET_HOST;
 const socket = io(host);
 socket.connect();
 
