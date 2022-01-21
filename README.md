@@ -17,3 +17,9 @@ Run these following commands in order:
 1. yarn
 2. yarn dev
 ```
+### Environment variables
+
+```sh
+REACT_APP_BE_HOST='Your backend host url'
+REACT_APP_SOCKET_HOST='Your socket.io url'
+```
